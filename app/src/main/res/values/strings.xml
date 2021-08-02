@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">VeritasApp</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="booki">BookI</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="read_it_together">Read it together</string>
+    <string name="skip">Skip</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="sign_up">Sign up</string>
+    <string name="forget_password">Forget Password.?</string>
+    <string name="welcome">Welcome</string>
+
+    <string name="title_shop">Shop</string>
+    <string name="title_gifts">Wallet</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_profile">Profile</string>
+    <string name="forgot_pin">Forgot Password ?</string>
+    <string name="log_in">LOG IN</string>
+    <string name="reset_password">Reset password</string>
+    <string name="password">Password</string>
+    <string name="email_address">Email address</string>
+    <string name="_1000_22">$1000.22</string>
+</resources>
