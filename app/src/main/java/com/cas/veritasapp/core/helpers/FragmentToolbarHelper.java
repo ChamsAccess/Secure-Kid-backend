@@ -31,7 +31,7 @@ public class FragmentToolbarHelper {
     public static class Builder {
         private int resId = -1;
         private String title = null;
-        private int menuId;
+        private int menuId = -1;
         private MenuItem.OnMenuItemClickListener onMenuItemClickListener;
 
         public Builder withId(@IdRes int resId) {

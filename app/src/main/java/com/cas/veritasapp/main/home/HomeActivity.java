@@ -1,18 +1,20 @@
 package com.cas.veritasapp.main.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseActivity;
 import com.cas.veritasapp.databinding.HomeActivityBinding;;
 import com.cas.veritasapp.main.home.fragments.DashboardFragment;
-import com.cas.veritasapp.main.home.fragments.EnrollmentFragment;
+import com.cas.veritasapp.main.home.fragments.HistoryFragment;
+import com.cas.veritasapp.main.home.fragments.NINFragment;
+import com.cas.veritasapp.util.AppUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import javax.inject.Inject;
@@ -29,6 +31,7 @@ public class HomeActivity extends BaseActivity<HomeActivityBinding>
         implements HasSupportFragmentInjector,
         BottomNavigationView.OnNavigationItemSelectedListener {
 
+
     @Inject
     DispatchingAndroidInjector<Fragment> injector;
 
@@ -39,6 +42,10 @@ public class HomeActivity extends BaseActivity<HomeActivityBinding>
         return R.layout.home_activity;
     }
 
+//    @Override
+//    public int getNavHost() {
+//        return R.id.home_host_nav;
+//    }
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -54,33 +61,26 @@ public class HomeActivity extends BaseActivity<HomeActivityBinding>
         return injector;
     }
 
-
-    /**
-     * loading fragment into FrameLayout
-     *
-     * @param fragment
-     */
-    private void loadFragment(Fragment fragment) {
-        // load fragment
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment;
         switch (item.getItemId()) {
             case R.id.navigation_shop:
-                fragment = new DashboardFragment();
-                loadFragment(fragment);
+                loadFragment(new DashboardFragment());
                 return true;
             case R.id.navigation_wallet:
-                fragment = new EnrollmentFragment();
-                loadFragment(fragment);
+                loadFragment(new NINFragment());
+                return true;
+            case R.id.navigation_history:
+                loadFragment(new HistoryFragment());
                 return true;
         }
         return false;
     }
+
+    private void loadFragment(Fragment fragment){
+        AppUtil.loadFragment(HomeActivity.this, R.id.frame_container, fragment);
+    }
+
+
 }

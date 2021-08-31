@@ -22,4 +22,5 @@
     <string name="password">Password</string>
     <string name="email_address">Email address</string>
     <string name="_1000_22">$1000.22</string>
+    <string name="history">History</string>
 </resources>

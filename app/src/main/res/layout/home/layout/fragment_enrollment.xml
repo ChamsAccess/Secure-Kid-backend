@@ -4,16 +4,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <androidx.core.widget.NestedScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/pullToRefresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints">
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -25,41 +35,25 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/reports_header_bk"
                     android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
                     android:paddingRight="20dp"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="60dp">
-
-                    <TextView
-                        android:id="@+id/dateTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="01 April 2017 to 01 April 2019"
-                        android:layout_alignParentTop="true"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/whiteTextColor"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:src="@drawable/ic_dropdown_arrow" />
+                    android:paddingBottom="20dp">
 
                     <TextView
                         android:id="@+id/salesHeaderTextView"
-                        android:text="Total Enrolled"
-                        android:layout_marginTop="30dp"
-                        style="@style/reportContentText" />
+                        style="@style/reportContentText"
+                        android:layout_marginTop="5dp"
+                        android:text="Dashboard"
+                        android:textSize="30dp" />
 
                     <TextView
                         style="@style/viewParent.headerText"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@color/whiteTextColor"
                         android:layout_below="@id/salesHeaderTextView"
-                        android:text="50"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="70dp"/>
+                        android:layout_marginBottom="70dp"
+                        android:text="Enrollment summary"
+                        android:textColor="@color/whiteTextColor" />
 
 
                 </RelativeLayout>
@@ -126,18 +120,19 @@
                     android:layout_below="@id/cardLayout"
                     android:orientation="vertical">
 
-                    <include layout="@layout/enrollment_history"/>
-                    <include layout="@layout/enrollment_history"/>
-                    <include layout="@layout/enrollment_history"/>
-                    <include layout="@layout/enrollment_history"/>
-                    <include layout="@layout/enrollment_history"/>
-                    <include layout="@layout/enrollment_history"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/enrollments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        tools:listitem="@layout/enrollment_history" />
 
                 </LinearLayout>
 
 
             </RelativeLayout>
-        </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -1,0 +1,2577 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="enrollment"
+            type="com.cas.veritasapp.objects.Enrollment" />
+
+        <variable
+            name="viewModel"
+            type="com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".main.booking.BookingActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/textColor"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:gravity="center_vertical"
+                android:text="Preview Data"
+                android:textColor="@color/whiteTextColor"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/close"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_action_close" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
+            android:background="@color/textColor"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">¬
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            app:cardCornerRadius="4dp"
+                            app:cardUseCompatPadding="true"
+                            app:contentPadding="16dp">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/passportImageView"
+                                    android:layout_width="150dp"
+                                    android:layout_height="150dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_passport" />
+
+                                <LinearLayout
+                                    android:id="@+id/personalLinearLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Personal information"
+                                        android:textColor="@color/whiteTextColor" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Title"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/titleTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.title}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Mr." />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="First name"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/firstNameTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{viewModel.current.personalObject.firstName}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Funmi" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Surname"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/surnameTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.surname}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Middle name"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/middleTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.middleName}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Maiden"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.maiden}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Gender"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.gender}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Male" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Phone.No"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.phoneNumber}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Email"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.email}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Marital Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.maritalStatus}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Nationality"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.nationality}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Nigeria" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="State of Origin"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.stateOfOriginCode}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Date of Birth"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.dob}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Place of Birth"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.country}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="BVN"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.bvn}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="NIN"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{enrollment.personalObject.nin}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="1">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.6"
+                                        android:fontFamily="@font/custom_font"
+                                        android:paddingLeft="10dp"
+                                        android:text="Street name"
+                                        android:textColor="#5a5656"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.4"
+                                        android:text="@{enrollment.personalObject.location.street}"
+                                        android:textColor="#5a5656"
+                                        android:textSize="14sp"
+                                        tools:text="Ayinde" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="1">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.6"
+                                        android:fontFamily="@font/custom_font"
+                                        android:paddingLeft="10dp"
+                                        android:text="LGA Code"
+                                        android:textColor="#5a5656"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.4"
+                                        android:text="@{enrollment.personalObject.location.lga_code}"
+                                        android:textColor="#5a5656"
+                                        android:textSize="14sp"
+                                        tools:text="Ayinde" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="1">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.6"
+                                        android:fontFamily="@font/custom_font"
+                                        android:paddingLeft="10dp"
+                                        android:text="Zip Code"
+                                        android:textColor="#5a5656"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.4"
+                                        android:text="@{enrollment.personalObject.location.zip_code}"
+                                        android:textColor="#5a5656"
+                                        android:textSize="14sp"
+                                        tools:text="Ayinde" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="1">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.6"
+                                        android:fontFamily="@font/custom_font"
+                                        android:paddingLeft="10dp"
+                                        android:text="P.O.Box"
+                                        android:textColor="#5a5656"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.4"
+                                        android:text="@{enrollment.personalObject.location.POBox}"
+                                        android:textColor="#5a5656"
+                                        android:textSize="14sp"
+                                        tools:text="Ayinde" />
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Employment information"
+                                        android:textColor="@color/whiteTextColor" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Sector Classification"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.sectorClassification}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Public Sector Employees " />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Employerunder IPPIS"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.employerUnderIPPS}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Yes" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Employee’s IPPIS No"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.employeeIPPSNumber}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Employer Name: "
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.employerName}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Employer Location:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.country}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Street Name:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.location.street}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Village /Town/City:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.houseNumber}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="LG Code:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.location.lga_code}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="State Code:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.location.stateCode}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Zip Code:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.location.zip_code}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Country Code:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.country}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Employer’s Phone :"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.employerPhone}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Nature of Business:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.natureOfBusiness}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Employee ID/No:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.employerCardId}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Service ID/No:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.serviceId}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Date of First Appointment:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.dateOfFirstAppointment}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Date of Current Employment:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.dateOfCurrentEmployment}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Date of Transfer of Service :"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.employmentObject.dateOfTransferService}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Next ok Kin's information"
+                                        android:textColor="@color/whiteTextColor" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Title"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.title}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Public Sector Employees " />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="First Name:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.first_name}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Yes" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Surname:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.surname}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Middle Name:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.middle_name}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Relationship: "
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.relationship}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="NOK’s Correspondence Address:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.country}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="NOK House No./Name:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="NOK StreetName:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.location.street}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Nok Village /Town/City:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.location.street}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="LGACode:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.location.lga_code}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="P.O.Box / P.M.B:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.location.POBox}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Zip Code:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Country of Residence Code:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.country}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="NOK Email:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.email}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="NOK Phone No:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.phone_number}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Salary Structure information"
+                                        android:textColor="@color/whiteTextColor" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Harmonized Salary Structure as at 2004"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.harmonized_salary_2004.salary_structure}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Public Sector Employees " />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="CL as at June 2004:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.harmonized_salary_2004.cls_at_june_2004}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Yes" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Step as at June 2004:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.harmonized_salary_2004.step_at_june_2004}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Consolidated Salary Structure as at June 2010:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.consolidated_salary_2010.salary_structure}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="CL as at June 2007:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.consolidated_salary_2010.cls_at_june_2007}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Step as at June 2000:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.consolidated_salary_2010.step_at_june_2000}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="ENH. Consolidated Salary Structure as at 2010:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.enh_consolidated_salary_2010.salary_structure}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="CL as at 2013:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.enh_consolidated_salary_2010.cls_at_2013}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Step as at 2010:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.enh_consolidated_salary_2010.step_at_2010}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="ENH. Consolidated Salary Structure as at 2013:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.enh_consolidated_salary_2013.cls_at_2013}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="CL as at 2013:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.enh_consolidated_salary_2016.cls_at_2016}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Step as at 2013:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.enh_consolidated_salary_2013.cls_at_2013}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="ENH. Consolidated Salary Structure as at 2016:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.enh_consolidated_salary_2016.salary_structure}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="CL as at 2016:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.enh_consolidated_salary_2016.cls_at_2016}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Step as at 2016:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.enh_consolidated_salary_2016.step_at_2016}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Current Salary Structure (ENHCONTISS):"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.current_salary.salary_structure}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Current GL:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.current_salary.current_gl}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Current Step:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.salaryObject.current_salary.current_step}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Contribution’s Biometric Information/Certification"
+                                        android:textColor="@color/whiteTextColor" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Date:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.contributionBioObject.signature_date}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Yes" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <ImageView
+                                            android:id="@+id/userSignatureImageView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:paddingLeft="10dp"
+                                            android:src="@drawable/ic_signature"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="PFA Certification"
+                                        android:textColor="@color/whiteTextColor" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="PFA Code:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.pfa_certificationObject.pfa_code}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Yes" />
+
+                                    </LinearLayout>
+
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Date:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.pfa_certificationObject.enrolled_dated}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Yes" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <ImageView
+                                            android:id="@+id/agentSignatureImageView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:paddingLeft="10dp"
+                                            android:src="@drawable/ic_signature"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:weightSum="1">
+
+                                    <Button
+                                        android:id="@+id/saveBtn"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:background="@drawable/buttonshape"
+                                        android:text="Save all Information"
+                                        android:textAllCaps="false"
+                                        android:textColor="#ffffff"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -73,7 +73,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> implements
         AuthModel authModel = new AuthModel(email, password);
         if (authViewModel.validate(authModel)) {
             binding.loginButton.setEnabled(true);
-//            authViewModel.login(email, password).observe(this, this::performAction);
+            authViewModel.login(email, password).observe(this, this::performAction);
         }
     }
 
@@ -82,25 +82,27 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.loginButton:
-                launchActivity(getActivity(), HomeActivity.class);
-//                loginAction();
+                loginAction();
                 break;
         }
     }
 
-
-    @Override
-    public void onLoad(String key) {
-
-    }
-
     @Override
     public void onSuccess(Object obj, String key) {
-
+        super.onSuccess(obj, key);
+        binding.loginButton.setEnabled(true);
+        User user = (User) obj;
+        if (user != null){
+            launchActivity(getActivity(), HomeActivity.class);
+        }else {
+            authViewModel.setError("Your email is not authorized, please contact admin");
+        }
     }
 
     @Override
     public void onError(ApiError apiError, String key) {
-
+        super.onError(apiError, key);
+        binding.loginButton.setEnabled(true);
+        authViewModel.setError(apiError.getMessage());
     }
 }

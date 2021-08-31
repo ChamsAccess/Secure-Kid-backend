@@ -1,9 +1,9 @@
 package com.cas.veritasapp.core.api.services;
 
 
-
 import com.cas.veritasapp.core.api.Routes;
 import com.cas.veritasapp.core.data.entities.Staff;
+import com.cas.veritasapp.core.data.entities.User;
 import com.cas.veritasapp.objects.api.ApiResponse;
 import com.cas.veritasapp.objects.payloads.StaffPayload;
 
@@ -23,8 +23,8 @@ public interface AuthService {
 
     @FormUrlEncoded
     @POST(Routes.AUTH_LOGIN_REQUEST)
-    Flowable<ApiResponse<Staff>> login(@Field("staff_id") String staff_id,
-                                       @Field("pin") String pin);
+    Flowable<ApiResponse<User>> login(@Field("email") String email,
+                                      @Field("password") String password);
 
     @GET(Routes.AUTH_LOGIN_REQUEST)
     Flowable<ApiResponse<StaffPayload>> getStaff(@QueryMap Map<String, String> query);

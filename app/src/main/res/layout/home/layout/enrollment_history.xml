@@ -16,7 +16,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/salesImageView"
+            android:id="@+id/userImageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/profiles"/>
@@ -27,7 +27,7 @@
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/salesImageView">
+            android:layout_toRightOf="@id/userImageView">
 
             <TextView
                 android:id="@+id/fullNameTxtView"
@@ -38,7 +38,7 @@
                 android:id="@+id/rsPinTxtView"
                 style="@style/viewParent.headerText"
                 android:textSize="15sp"
-                android:text="1939399944"/>
+                android:text="Pending"/>
 
         </LinearLayout>
 

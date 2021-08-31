@@ -4,13 +4,13 @@
 
     <data>
 
-        <!--        <variable-->
-        <!--            name="staffViewModel"-->
-        <!--            type="com.voomsway.voomticket.main.staff.rvvm.StaffViewModel" />-->
+        <variable
+            name="viewModel"
+            type="com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel" />
 
-        <!--        <variable-->
-        <!--            name="view"-->
-        <!--            type="android.view.View" />-->
+        <variable
+            name="view"
+            type="android.view.View" />
 
     </data>
 
@@ -59,265 +59,450 @@
                         android:background="@color/textColor"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="Salary Structure (For Treasury Funded FG and State MDAs Employees ONLY)"
+                        android:text=" Harmonized Salary Structure as at 2004 "
                         android:textColor="@color/whiteTextColor" />
 
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="0.3"
-                            android:orientation="vertical">
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="Harmonized Salary Structure as at 2004">
 
-                            <com.jaredrummler.materialspinner.MaterialSpinner
+                            <EditText
+                                android:id="@+id/harmonizedSalaryStructure2004"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.harmonized_salary_2004.salary_structure}"
+                                android:ems="10"
+                                android:inputType="text" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/error"
-                                android:textSize="13dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="0.7"
-                            android:orientation="vertical">
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="CL as at June 2004">
 
-                            <com.jaredrummler.materialspinner.MaterialSpinner
+                            <EditText
+                                android:id="@+id/cLJune2004"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.harmonized_salary_2004.cls_at_june_2004}"
+                                android:ems="10"
+                                android:maxLength="2"
+                                android:inputType="text" />
 
-                            <TextView
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="Step as at June 2004">
+
+                            <EditText
+                                android:id="@+id/stepJune2004"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/error"
-                                android:textSize="13dp" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.harmonized_salary_2004.step_at_june_2004}"
+                                android:ems="10"
+                                android:inputType="text" />
 
-                        </LinearLayout>
-
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/textColor"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="Consolidated Salary Structure as at June 2010"
+                        android:textColor="@color/whiteTextColor" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="0.3"
-                            android:orientation="vertical">
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="Consolidated Salary Structure as at June 2010">
 
-                            <com.jaredrummler.materialspinner.MaterialSpinner
+                            <EditText
+                                android:id="@+id/consolidatedSalaryStructureJune2010"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.consolidated_salary_2010.salary_structure}"
+                                android:ems="10"
+                                android:inputType="text" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/error"
-                                android:textSize="13dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="0.7"
-                            android:orientation="vertical">
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="CL as at June 2004">
 
-                            <com.jaredrummler.materialspinner.MaterialSpinner
+                            <EditText
+                                android:id="@+id/cLJune2007"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.consolidated_salary_2010.cls_at_june_2007}"
+                                android:ems="10"
+                                android:inputType="text" />
 
-                            <TextView
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="Step as at June 2000">
+
+                            <EditText
+                                android:id="@+id/stepJune2000"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/error"
-                                android:textSize="13dp" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.consolidated_salary_2010.step_at_june_2000}"
+                                android:ems="10"
+                                android:inputType="text" />
 
-                        </LinearLayout>
-
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/textColor"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="ENH. Consolidated Salary Structure as at 2010"
+                        android:textColor="@color/whiteTextColor" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="0.3"
-                            android:orientation="vertical">
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="ENH. Consolidated Salary Structure as at 2010">
 
-                            <com.jaredrummler.materialspinner.MaterialSpinner
+                            <EditText
+                                android:id="@+id/eNHConsolidatedSalaryStructure2010"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.enh_consolidated_salary_2010.salary_structure}"
+                                android:ems="10"
+                                android:inputType="text" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/error"
-                                android:textSize="13dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="0.7"
-                            android:orientation="vertical">
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="CL as at 2013">
 
-                            <com.jaredrummler.materialspinner.MaterialSpinner
+                            <EditText
+                                android:id="@+id/eNHCL2013"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:ems="10"
+                                android:inputType="text"
+                                android:text="@{viewModel.current.salaryObject.enh_consolidated_salary_2010.cls_at_2013}" />
 
-                            <TextView
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="Step as at 2010">
+
+                            <EditText
+                                android:id="@+id/eNHStepJune2010"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/error"
-                                android:textSize="13dp" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.enh_consolidated_salary_2010.step_at_2010}"
+                                android:ems="10"
+                                android:inputType="text" />
 
-                        </LinearLayout>
-
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/textColor"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="ENH. Consolidated Salary Structure as at 2013"
+                        android:textColor="@color/whiteTextColor" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="0.3"
-                            android:orientation="vertical">
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="ENH. Consolidated Salary Structure as at 2013">
 
-                            <com.jaredrummler.materialspinner.MaterialSpinner
+                            <EditText
+                                android:id="@+id/eNHConsolidatedSalaryStructure2013"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:ems="10"
+                                android:inputType="text"
+                                android:text="@{viewModel.current.salaryObject.enh_consolidated_salary_2013.salary_structure}" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/error"
-                                android:textSize="13dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="0.7"
-                            android:orientation="vertical">
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="CL as at 2013">
 
-                            <com.jaredrummler.materialspinner.MaterialSpinner
+                            <EditText
+                                android:id="@+id/enhCL2013"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.enh_consolidated_salary_2013.cls_at_2013}"
+                                android:ems="10"
+                                android:inputType="text" />
 
-                            <TextView
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="Step as at 201">
+
+                            <EditText
+                                android:id="@+id/eNCStep2013"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/error"
-                                android:textSize="13dp" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.enh_consolidated_salary_2013.step_at_2013}"
+                                android:ems="10"
+                                android:inputType="text" />
 
-                        </LinearLayout>
-
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/textColor"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="ENH. Consolidated Salary Structure as at 2016"
+                        android:textColor="@color/whiteTextColor" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="0.3"
-                            android:orientation="vertical">
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="ENH. Consolidated Salary Structure as at 2013">
 
-                            <com.jaredrummler.materialspinner.MaterialSpinner
+                            <EditText
+                                android:id="@+id/eNHConsolidatedSalaryStructure2016"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:ems="10"
+                                android:inputType="text"
+                                android:text="@{viewModel.current.salaryObject.enh_consolidated_salary_2016.salary_structure}" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/error"
-                                android:textSize="13dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="0.7"
-                            android:orientation="vertical">
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="CL as at 2016">
 
-                            <com.jaredrummler.materialspinner.MaterialSpinner
+                            <EditText
+                                android:id="@+id/enhCL2016"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.enh_consolidated_salary_2016.cls_at_2016}"
+                                android:ems="10"
+                                android:inputType="text" />
 
-                            <TextView
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="Step as at 201">
+
+                            <EditText
+                                android:id="@+id/eNC2Step2016"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/error"
-                                android:textSize="13dp" />
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.enh_consolidated_salary_2016.step_at_2016}"
+                                android:ems="10"
+                                android:inputType="text" />
 
-                        </LinearLayout>
-
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/textColor"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="Current Salary Structure (ENHCONTISS)"
+                        android:textColor="@color/whiteTextColor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="Current Salary Structure (ENHCONTISS)">
+
+                            <EditText
+                                android:id="@+id/currentSalaryStructure"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.current_salary.salary_structure}"
+                                android:ems="10"
+                                android:inputType="text" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="Current GL">
+
+                            <EditText
+                                android:id="@+id/current_gl"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.current_salary.current_gl}"
+                                android:ems="10"
+                                android:inputType="text" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:hint="Current Step">
+
+                            <EditText
+                                android:id="@+id/current_step"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:text="@{viewModel.current.salaryObject.current_salary.current_step}"
+                                android:ems="10"
+                                android:inputType="text" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+
+
                 </LinearLayout>
-
                 <Button
-                    android:id="@+id/nextButton"
+                    android:id="@+id/saveBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="50dp"
                     android:background="@drawable/buttonshape"
-                    android:text="Next"
+                    android:text="Save"
                     android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
             </LinearLayout>
 
         </ScrollView>

@@ -116,6 +116,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="8dp"
                                 android:textColorHint="#FF8A99AF"
+                                app:errorText="@{viewModel.validation.getEmailError()}"
                                 app:errorEnabled="true"
                                 app:hintEnabled="true">
 
@@ -127,6 +128,7 @@
                                     android:hint="@string/email_address"
                                     android:inputType="textEmailAddress"
                                     android:maxLines="1"
+                                    android:text="@{viewModel.getAuthModel().email}"
                                     android:background="@drawable/rounded_edittext"
                                     android:textColor="@android:color/black"
                                     android:textSize="16sp" />
@@ -138,6 +140,7 @@
                                 android:layout_marginBottom="8dp"
                                 android:textColorHint="#FF8A99AF"
                                 app:errorEnabled="true"
+                                app:errorText="@{viewModel.validation.getPasswordError()}"
                                 android:paddingRight="10sp"
                                 app:hintEnabled="true">
 
@@ -147,6 +150,7 @@
                                     android:layout_height="50dp"
                                     android:drawablePadding="16dp"
                                     android:hint="@string/password"
+                                    android:text="@{viewModel.getAuthModel().password}"
                                     android:inputType="textPassword"
                                     android:background="@drawable/rounded_edittext"
                                     android:maxLines="1"

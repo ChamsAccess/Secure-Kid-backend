@@ -4,9 +4,9 @@
 
     <data>
 
-        <!--        <variable-->
-        <!--            name="staffViewModel"-->
-        <!--            type="com.voomsway.voomticket.main.staff.rvvm.StaffViewModel" />-->
+                <variable
+                    name="viewModel"
+                    type="com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel" />
 
         <!--        <variable-->
         <!--            name="view"-->
@@ -18,13 +18,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/textColor"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:gravity="center_vertical"
+                android:text="Search for NIN Details"
+                android:textColor="@color/whiteTextColor"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/close"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_action_close"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/ninLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="200dp"
             android:orientation="vertical">
-
 
             <RelativeLayout
                 android:id="@+id/ninRelativeLayout"
@@ -34,23 +67,20 @@
                 android:paddingRight="10dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ninTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_centerHorizontal="true"
-                    app:errorEnabled="true"
-                    app:hintEnabled="true">
+                    android:layout_marginRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:hint="Search NIN">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ninEdt"
+                    <EditText
+                        android:id="@+id/ninEditTxt"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@drawable/rounded_edittext"
                         android:ems="10"
-                        android:hint="Enter NIN"
-                        android:inputType="text"
-                        android:paddingLeft="20dp" />
+                        android:inputType="number" />
+
                 </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
@@ -60,13 +90,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:layout_centerHorizontal="true"
                     android:gravity="center">
 
                     <Button
@@ -74,8 +104,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_margin="16dp"
-                        android:layout_marginBottom="30dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="16dp"
                         android:background="@drawable/buttonshape"
                         android:text="Skip"
                         android:textAllCaps="false"

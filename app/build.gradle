@@ -18,28 +18,26 @@ android {
 
     buildTypes {
         release {
-            buildConfigField("String", "X_API_KEY", "\"android\"")
+            buildConfigField("String", "X_API_KEY", "\"veritas_web\"")
 
-            buildConfigField("String", "PUSHER_APP_ID", "\"796892\"")
-            buildConfigField("String", "PUSHER_API_KEY", "\"c59dd1d3617b103f3779\"")
-            buildConfigField("String", "PUSHER_CLUSTER", "\"eu\"")
+            buildConfigField("String", "HOST", "\"http://192.168.43.140:4005/\"")
+            buildConfigField("String", "BASE_URL", "\"http://192.168.43.140:4005/api/v1\"")
 
-            buildConfigField("String", "HOST", "\"http://192.168.0.101:4000/\"")
-            buildConfigField("String", "BASE_URL", "\"http://192.168.0.101:4000/api/v1\"")
+//            buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
+//            buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         debug {
-            buildConfigField("String", "X_API_KEY", "\"android\"")
+            buildConfigField("String", "X_API_KEY", "\"veritas_web\"")
 
-            buildConfigField("String", "PUSHER_APP_ID", "\"796892\"")
-            buildConfigField("String", "PUSHER_API_KEY", "\"c59dd1d3617b103f3779\"")
-            buildConfigField("String", "PUSHER_CLUSTER", "\"eu\"")
+            buildConfigField("String", "HOST", "\"http://192.168.43.140:4005/\"")
+            buildConfigField("String", "BASE_URL", "\"http://192.168.43.140:4005/api/v1\"")
 
-            buildConfigField("String", "HOST", "\"http://192.168.0.101:4000/\"")
-            buildConfigField("String", "BASE_URL", "\"http://192.168.0.101:4000/api/v1\"")
+//            buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
+//            buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
         }
 
     }
@@ -92,11 +90,19 @@ dependencies {
     implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.1.0'
     implementation 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.camerakit:camerakit:1.0.0-beta3.11'
+    implementation 'com.camerakit:jpegkit:0.1.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0'
+    implementation 'com.mikhaellopez:lazydatepicker:1.0.6'
+    implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation 'com.evrencoskun.library:tableview:0.8.9.4'
+
 
     //butterknife
     implementation "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
-
+    implementation 'com.github.gcacace:signature-pad:1.3.1'
 
     //RxBinding library
     implementation "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxbindingVersion"

@@ -1,0 +1,1223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".main.booking.BookingActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/textColor"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:gravity="center_vertical"
+                android:text="Preview Data"
+                android:textColor="@color/whiteTextColor"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/close"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_action_close" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
+            android:background="@color/textColor"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">¬
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            app:cardCornerRadius="4dp"
+                            app:cardUseCompatPadding="true"
+                            app:contentPadding="16dp">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="150dp"
+                                    android:layout_height="150dp"
+                                    android:src="@drawable/ic_passport"
+                                    android:layout_gravity="center"/>
+
+                                <LinearLayout
+                                    android:id="@+id/personalLinearLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Personal information"
+                                        android:textColor="@color/whiteTextColor" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="First name"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/firstNameTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{viewModel.current.personalObject.firstName}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Funmi" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Surname"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/surnameTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{viewModel.current.personalObject.surname}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Middle name"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/middleTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text="@{viewModel.current.personalObject.middleName}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Ayinde" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Trip information"
+                                        android:textColor="@color/whiteTextColor" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Amount Paid"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Payment Option"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Reference"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Lagos, ikotun - abuja, jabi" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Trip information"
+                                        android:textColor="@color/whiteTextColor" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Amount Paid"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Payment Option"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Reference"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Lagos, ikotun - abuja, jabi" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Trip information"
+                                        android:textColor="@color/whiteTextColor" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Amount Paid"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Payment Option"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Reference"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Lagos, ikotun - abuja, jabi" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Trip information"
+                                        android:textColor="@color/whiteTextColor" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Amount Paid"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Payment Option"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Reference"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Lagos, ikotun - abuja, jabi" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Trip information"
+                                        android:textColor="@color/whiteTextColor" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Amount Paid"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Payment Option"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Reference"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Lagos, ikotun - abuja, jabi" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/textColor"
+                                        android:fontFamily="@font/custom_font"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Trip information"
+                                        android:textColor="@color/whiteTextColor" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Amount Paid"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Payment Option"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Reference"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="Lagos, ikotun - abuja, jabi" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="Status"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:text=""
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="19-4-2019" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+
+                            </LinearLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

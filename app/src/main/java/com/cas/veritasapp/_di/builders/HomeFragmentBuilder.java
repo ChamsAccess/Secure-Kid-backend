@@ -1,9 +1,16 @@
 package com.cas.veritasapp._di.builders;
 
-import com.cas.veritasapp.main.home.fragments.EnrollmentFragment;
+import com.cas.veritasapp.main.home.dialog.PreviewFragmentDialog;
+import com.cas.veritasapp.main.home.fragments.ContributionBioInfoFragment;
+import com.cas.veritasapp.main.home.fragments.EmploymentFragment;
 import com.cas.veritasapp.main.home.fragments.DashboardFragment;
+import com.cas.veritasapp.main.home.fragments.HistoryFragment;
 import com.cas.veritasapp.main.home.fragments.NINFragment;
+import com.cas.veritasapp.main.home.fragments.NewEnrollmentFragment;
+import com.cas.veritasapp.main.home.fragments.NextOfKinFragment;
+import com.cas.veritasapp.main.home.fragments.PFACertificationFragment;
 import com.cas.veritasapp.main.home.fragments.PersonalDataFragment;
+import com.cas.veritasapp.main.home.fragments.SalaryStructureFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -18,11 +25,32 @@ public abstract class HomeFragmentBuilder {
     abstract DashboardFragment bindHomeFragment();
 
     @ContributesAndroidInjector
-    abstract EnrollmentFragment bindEnrollmentFragment();
+    abstract NewEnrollmentFragment bindEnrollmentFragment();
 
     @ContributesAndroidInjector
     abstract PersonalDataFragment bindPersonalDataFragment();
 
     @ContributesAndroidInjector
     abstract NINFragment bindNINFragment();
+
+    @ContributesAndroidInjector
+    abstract ContributionBioInfoFragment bindContributionBioInfoFragment();
+
+    @ContributesAndroidInjector
+    abstract NextOfKinFragment bindNextOfKinFragment();
+
+    @ContributesAndroidInjector
+    abstract PFACertificationFragment bindPFACertificationFragment();
+
+    @ContributesAndroidInjector
+    abstract SalaryStructureFragment bindSalaryStructureFragment();
+
+    @ContributesAndroidInjector
+    abstract EmploymentFragment bindEmploymentFragment();
+
+    @ContributesAndroidInjector
+    abstract PreviewFragmentDialog bindPreviewFragmentDialog();
+
+    @ContributesAndroidInjector
+    abstract HistoryFragment bindHistoryFragment();
 }

@@ -10,6 +10,10 @@
     <dimen name="card_title_padding">10dp</dimen>
     <dimen name="card_price_padding_bottom">5dp</dimen>
 
+    <dimen name="table_view_cell_height">28dp</dimen>
+    <dimen name="table_view_row_header_width">28dp</dimen>
+    <dimen name="table_view_default_text_size">11sp</dimen>
+
     <!--start activity-->
 
     <!--shimmer dimes-->
