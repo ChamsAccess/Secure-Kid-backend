@@ -41,12 +41,10 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".main.PictureActivity"
-            android:screenOrientation="landscape"/>
-        <activity
-            android:name=".main.PictureActivity2"
             android:screenOrientation="fullSensor"/>
         <activity
             android:name=".main.home.HomeActivity"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <provider
             android:name="androidx.core.content.FileProvider"

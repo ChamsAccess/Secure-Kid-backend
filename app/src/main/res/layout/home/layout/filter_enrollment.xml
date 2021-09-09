@@ -72,21 +72,23 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.jaredrummler.materialspinner.MaterialSpinner
+                    <Button
                         android:id="@+id/startDateSpinner"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:background="@drawable/spinner_border"
                         android:text="Start Date"/>
 
 
-                    <com.jaredrummler.materialspinner.MaterialSpinner
+                    <Button
                         android:id="@+id/endDateSpinner"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:background="@drawable/spinner_border"
                         android:hint="End Date"/>
 
                 </LinearLayout>
@@ -110,6 +112,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
+                        android:background="@drawable/spinner_border"
                         android:layout_weight="1"
                         android:text="RSA Pin Status"/>
 
@@ -120,6 +123,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:background="@drawable/spinner_border"
                         android:hint="Registration status"/>
 
                 </LinearLayout>

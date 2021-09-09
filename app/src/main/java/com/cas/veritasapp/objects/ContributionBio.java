@@ -3,42 +3,24 @@ package com.cas.veritasapp.objects;
 import java.io.Serializable;
 
 public class ContributionBio implements Serializable {
-    public String passport;
-    public String passportUrl;
-    public String signature;
-    public String signatureUrl;
-    public String signature_date;
+    private Media passport;
+    private Media signature;
+    private String signature_date;
 
 
-    public String getPassportUrl() {
-        return passportUrl;
-    }
-
-    public void setPassportUrl(String passportUrl) {
-        this.passportUrl = passportUrl;
-    }
-
-    public String getSignatureUrl() {
-        return signatureUrl;
-    }
-
-    public void setSignatureUrl(String signatureUrl) {
-        this.signatureUrl = signatureUrl;
-    }
-
-    public String getPassport() {
+    public Media getPassport() {
         return passport;
     }
 
-    public void setPassport(String passport) {
+    public void setPassport(Media passport) {
         this.passport = passport;
     }
 
-    public String getSignature() {
+    public Media getSignature() {
         return signature;
     }
 
-    public void setSignature(String signature) {
+    public void setSignature(Media signature) {
         this.signature = signature;
     }
 
@@ -53,8 +35,8 @@ public class ContributionBio implements Serializable {
     @Override
     public String toString() {
         return "ContributionBio{" +
-                "passport='" + passport + '\'' +
-                ", signature='" + signature + '\'' +
+                "passport=" + passport +
+                ", signature=" + signature +
                 ", signature_date='" + signature_date + '\'' +
                 '}';
     }

@@ -20,11 +20,17 @@ android {
         release {
             buildConfigField("String", "X_API_KEY", "\"veritas_web\"")
 
-            buildConfigField("String", "HOST", "\"http://192.168.43.140:4005/\"")
-            buildConfigField("String", "BASE_URL", "\"http://192.168.43.140:4005/api/v1\"")
+            // AIRTEL NETWORK
+//            buildConfigField("String", "HOST", "\"http://192.168.43.140:4005/\"")
+//            buildConfigField("String", "BASE_URL", "\"http://192.168.43.140:4005/api/v1\"")
+//
+//             BOBO NETWORK
+//            buildConfigField("String", "HOST", "\"http://192.168.100.6:4005/\"")
+//            buildConfigField("String", "BASE_URL", "\"http://192.168.100.6:4005/api/v1\"")
 
-//            buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
-//            buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
+            // STAGING
+            buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -32,12 +38,17 @@ android {
 
         debug {
             buildConfigField("String", "X_API_KEY", "\"veritas_web\"")
+            // AIRTEL NETWORK
+//            buildConfigField("String", "HOST", "\"http://192.168.43.140:4005/\"")
+//            buildConfigField("String", "BASE_URL", "\"http://192.168.43.140:4005/api/v1\"")
+//
+//             BOBO NETWORK
+//            buildConfigField("String", "HOST", "\"http://192.168.100.6:4005/\"")
+//            buildConfigField("String", "BASE_URL", "\"http://192.168.100.6:4005/api/v1\"")
 
-            buildConfigField("String", "HOST", "\"http://192.168.43.140:4005/\"")
-            buildConfigField("String", "BASE_URL", "\"http://192.168.43.140:4005/api/v1\"")
-
-//            buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
-//            buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
+            // STAGING
+            buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
         }
 
     }
@@ -109,6 +120,7 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:$rootProject.rxbindingVersion"
     implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$rootProject.rxbindingVersion"
     implementation "com.jakewharton.rxbinding2:rxbinding-design:$rootProject.rxbindingVersion"
+
 
     // Paging
     implementation 'androidx.paging:paging-runtime:3.0.1'

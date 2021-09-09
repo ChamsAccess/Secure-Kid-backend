@@ -3,20 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/edittextstyle.xml" value="0.26979166666666665" />
         <entry key="app/src/main/res/drawable/ic_rabbit.xml" value="0.26979166666666665" />
         <entry key="app/src/main/res/layout/activity_preview.xml" value="0.335" />
         <entry key="app/src/main/res/layout/authentication/layout/activity_auth.xml" value="0.11727456940222898" />
         <entry key="app/src/main/res/layout/authentication/layout/fragment_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_signature.xml" value="0.1526509323726146" />
         <entry key="app/src/main/res/layout/home/layout/enrollment_history.xml" value="0.14945652173913043" />
-        <entry key="app/src/main/res/layout/home/layout/fragment_contribution_bio_cert.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/home/layout/filter_enrollment.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/home/layout/fragment_contribution_bio_cert.xml" value="0.25" />
         <entry key="app/src/main/res/layout/home/layout/fragment_employment.xml" value="0.335" />
         <entry key="app/src/main/res/layout/home/layout/fragment_enrollment.xml" value="0.21358428805237317" />
+        <entry key="app/src/main/res/layout/home/layout/fragment_history.xml" value="0.20471014492753623" />
         <entry key="app/src/main/res/layout/home/layout/fragment_new_enrollment.xml" value="0.14945652173913043" />
-        <entry key="app/src/main/res/layout/home/layout/fragment_next_of_kin.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/home/layout/fragment_next_of_kin.xml" value="0.25" />
         <entry key="app/src/main/res/layout/home/layout/fragment_personal_data.xml" value="0.25" />
         <entry key="app/src/main/res/layout/home/layout/fragment_pfa_cert.xml" value="0.25" />
         <entry key="app/src/main/res/layout/home/layout/fragment_salary_structure.xml" value="0.335" />
         <entry key="app/src/main/res/layout/home/layout/home_activity.xml" value="0.14945652173913043" />
+        <entry key="app/src/main/res/layout/home/layout/list_enrollment_history_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/home/layout/nin_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/home/layout/preview_dialog.xml" value="0.335" />
         <entry key="app/src/main/res/layout/snap_picture.xml" value="0.19157608695652173" />

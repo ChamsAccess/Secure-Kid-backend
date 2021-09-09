@@ -28,6 +28,7 @@ import com.cas.veritasapp.objects.Personal;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.objects.payloads.NinPayload;
 import com.cas.veritasapp.util.AppUtil;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.mikhaellopez.lazydatepicker.LazyDatePicker;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +42,9 @@ import javax.inject.Inject;
 import dagger.android.support.AndroidSupportInjection;
 
 public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBinding>
-        implements View.OnClickListener, LazyDatePicker.OnDatePickListener, LazyDatePicker.OnDateSelectedListener {
+        implements View.OnClickListener,
+        LazyDatePicker.OnDatePickListener, LazyDatePicker.OnDateSelectedListener,
+        MaterialSpinner.OnItemSelectedListener<String> {
 
     FragmentPersonalDataBinding binding;
     private boolean dismissDialog = false;
@@ -80,7 +83,7 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
 
     private void initApp() {
         validator = new EnrollmentValidator(viewModel);
-        if (viewModel.getCurrent() != null && viewModel.getCurrent().getPersonalObject() != null){
+        if (viewModel.getCurrent() != null && viewModel.getCurrent().getPersonalObject() != null) {
             String dateOfBirth = viewModel.getCurrent().getPersonalObject().getDob();
             if (dateOfBirth != null && !dateOfBirth.isEmpty()) {
                 Date date = AppUtil.stringToDate(dateOfBirth);
@@ -92,18 +95,24 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
             }
         }
         personal = new Personal();
-        binding.personalTextView.setOnClickListener(v -> {
-            PreviewFragmentDialog dialog = new PreviewFragmentDialog(viewModel.getCurrent());
-            dialog.show(requireActivity().getSupportFragmentManager(), "Preview Data");
-        });
 
         this.initData();
+
+        binding.countrySpinner.setItems(AppConstant.COUNTRIES);
+        binding.stateSpinner.setItems(AppConstant.STATES);
 
         binding.titleLinearLayout.setOnClickListener(this);
         binding.genderLinearLayout.setOnClickListener(this);
         binding.martialLinearLayout.setOnClickListener(this);
         binding.martialStatusRadioGroup.setOnClickListener(this);
         binding.saveBtn.setOnClickListener(this);
+        binding.skipButton.setOnClickListener(this);
+        binding.searchNinButton.setOnClickListener(this);
+
+//        binding.ninEditTxt.setText("17520041640");
+
+        binding.findNinRelativeLayout.setVisibility(View.VISIBLE);
+        binding.personalLinearLayout.setVisibility(View.GONE);
 
     }
 
@@ -142,9 +151,10 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
         personal.setEmail(binding.emailEditText.getText().toString());
         personal.setMaiden(binding.maidenEditText.getText().toString());
         personal.setHouseNumber(binding.houseNumberEditText.getText().toString());
-        personal.setCountry(binding.countryCodeEditText.getText().toString());
+        personal.setCountry(binding.countrySpinner.getText().toString());
         Location location = new Location();
         location.setStreet(binding.streetEditText.getText().toString());
+        location.setStateCode(binding.stateSpinner.getText().toString());
         location.setLga_code(binding.lgaCode.getText().toString());
         location.setCity(binding.cityEditText.getText().toString());
         location.setZip_code(binding.zipCodeEditText.getText().toString());
@@ -179,6 +189,21 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
                 setPersonalData();
                 showToast("Personal data saved successfully");
                 break;
+
+            case R.id.skipButton:
+                binding.findNinRelativeLayout.setVisibility(View.GONE);
+                binding.personalLinearLayout.setVisibility(View.VISIBLE);
+                break;
+            case R.id.searchNinButton:
+                String nin = binding.ninEditTxt.getText().toString();
+                if (nin.isEmpty()) {
+                    showToast("Please enter NIN");
+                    return;
+                }
+                showProgressDialog();
+                Map<String, String> request = new HashMap<>();
+                request.put("nin", nin);
+                viewModel.findNin(request).observe(getViewLifecycleOwner(), this::performAction);
         }
     }
 
@@ -195,5 +220,47 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
 //        showToast("Date selected:" + dateSelected);
     }
 
+    @Override
+    public void onLoad(String key) {
+        super.onLoad(key);
+        if (AppConstant.FIND_NIN_DATA.equals(key)) {
+            showProgressDialog();
+        }
+    }
 
+    @Override
+    public void onSuccess(Object obj, String key) {
+        super.onSuccess(obj, key);
+        if (AppConstant.FIND_NIN_DATA.equals(key)) {
+            if (obj instanceof NinPayload) {
+                NinPayload payload = (NinPayload) obj;
+                Enrollment enrollment = NinPayload.getNINPayload(payload);
+                viewModel.setCurrent(enrollment);
+                bundle.putSerializable(AppConstant.ENROLLMENT, enrollment);
+                binding.findNinRelativeLayout.setVisibility(View.GONE);
+                binding.personalLinearLayout.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    @Override
+    public void onError(ApiError apiError, String key) {
+        super.onError(apiError, key);
+        viewModel.setError(apiError.getMessage());
+        showToast(apiError.getMessage());
+    }
+
+
+
+    @Override
+    public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+        switch (view.getId()) {
+            case R.id.stateSpinner:
+                binding.stateSpinner.setText(item);
+                break;
+            case R.id.countrySpinner:
+                binding.countrySpinner.setText(item);
+                break;
+        }
+    }
 }

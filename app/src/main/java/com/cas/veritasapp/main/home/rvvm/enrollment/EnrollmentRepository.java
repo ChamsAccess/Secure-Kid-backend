@@ -95,7 +95,7 @@ public class EnrollmentRepository implements BaseRepository<Enrollment, Enrollme
     }
 
     @SuppressLint("CheckResult")
-    public MutableLiveData<Resource<Media>> uploadFile(MultipartBody.Part requestBody) {
+    public MutableLiveData<Resource<Media>> uploadFile(MultipartBody.Part requestBody, String key) {
         final MutableLiveData<Resource<Media>> data = new MutableLiveData<>();
         data.setValue(Resource.loading(null, AppConstant.UPLOAD_ACTION));
         enrollmentService.uploadFile(requestBody, new HashMap<>())
@@ -105,12 +105,12 @@ public class EnrollmentRepository implements BaseRepository<Enrollment, Enrollme
                     LogUtil.write("Media-DATA:::" + apiResponse.toString());
                     _Meta meta = apiResponse.get_meta();
                     if (meta.isSuccess()) {
-                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.UPLOAD_ACTION));
+                        data.setValue(Resource.success(apiResponse.getData(), key));
                     }
                 }, error -> {
                     ApiError apiError = AppUtil.getError(error);
                     LogUtil.write("apiError:" + apiError.getMessage());
-                    data.setValue(Resource.error(apiError, AppConstant.UPLOAD_ACTION, null));
+                    data.setValue(Resource.error(apiError, key, null));
                 });
         return data;
     }

@@ -30,11 +30,10 @@ import com.cas.veritasapp.core.helpers.ToolbarHelper;
 import com.cas.veritasapp.core.listeners.NetworkRequestListener;
 import com.cas.veritasapp.core.listeners.OnBackPressListener;
 import com.cas.veritasapp.core.network.Resource;
-import com.cas.veritasapp.main.PictureActivity2;
+import com.cas.veritasapp.main.PictureActivity;
 import com.cas.veritasapp.objects.AuthStaff;
 import com.cas.veritasapp.objects.NavData;
 import com.cas.veritasapp.objects.api.ApiError;
-import com.cas.veritasapp.util.PrefUtil;
 import com.cas.veritasapp.util.ProgressUtil;
 
 import java.util.Calendar;
@@ -147,7 +146,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
 
     public void startPictureActivity() {
         Intent intent = new Intent();
-        intent.setClass(requireActivity(), PictureActivity2.class);
+        intent.setClass(requireActivity(), PictureActivity.class);
         Date dt = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(dt);

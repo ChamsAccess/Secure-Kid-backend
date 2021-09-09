@@ -308,45 +308,23 @@
 
                     </LinearLayout>
 
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputLayout
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/countrySpinner"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/spinner_border"
                             android:layout_weight="1"
-                            android:hint="Country code">
-
-                            <EditText
-                                android:id="@+id/countryCodeText"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:background="@drawable/rounded_edittext"
-                                android:ems="10"
-                                android:text="@{viewModel.current.nextOfKinObject.country}"
-                                android:inputType="text" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:hint="NOK House No./Name">
-
-                            <EditText
-                                android:id="@+id/countryEditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:background="@drawable/rounded_edittext"
-                                android:ems="10"
-                                android:text="@{viewModel.current.nextOfKinObject.house_number}"
-                                android:inputType="text" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
+                            android:text="Select Country"/>
 
                     </LinearLayout>
 
@@ -355,33 +333,25 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputLayout
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/stateSpinner"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/spinner_border"
                             android:layout_weight="1"
-                            android:hint="State of Residence Code">
-
-                            <EditText
-                                android:id="@+id/stateOfResidenceEditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:background="@drawable/rounded_edittext"
-                                android:ems="10"
-                                android:text="@{viewModel.current.nextOfKinObject.location.stateCode}"
-                                android:inputType="text" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
+                            android:text="Select State"/>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
-                            android:hint="LGA Code">
+                            android:hint="LGA">
 
                             <EditText
-                                android:id="@+id/lgaCode"
+                                android:id="@+id/lgaCodeEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:background="@drawable/rounded_edittext"
@@ -390,7 +360,6 @@
                                 android:inputType="text" />
 
                         </com.google.android.material.textfield.TextInputLayout>
-
                     </LinearLayout>
 
                     <LinearLayout

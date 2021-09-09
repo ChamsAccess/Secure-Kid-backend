@@ -4,6 +4,7 @@ package com.cas.veritasapp.objects.payloads;
 import androidx.room.PrimaryKey;
 
 import com.cas.veritasapp.objects.Enrollment;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
@@ -15,6 +16,12 @@ public class EnrollmentPayload<T> implements Serializable {
     @NonNull
     public String _id;
     public String enrolled_by;
+    public String createdAt;
+    @SerializedName(value = "rsa_pin")
+    public String rsaPin;
+    @SerializedName(value = "t_pin")
+    public boolean sumbitted;
+    public String tPin;
     public T personal;
     public T next_of_kin;
     public T employment;
@@ -25,6 +32,7 @@ public class EnrollmentPayload<T> implements Serializable {
     public static EnrollmentPayload create(Enrollment enrollment) {
         EnrollmentPayload payload = new EnrollmentPayload();
         payload._id = enrollment.get_id();
+        payload.createdAt = enrollment.getCreateAt();
         payload.personal = enrollment.getPersonal();
         payload.next_of_kin = enrollment.getNext_of_kin();
         payload.employment = enrollment.getEmployment();
@@ -44,6 +52,7 @@ public class EnrollmentPayload<T> implements Serializable {
                 ", employment=" + employment +
                 ", salary=" + salary +
                 ", pfa_certification=" + pfa_certification +
+                ", createdAt=" + createdAt +
                 ", contribution_bio=" + contribution_bio +
                 '}';
     }

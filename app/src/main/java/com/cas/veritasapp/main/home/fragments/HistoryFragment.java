@@ -9,29 +9,43 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.listeners.OnItemSelectedListener;
 import com.cas.veritasapp.databinding.FragmentHistoryBinding;
-import com.cas.veritasapp.databinding.FragmentNewEnrollmentBinding;
+import com.cas.veritasapp.main.adapter.HistoryEnrollmentAdapter;
 import com.cas.veritasapp.main.home.dialog.FilterFragmentDialog;
+import com.cas.veritasapp.main.home.dialog.PreviewFragmentDialog;
+import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
+import com.cas.veritasapp.objects.Enrollment;
 import com.cas.veritasapp.objects.api.ApiError;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+import com.cas.veritasapp.util.FixedGridLayoutManager;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 
 public class HistoryFragment extends BaseFragment<FragmentHistoryBinding>
-        implements View.OnClickListener, OnItemSelectedListener<Map> {
+        implements View.OnClickListener, OnItemSelectedListener {
 
     FragmentHistoryBinding binding;
     FilterFragmentDialog filterFragmentDialog;
+    @Inject
+    EnrollmentViewModel viewModel;
+
+    private ArrayList<Enrollment> enrollmentList = new ArrayList<>();
+
+    private HistoryEnrollmentAdapter adapter;
 
     @Override
     public int getLayoutId() {
@@ -50,13 +64,28 @@ public class HistoryFragment extends BaseFragment<FragmentHistoryBinding>
         super.onViewCreated(view, savedInstanceState);
         binding = getViewDataBinding();
         binding.executePendingBindings();
+        binding.setViewModel(viewModel);
         binding.setLifecycleOwner(this);
         this.initApp();
+        fetchEnrollment(new HashMap<>());
     }
 
-    private void initApp(){
+    private void initApp() {
         filterFragmentDialog = new FilterFragmentDialog(this);
+        adapter = new HistoryEnrollmentAdapter(viewRoot, enrollmentList, this);
+        adapter.setHasStableIds(true);
+
+        FixedGridLayoutManager manager = new FixedGridLayoutManager();
+        manager.setTotalColumnCount(1);
+        binding.recyclerView.setLayoutManager(manager);
+        binding.recyclerView.setAdapter(adapter);
+        binding.recyclerView.addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
+
         binding.filterButton.setOnClickListener(this);
+    }
+
+    private void fetchEnrollment(Map<String, String> map) {
+        viewModel.getEnrollments(map).observe(getViewLifecycleOwner(), this::performAction);
     }
 
     @Override
@@ -67,6 +96,14 @@ public class HistoryFragment extends BaseFragment<FragmentHistoryBinding>
     @Override
     public void onSuccess(Object obj, String key) {
         super.onSuccess(obj, key);
+        if (obj != null) {
+            if (obj instanceof List) {
+                enrollmentList = (ArrayList<Enrollment>) obj;
+                if (!enrollmentList.isEmpty()) {
+                    adapter.submitList(enrollmentList);
+                }
+            }
+        }
     }
 
     @Override
@@ -75,16 +112,22 @@ public class HistoryFragment extends BaseFragment<FragmentHistoryBinding>
     }
 
     @Override
-    public void ontItemSelected(Map item, String key) {
-        if (key.equals(AppConstant.FILTER_ENROLLMENT) && item != null){
-            showToast("filter" + item.toString());
+    public void ontItemSelected(Object obj, String key) {
+        if (key.equals(AppConstant.FILTER_ENROLLMENT) && obj != null) {
+            fetchEnrollment((Map) obj);
+        }
+        if (key.equals(AppConstant.ENROLLMENT) && obj != null) {
+            Enrollment enrollment = (Enrollment) obj;
+            showToast(enrollment.get_id());
+            PreviewFragmentDialog dialog = new PreviewFragmentDialog(enrollment);
+            dialog.show(requireActivity().getSupportFragmentManager(), "Preview Data");
         }
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.filterButton:
                 filterFragmentDialog.setArguments(bundle);
                 filterFragmentDialog.show(getFragmentManager(), "FilterDialog");

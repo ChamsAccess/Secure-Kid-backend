@@ -39,11 +39,15 @@ public class EnrollmentViewModel extends CoreViewModel<
     public MutableLiveData<Resource<NinPayload>> findNin(Map<String, String> request){
         return enrollmentRepository.findNin(request);
     }
-    public MutableLiveData<Resource<Media>> uploadFile(MultipartBody.Part requestBody){
-        return enrollmentRepository.uploadFile(requestBody);
+    public MutableLiveData<Resource<Media>> uploadFile(MultipartBody.Part requestBody, String key){
+        return enrollmentRepository.uploadFile(requestBody, key);
     }
 
     public MutableLiveData<Resource<Enrollment>> senNewEnrollment(Map<String, Object> requestBody){
+        return enrollmentRepository.senNewEnrollment(requestBody);
+    }
+
+    public MutableLiveData<Resource<Enrollment>> updateEnrollment(Map<String, Object> requestBody){
         return enrollmentRepository.senNewEnrollment(requestBody);
     }
 

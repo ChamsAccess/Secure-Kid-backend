@@ -63,6 +63,8 @@ public class NINFragment extends BaseFragment<NinSearchBinding> implements View.
         binding.skipButton.setOnClickListener(this);
         binding.searchNinButton.setOnClickListener(this);
         binding.ninEditTxt.setText("17520041640");
+
+
     }
 
     @Override
@@ -96,8 +98,8 @@ public class NINFragment extends BaseFragment<NinSearchBinding> implements View.
     }
 
     private void loadFragment() {
-        AppUtil.loadFragment((AppCompatActivity) requireActivity(), R.id.frame_container,
-                new NewEnrollmentFragment(), bundle);
+//        AppUtil.loadFragment((AppCompatActivity) requireActivity(), R.id.frame_container,
+//                new NewEnrollmentFragment(), bundle);
     }
 
     @SuppressLint("NonConstantResourceId")

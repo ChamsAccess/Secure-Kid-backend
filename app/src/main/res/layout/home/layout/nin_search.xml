@@ -4,9 +4,9 @@
 
     <data>
 
-                <variable
-                    name="viewModel"
-                    type="com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel" />
+        <variable
+            name="viewModel"
+            type="com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel" />
 
         <!--        <variable-->
         <!--            name="view"-->
@@ -14,129 +14,134 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@color/textColor"
-            android:padding="5dp">
+            android:layout_height="match_parent">
 
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_vertical"
-                android:text="Search for NIN Details"
-                android:textColor="@color/whiteTextColor"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/close"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:background="@color/transparent"
-                android:gravity="center_vertical"
-                android:src="@drawable/ic_action_close"
-                android:layout_alignParentRight="true" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/ninLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/ninRelativeLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/textColor"
+                android:padding="5dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:hint="Search NIN">
 
-                    <EditText
-                        android:id="@+id/ninEditTxt"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/rounded_edittext"
-                        android:ems="10"
-                        android:inputType="number" />
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center_vertical"
+                    android:text="Search for NIN Details"
+                    android:textColor="@color/whiteTextColor"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                <ImageButton
+                    android:id="@+id/close"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/ic_action_close" />
+
             </RelativeLayout>
 
-
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/ninLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginTop="200dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/ninRelativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:hint="Search NIN"
+                        android:paddingLeft="10dp">
+
+                        <EditText
+                            android:id="@+id/ninEditTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/rounded_edittext"
+                            android:ems="10"
+                            android:inputType="number" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </RelativeLayout>
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center">
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/skipButton"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:background="@drawable/buttonshape"
-                        android:text="Skip"
-                        android:textAllCaps="false"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:layout_centerInParent="true"
+                        android:gravity="center">
 
-                    <Button
-                        android:id="@+id/searchNinButton"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="16dp"
-                        android:layout_marginBottom="30dp"
-                        android:layout_toRightOf="@+id/skipButton"
-                        android:background="@drawable/buttonshape"
-                        android:text="Search"
-                        android:textAllCaps="false"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        <Button
+                            android:id="@+id/skipButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@drawable/buttonshape"
+                            android:text="Skip"
+                            android:textAllCaps="false"
+                            android:textColor="#ffffff"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/searchNinButton"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="16dp"
+                            android:layout_marginBottom="30dp"
+                            android:layout_toRightOf="@+id/skipButton"
+                            android:background="@drawable/buttonshape"
+                            android:text="Search"
+                            android:textAllCaps="false"
+                            android:textColor="#ffffff"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
                 </RelativeLayout>
-            </RelativeLayout>
 
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </ScrollView>
 </layout>

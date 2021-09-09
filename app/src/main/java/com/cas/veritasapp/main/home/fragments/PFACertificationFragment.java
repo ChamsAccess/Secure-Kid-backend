@@ -15,9 +15,10 @@ import androidx.annotation.RequiresApi;
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
-import com.cas.veritasapp.databinding.FragmentNewEnrollmentBinding;
+import com.cas.veritasapp.core.listeners.OnItemSelectedListener;
 import com.cas.veritasapp.databinding.FragmentPfaCertBinding;
 import com.cas.veritasapp.main.home.dialog.PreviewFragmentDialog;
+import com.cas.veritasapp.main.home.dialog.SignatureFragmentDialog;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.objects.Media;
 import com.cas.veritasapp.objects.PFACertification;
@@ -29,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -38,7 +40,9 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBinding>
-        implements View.OnClickListener, LazyDatePicker.OnDatePickListener, LazyDatePicker.OnDateSelectedListener {
+        implements View.OnClickListener,
+        LazyDatePicker.OnDatePickListener, LazyDatePicker.OnDateSelectedListener,
+        OnItemSelectedListener<Map> {
 
     FragmentPfaCertBinding binding;
 
@@ -82,7 +86,7 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
     private void uploadFile(File file) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-        viewModel.uploadFile(body).observe(getViewLifecycleOwner(), this::performAction);
+        viewModel.uploadFile(body, AppConstant.CAPTURE_AGENT_SIGNATURE_ACTION).observe(getViewLifecycleOwner(), this::performAction);
     }
 
     @Override
@@ -92,14 +96,10 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
                 case REQUEST_IMAGE_CAPTURE:
                     String pictureUrl = data.getStringExtra("pictureUrl");
                     File file = new File(pictureUrl);
-                    certification.setSignatureUrl(pictureUrl);
-                    if (fileType.equals(AppConstant.AGENT_SIGNATURE)) {
-                        Picasso.get()
-                                .load(file)
-                                .placeholder(R.drawable.ic_signature)
-                                .into(binding.agentSignatureImageView);
-
-                    }
+                    Picasso.get()
+                            .load(file)
+                            .placeholder(R.drawable.ic_signature)
+                            .into(binding.agentSignatureImageView);
                     uploadFile(file);
                     viewModel.getCurrent().setPfa_certificationObject(certification);
                     break;
@@ -117,8 +117,9 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
                 dialog.show(requireActivity().getSupportFragmentManager(), "Preview Data");
                 break;
             case R.id.agentSignatureImageView:
-                fileType = AppConstant.AGENT_SIGNATURE;
-                startPictureActivity();
+                SignatureFragmentDialog signatureFragmentDialog = new SignatureFragmentDialog(this, AppConstant.SAVE_AGENT_SIGNATURE);
+                signatureFragmentDialog.show(requireActivity().getSupportFragmentManager(), "Preview Data");
+                break;
         }
     }
 
@@ -126,7 +127,7 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
     @Override
     public void onLoad(String key) {
         super.onLoad(key);
-        if (key.equals(AppConstant.UPLOAD_ACTION)) {
+        if (key.equals(AppConstant.CAPTURE_AGENT_SIGNATURE_ACTION)) {
             showProgressDialog();
         }
     }
@@ -135,10 +136,10 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
     public void onSuccess(Object obj, String key) {
         super.onSuccess(obj, key);
         switch (key) {
-            case AppConstant.UPLOAD_ACTION:
+            case AppConstant.CAPTURE_AGENT_SIGNATURE_ACTION:
                 if (obj instanceof Media) {
                     Media media = (Media) obj;
-                    certification.setSignature(media._id);
+                    certification.setSignature(media);
                     viewModel.getCurrent().setPfa_certificationObject(certification);
                 }
                 break;
@@ -148,7 +149,7 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
     @Override
     public void onError(ApiError apiError, String key) {
         super.onError(apiError, key);
-        if (key.equals(AppConstant.UPLOAD_ACTION)) {
+        if (key.equals(AppConstant.CAPTURE_AGENT_SIGNATURE_ACTION)) {
             hideProgressDialog();
         }
     }
@@ -163,5 +164,19 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
     @Override
     public void onDateSelected(Boolean dateSelected) {
 
+    }
+
+    @Override
+    public void ontItemSelected(Map map, String key) {
+        if (map != null && key.equals(AppConstant.SAVE_AGENT_SIGNATURE)) {
+            File file = (File) map.get("file");
+            if (file != null) {
+                Picasso.get()
+                        .load(file)
+                        .placeholder(R.drawable.ic_passport)
+                        .into(binding.agentSignatureImageView);
+                uploadFile(file);
+            }
+        }
     }
 }

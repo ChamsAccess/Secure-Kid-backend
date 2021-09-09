@@ -21,6 +21,7 @@ import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.listeners.OnItemSelectedListener;
 import com.cas.veritasapp.databinding.FilterEnrollmentBinding;
 import com.cas.veritasapp.util.AppUtil;
+import com.cas.veritasapp.util.DateTimeUtils;
 import com.cas.veritasapp.util.LogUtil;
 import com.cas.veritasapp.util.ServiceUtil;
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -31,13 +32,13 @@ import java.util.Map;
 import java.util.Objects;
 
 public class FilterFragmentDialog extends DialogFragment implements
-        View.OnClickListener, OnItemSelectedListener<String>,
+        View.OnClickListener,
         MaterialSpinner.OnItemSelectedListener<String> {
 
     private OnItemSelectedListener<Map> listener;
-    private String currentDate;
-    private DialogFragment datePickerFragment;
-    private Bundle bundle;
+    private String startDate, endDate;
+
+    private int mYear, mMonth, mDay;
 
     FilterEnrollmentBinding binding;
 
@@ -72,10 +73,13 @@ public class FilterFragmentDialog extends DialogFragment implements
     }
 
     private void initApp() {
-        bundle = new Bundle();
-        datePickerFragment = new DatePickerFragmentDialog(this, AppConstant.DATE);
         binding.rsaPinStatusSpinner.setItems(AppConstant.RSAPIN_STATUS);
         binding.registrationStatusSpinner.setItems(AppConstant.REGISTRATION_STATUS);
+
+        Calendar calendar = Calendar.getInstance();
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
         binding.rsaPinStatusSpinner.setOnItemSelectedListener(this);
         binding.registrationStatusSpinner.setOnItemSelectedListener(this);
@@ -90,34 +94,32 @@ public class FilterFragmentDialog extends DialogFragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.startDateSpinner:
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), (mView, year, month, dayOfMonth) -> {
+                    startDate = AppUtil.dateFormatter(AppUtil.customCalendar(year, month, dayOfMonth));
+                    binding.startDateSpinner.setText(DateTimeUtils.formatWithPattern(startDate, AppConstant.DATE_PATTERN));
+                }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+                break;
             case R.id.endDateSpinner:
-                bundle.putString(AppConstant.DATE, currentDate);
-                datePickerFragment.setArguments(bundle);
-                datePickerFragment.show(requireFragmentManager(), "DatePicker");
+                DatePickerDialog endDatePickerDialog = new DatePickerDialog(getActivity(), (mView, year, month, dayOfMonth) -> {
+                    endDate = AppUtil.dateFormatter(AppUtil.customCalendar(year, month, dayOfMonth));
+                    binding.endDateSpinner.setText(DateTimeUtils.formatWithPattern(endDate, AppConstant.DATE_PATTERN));
+                }, mYear, mMonth, mDay);
+                endDatePickerDialog.show();
                 break;
             case R.id.cancelButton:
                 dismiss();
                 break;
             case R.id.searchButton:
                 Map<String, String> map = new HashMap<>();
-                map.put("startDate", binding.startDateSpinner.getText().toString());
-                map.put("endDate", binding.endDateSpinner.getText().toString());
+                map.put("startDate", startDate);
+                map.put("endDate", endDate);
                 map.put("search", binding.searchEditText.getText().toString());
                 map.put("registrationStatus", binding.registrationStatusSpinner.getText().toString());
                 map.put("rsaPin", binding.rsaPinStatusSpinner.getText().toString());
                 listener.ontItemSelected(map, AppConstant.FILTER_ENROLLMENT);
                 dismiss();
                 break;
-        }
-    }
-
-    @Override
-    public void ontItemSelected(String item, String key) {
-        if (key.equals(AppConstant.DATE)) {
-            currentDate = item;
-            Calendar calendar = AppUtil.getSelectedDate(item);
-            binding.startDateSpinner.setText(AppUtil.getFriendlyDate(calendar));
-            binding.endDateSpinner.setText(AppUtil.getFriendlyDate(calendar));
         }
     }
 

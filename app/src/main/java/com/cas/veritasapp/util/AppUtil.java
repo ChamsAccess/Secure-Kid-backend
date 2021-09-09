@@ -161,6 +161,16 @@ public class AppUtil {
         return cal;
     }
 
+    public static String dateFormatter(Calendar calendar) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        return dateFormat.format(calendar.getTime());
+    }
+    public static Calendar customCalendar(int year, int month, int dayOfTheMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, dayOfTheMonth);
+        return calendar;
+    }
+
 
     public static String hashKeyForDisk(String key) {
         String cacheKey;

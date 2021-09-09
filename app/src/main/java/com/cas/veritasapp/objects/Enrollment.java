@@ -13,6 +13,7 @@ import com.cas.veritasapp.core.data.converters.PersonalConverter;
 import com.cas.veritasapp.core.data.converters.SalaryConverter;
 import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
 import com.cas.veritasapp.util.ServiceUtil;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,9 +28,18 @@ public class Enrollment implements Serializable {
     @NonNull
     private String _id;
     private String enrolled_by;
+    private String createAt;
+    public String createdAt;
+    @SerializedName(value = "rsa_pin")
+    private String rsaPin;
+    @SerializedName(value = "t_pin")
+    private String tPin;
 
     private String photo;
     private String signature;
+    private String agentSignature;
+
+    private boolean submitted;
 
     @TypeConverters(PersonalConverter.class)
     private Personal personalObject;
@@ -65,10 +75,53 @@ public class Enrollment implements Serializable {
         this._id = _id;
     }
 
+    public String getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(String createAt) {
+        this.createAt = createAt;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getRsaPin() {
+        return rsaPin;
+    }
+
+    public String gettPin() {
+        return tPin;
+    }
+
+    public void settPin(String tPin) {
+        this.tPin = tPin;
+    }
+
+    public boolean isSubmitted() {
+        return submitted;
+    }
+
+    public void setSubmitted(boolean submitted) {
+        this.submitted = submitted;
+    }
+
+    public void setRsaPin(String rsaPin) {
+        this.rsaPin = rsaPin;
+    }
 
     public static Enrollment create(EnrollmentPayload payload) {
         Enrollment enrollment = new Enrollment();
         enrollment.set_id(payload._id);
+        enrollment.setCreateAt(payload.createdAt);
+        enrollment.setRsaPin(payload.rsaPin);
+        enrollment.settPin(payload.tPin);
+        enrollment.setSubmitted(payload.sumbitted);
         enrollment.setEnrolled_by(payload.enrolled_by);
         if (payload.personal != null) {
             if (ServiceUtil.isPrimitive(payload.personal)) {
@@ -164,6 +217,14 @@ public class Enrollment implements Serializable {
 
     public String getSignature() {
         return signature;
+    }
+
+    public String getAgentSignature() {
+        return agentSignature;
+    }
+
+    public void setAgentSignature(String agentSignature) {
+        this.agentSignature = agentSignature;
     }
 
     public void setSignature(String signature) {

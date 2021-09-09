@@ -54,31 +54,124 @@
                 android:textColor="@color/whiteTextColor" />
 
         </RelativeLayout>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.evrencoskun.tableviewsample2.ui.MainFragment">
+            android:orientation="vertical">
 
-            <com.evrencoskun.tableview.TableView
-                android:id="@+id/tableView"
+            <RelativeLayout
+                android:id="@+id/relative1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:padding="5dp"
+                android:visibility="visible">
 
-                app:column_header_height="@dimen/table_view_cell_height"
-                app:row_header_width="@dimen/table_view_row_header_width"
-                app:selected_color="@color/selected_background_color"
-                app:shadow_color="@color/shadow_background_color"
-                app:unselected_color="@color/unselected_background_color"
-                app:separator_color="@color/separator_color"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:orientation="vertical">
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <HorizontalScrollView
+                                android:id="@+id/headerScroll"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/header_height">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/primaryColor"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/itemStartDate"
+                                        android:layout_width="150dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginStart="@dimen/margin"
+                                        android:layout_marginLeft="@dimen/margin"
+                                        android:gravity="center"
+                                        android:text="Name"
+                                        android:textAllCaps="true"
+                                        android:textColor="@android:color/white"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtOrderId"
+                                        android:layout_width="150dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginStart="@dimen/margin"
+                                        android:layout_marginLeft="@dimen/margin"
+                                        android:gravity="center"
+                                        android:text="Sign up Date"
+                                        android:textAllCaps="true"
+                                        android:textColor="@android:color/white"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtSection"
+                                        android:layout_width="150dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginStart="@dimen/margin"
+                                        android:layout_marginLeft="@dimen/margin"
+                                        android:gravity="center"
+                                        android:text="REG. Status"
+                                        android:textAllCaps="true"
+                                        android:textColor="@android:color/white"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtStaff"
+                                        android:layout_width="150dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginStart="@dimen/margin"
+                                        android:layout_marginLeft="@dimen/margin"
+                                        android:gravity="center"
+                                        android:text="RSA Pin"
+                                        android:textAllCaps="true"
+                                        android:textColor="@android:color/white"
+                                        android:textStyle="bold" />
+
+
+                                    <TextView
+                                        android:id="@+id/txtStatus"
+                                        android:layout_width="150dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginStart="@dimen/margin"
+                                        android:layout_marginLeft="@dimen/margin"
+                                        android:gravity="center"
+                                        android:text="ACTION"
+                                        android:textAllCaps="true"
+                                        android:textColor="@android:color/white"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                            </HorizontalScrollView>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                tools:listitem="@layout/list_enrollment_history_view" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+                <!--</ScrollView>-->
+
+            </RelativeLayout>
 
         </FrameLayout>
 

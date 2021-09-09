@@ -1,6 +1,7 @@
 package com.cas.veritasapp._di.builders;
 
 import com.cas.veritasapp.main.home.dialog.PreviewFragmentDialog;
+import com.cas.veritasapp.main.home.dialog.SignatureFragmentDialog;
 import com.cas.veritasapp.main.home.fragments.ContributionBioInfoFragment;
 import com.cas.veritasapp.main.home.fragments.EmploymentFragment;
 import com.cas.veritasapp.main.home.fragments.DashboardFragment;
@@ -50,6 +51,9 @@ public abstract class HomeFragmentBuilder {
 
     @ContributesAndroidInjector
     abstract PreviewFragmentDialog bindPreviewFragmentDialog();
+
+    @ContributesAndroidInjector
+    abstract SignatureFragmentDialog bindSignatureFragmentDialog();
 
     @ContributesAndroidInjector
     abstract HistoryFragment bindHistoryFragment();

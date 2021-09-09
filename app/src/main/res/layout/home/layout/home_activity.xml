@@ -3,40 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/container"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".main.temp_activities.MainActivity">
+        android:orientation="vertical">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-<!--        <fragment-->
-<!--            android:id="@+id/home_host_nav"-->
-<!--            android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:defaultNavHost="true"-->
-<!--            app:navGraph="@navigation/home_nav_graph" />-->
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:background="@color/primaryColor"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:subtitleTextColor="@color/whiteTextColor"-->
+<!--                app:titleTextColor="@color/whiteTextColor">-->
 
-        <FrameLayout
-            android:id="@+id/frame_container"
+<!--                <TextView-->
+<!--                    android:id="@+id/toolbarTitle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="left"-->
+<!--                    android:paddingLeft="10dp"-->
+<!--                    android:text="You are welcome"-->
+<!--                    android:gravity="center"-->
+<!--                    android:textColor="@color/whiteTextColor"-->
+<!--                    android:textSize="20dp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--            </androidx.appcompat.widget.Toolbar>-->
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                style="@style/AppTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/whiteTextColor" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:background="@color/whiteTextColor"
+            android:clipToPadding="false" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="?android:attr/windowBackground"
-            android:foreground="?attr/selectableItemBackground"
-            app:itemBackground="@color/textColor"
-            app:itemIconTint="@android:color/white"
-            app:itemTextColor="@android:color/white"
-            app:menu="@menu/navigation" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
 
 </layout>

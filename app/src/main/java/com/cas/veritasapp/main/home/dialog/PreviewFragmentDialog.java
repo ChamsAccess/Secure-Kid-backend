@@ -15,7 +15,10 @@ import com.cas.veritasapp.core.base.BaseDialogFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.databinding.PreviewDialogBinding;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
+import com.cas.veritasapp.objects.ContributionBio;
 import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.objects.Media;
+import com.cas.veritasapp.objects.PFACertification;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
 import com.cas.veritasapp.util.AppUtil;
@@ -82,42 +85,28 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
 
 
         if (enrollment != null) {
-            if (enrollment.getPhoto() != null && !enrollment.getPhoto().isEmpty()) {
-                File file = AppUtil.saveImage(context, enrollment.getPhoto());
-                if (file != null) {
-                    Picasso.get()
-                            .load(file)
-                            .placeholder(R.drawable.ic_passport)
-                            .into(binding.passportImageView);
-                }
-            } else {
-                if (enrollment.getContribution_bio() != null) {
-                    Picasso.get()
-                            .load(new File(enrollment.getContributionBioObject().getPassportUrl()))
-                            .placeholder(R.drawable.ic_passport)
-                            .into(binding.passportImageView);
-                }
-            }
-            if (enrollment.getSignature() != null && !enrollment.getSignature().isEmpty()) {
-                File file = AppUtil.saveImage(context, enrollment.getSignature());
-                if (file != null) {
-                    Picasso.get()
-                            .load(file)
-                            .placeholder(R.drawable.ic_passport)
-                            .into(binding.userSignatureImageView);
-                }
-            } else {
-                if (enrollment.getContribution_bio() != null) {
-                    Picasso.get()
-                            .load(new File(enrollment.getContributionBioObject().getPassportUrl()))
-                            .placeholder(R.drawable.ic_passport)
-                            .into(binding.userSignatureImageView);
-                }
-            }
-
-            if (enrollment.getPfa_certificationObject() != null) {
+            ContributionBio contributionBio = enrollment.getContributionBioObject();
+            PFACertification pfaCertification = enrollment.getPfa_certificationObject();
+            if (contributionBio != null) {
+                Media userPhotoMedia = contributionBio.getPassport();
+                Media userSignatureMedia = contributionBio.getSignature();
                 Picasso.get()
-                        .load(new File(enrollment.getPfa_certificationObject().getSignatureUrl()))
+                        .load((userPhotoMedia != null && !userPhotoMedia.file.url.isEmpty())
+                                ? userPhotoMedia.file.url : null)
+                        .placeholder(R.drawable.ic_passport)
+                        .into(binding.passportImageView);
+
+                Picasso.get()
+                        .load((userSignatureMedia != null && !userSignatureMedia.file.url.isEmpty())
+                                ? userSignatureMedia.file.url : null)
+                        .placeholder(R.drawable.ic_passport)
+                        .into(binding.userSignatureImageView);
+            }
+            if (pfaCertification != null) {
+                Media agentSignatureMedia = pfaCertification.getSignature();
+                Picasso.get()
+                        .load((agentSignatureMedia != null && !agentSignatureMedia.file.url.isEmpty())
+                                ? agentSignatureMedia.file.url : null)
                         .placeholder(R.drawable.ic_signature)
                         .into(binding.agentSignatureImageView);
             }
@@ -125,16 +114,20 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
 
 
         binding.saveBtn.setOnClickListener(v -> {
-            Map<String, Object> request = new HashMap<>();
             if (enrollment != null) {
+                Map<String, Object> request = new HashMap<>();
                 request.put("personal", enrollment.getPersonalObject());
                 request.put("next_of_kin", enrollment.getNextOfKinObject());
                 request.put("employment", enrollment.getEmploymentObject());
                 request.put("salary", enrollment.getSalaryObject());
                 request.put("pfa_certification", enrollment.getPfa_certificationObject());
                 request.put("contribution_bio", enrollment.getContributionBioObject());
+                if (enrollment.get_id() != null) {
+                    viewModel.senNewEnrollment(request).observe(getViewLifecycleOwner(), this::performAction);
+                } else {
+                    viewModel.updateEnrollment(request).observe(getViewLifecycleOwner(), this::performAction);
+                }
             }
-            viewModel.senNewEnrollment(request).observe(getViewLifecycleOwner(), this::performAction);
             hideProgressDialog();
             showToast("Enrollment was successful");
         });
@@ -153,7 +146,7 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
     @Override
     public void onLoad(String key) {
         super.onLoad(key);
-        if (AppConstant.CREATE_ENROLLMENT.equals(key))  {
+        if (AppConstant.CREATE_ENROLLMENT.equals(key)) {
             dismiss();
         }
         hideProgressDialog();

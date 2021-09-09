@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class PFACertification implements Serializable {
     public String pfa_code;
-    public String signature;
+    public Media signature;
     public String signatureUrl;
     public String user;
     public String enrolled_dated;
@@ -27,11 +27,11 @@ public class PFACertification implements Serializable {
         this.pfa_code = pfa_code;
     }
 
-    public String getSignature() {
+    public Media getSignature() {
         return signature;
     }
 
-    public void setSignature(String signature) {
+    public void setSignature(Media signature) {
         this.signature = signature;
     }
 
