@@ -52,7 +52,7 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
     private ContributionBio contributionBio;
 
     @Inject
-    EnrollmentViewModel enrollmentViewModel;
+    EnrollmentViewModel viewModel;
 
     @Override
     public int getLayoutId() {
@@ -70,7 +70,7 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = getViewDataBinding();
-        binding.setViewModel(enrollmentViewModel);
+        binding.setViewModel(viewModel);
         binding.executePendingBindings();
         binding.setLifecycleOwner(this);
 
@@ -79,6 +79,26 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
     }
 
     private void initApp() {
+        
+        if (viewModel.getCurrent() != null && viewModel.getCurrent().getContributionBioObject() != null){
+            ContributionBio contributionBio = viewModel.getCurrent().getContributionBioObject();
+            if (contributionBio != null) {
+                Media userPhotoMedia = contributionBio.getPassport();
+                Media userSignatureMedia = contributionBio.getSignature();
+                Picasso.get()
+                        .load((userPhotoMedia != null && !userPhotoMedia.file.url.isEmpty())
+                                ? userPhotoMedia.file.url : null)
+                        .placeholder(R.drawable.ic_passport)
+                        .into(binding.passportImageView);
+
+                Picasso.get()
+                        .load((userSignatureMedia != null && !userSignatureMedia.file.url.isEmpty())
+                                ? userSignatureMedia.file.url : null)
+                        .placeholder(R.drawable.ic_passport)
+                        .into(binding.signatureImageView);
+            }
+        }
+        
         contributionBio = new ContributionBio();
 
         binding.passportImageView.setOnClickListener(this);
@@ -90,7 +110,7 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
     }
 
     private void processFile() {
-        Enrollment enrollment = enrollmentViewModel.getCurrent();
+        Enrollment enrollment = viewModel.getCurrent();
         if (enrollment != null) {
             String photo = enrollment.getPhoto();
             String signature = enrollment.getSignature();
@@ -106,7 +126,6 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
                 byte[] signatureBytes = Base64.decode(signature.getBytes(), Base64.DEFAULT);
                 binding.signatureImageView.setImageBitmap(BitmapFactory.decodeByteArray(signatureBytes, 0, signatureBytes.length));
             }
-//            enrollment.setContributionBioObject(contributionBio);
         }
     }
 
@@ -133,7 +152,7 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
     private void uploadFile(File file, String key) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-        enrollmentViewModel.uploadFile(body, key).observe(getViewLifecycleOwner(), this::performAction);
+        viewModel.uploadFile(body, key).observe(getViewLifecycleOwner(), this::performAction);
     }
 
     @Override
@@ -154,16 +173,16 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
                 if (obj instanceof Media) {
                     Media media = (Media) obj;
                     contributionBio.setSignature(media);
-                    enrollmentViewModel.getCurrent().setPhoto(media.file.url);
-                    enrollmentViewModel.getCurrent().setContributionBioObject(contributionBio);
+                    viewModel.getCurrent().setPhoto(media.file.url);
+                    viewModel.getCurrent().setContributionBioObject(contributionBio);
                 }
                 break;
             case AppConstant.CAPTURE_USER_IMAGE_ACTION:
                 if (obj instanceof Media) {
                     Media media = (Media) obj;
                     contributionBio.setPassport(media);
-                    enrollmentViewModel.getCurrent().setSignature(media.file.url);
-                    enrollmentViewModel.getCurrent().setContributionBioObject(contributionBio);
+                    viewModel.getCurrent().setSignature(media.file.url);
+                    viewModel.getCurrent().setContributionBioObject(contributionBio);
                 }
                 break;
         }
@@ -191,7 +210,7 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
                 break;
             case R.id.saveBtn:
                 showToast("Contribution Bio info saved successfully");
-                enrollmentViewModel.getCurrent().setContributionBioObject(contributionBio);
+                viewModel.getCurrent().setContributionBioObject(contributionBio);
                 break;
         }
     }
@@ -200,7 +219,7 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
     public void onDatePick(Date dateSelected) {
         binding.contributedDate.setDate(dateSelected);
         contributionBio.setSignature_date(LazyDatePicker.dateToString(dateSelected, DATE_FORMAT));
-        enrollmentViewModel.getCurrent().setContributionBioObject(contributionBio);
+        viewModel.getCurrent().setContributionBioObject(contributionBio);
     }
 
     @Override

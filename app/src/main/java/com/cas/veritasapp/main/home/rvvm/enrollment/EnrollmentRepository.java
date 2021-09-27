@@ -3,19 +3,21 @@ package com.cas.veritasapp.main.home.rvvm.enrollment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PagedList;
 
 import com.cas.veritasapp.core.api.RetrofitRequest;
 import com.cas.veritasapp.core.api.services.EnrollmentService;
+import com.cas.veritasapp.core.api.services.ResourceService;
 import com.cas.veritasapp.core.base.BaseRepository;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.network.Resource;
+import com.cas.veritasapp.objects.Country;
 import com.cas.veritasapp.objects.Enrollment;
 import com.cas.veritasapp.objects.Media;
+import com.cas.veritasapp.objects.State;
+import com.cas.veritasapp.objects.Stats;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.objects.api.ApiResponse;
 import com.cas.veritasapp.objects.api._Meta;
@@ -29,7 +31,6 @@ import org.reactivestreams.Publisher;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -39,7 +40,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 @Singleton
 public class EnrollmentRepository implements BaseRepository<Enrollment, EnrollmentPayload> {
@@ -52,12 +52,13 @@ public class EnrollmentRepository implements BaseRepository<Enrollment, Enrollme
                     .build();
     private Context context;
     private EnrollmentService enrollmentService;
+    private ResourceService resourceService;
 
     @Inject
     public EnrollmentRepository(Context context) {
         this.context = context;
         this.enrollmentService = RetrofitRequest.createService(EnrollmentService.class, context);
-
+        this.resourceService = RetrofitRequest.createService(ResourceService.class, context);
     }
 
     private Flowable<Enrollment> performApiRequest(Flowable<ApiResponse<EnrollmentPayload>> enrollmentFlowable) {
@@ -71,6 +72,82 @@ public class EnrollmentRepository implements BaseRepository<Enrollment, Enrollme
                     return Flowable.just(enrollment);
                 });
 
+    }
+
+    @SuppressLint("CheckResult")
+    public MutableLiveData<Resource<List<Country>>> findCountries(Map<String, String> query) {
+        final MutableLiveData<Resource<List<Country>>> data = new MutableLiveData<>();
+        data.setValue(Resource.loading(null, AppConstant.FIND_COUNTRIES));
+        if (query == null){
+            query = new HashMap<>();
+        }
+        query.put("all", "true");
+        query.put("population", "[{\"path\": \"states\", \"populate\":\"lgas\", \"options\": {\"sort\": {\"name\": 1}}}]");
+        resourceService.findCountries(query)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResponse -> {
+                    LogUtil.write("country:::" + apiResponse.toString());
+                    _Meta meta = apiResponse.get_meta();
+                    if (meta.isSuccess()) {
+                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.FIND_COUNTRIES));
+                    }
+                }, error -> {
+                    ApiError apiError = AppUtil.getError(error);
+                    LogUtil.write("apiError:" + apiError.getMessage());
+                    data.setValue(Resource.error(apiError, AppConstant.FIND_COUNTRIES, null));
+                });
+        return data;
+    }
+
+    @SuppressLint("CheckResult")
+    public MutableLiveData<Resource<Country>> findCountry(String id, Map<String, String> query) {
+        final MutableLiveData<Resource<Country>> data = new MutableLiveData<>();
+        data.setValue(Resource.loading(null, AppConstant.FIND_COUNTRY));
+        if (query == null){
+            query = new HashMap<>();
+        }
+        query.put("population", "[{\"path\": \"states\", \"populate\":\"lgas\", \"select\":\"name code\",\"options\": {\"sort\": {\"name\": 1}}}]");
+        resourceService.findCountry(id, query)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResponse -> {
+                    LogUtil.write("one-country:::" + apiResponse.toString());
+                    _Meta meta = apiResponse.get_meta();
+                    if (meta.isSuccess()) {
+                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.FIND_COUNTRY));
+                    }
+                }, error -> {
+                    ApiError apiError = AppUtil.getError(error);
+                    LogUtil.write("apiError:" + apiError.getMessage());
+                    data.setValue(Resource.error(apiError, AppConstant.FIND_COUNTRY, null));
+                });
+        return data;
+    }
+
+    @SuppressLint("CheckResult")
+    public MutableLiveData<Resource<State>> findState(String id, Map<String, String> query) {
+        final MutableLiveData<Resource<State>> data = new MutableLiveData<>();
+        data.setValue(Resource.loading(null, AppConstant.FIND_STATE));
+        if (query == null){
+            query = new HashMap<>();
+        }
+        query.put("population", "[{\"path\": \"lgas\", \"select\": \"code name\",  \"options\":  {\"sort\": {\"name\": 1}}}]");
+        resourceService.findState(id, query)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResponse -> {
+                    LogUtil.write("one-state:::" + apiResponse.toString());
+                    _Meta meta = apiResponse.get_meta();
+                    if (meta.isSuccess()) {
+                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.FIND_STATE));
+                    }
+                }, error -> {
+                    ApiError apiError = AppUtil.getError(error);
+                    LogUtil.write("apiError:" + apiError.getMessage());
+                    data.setValue(Resource.error(apiError, AppConstant.FIND_STATE, null));
+                });
+        return data;
     }
 
     @SuppressLint("CheckResult")
@@ -136,9 +213,54 @@ public class EnrollmentRepository implements BaseRepository<Enrollment, Enrollme
         return data;
     }
 
+    @SuppressLint("CheckResult")
+    public MutableLiveData<Resource<Stats>> stats(Map<String, Object> query) {
+        final MutableLiveData<Resource<Stats>> data = new MutableLiveData<>();
+        data.setValue(Resource.loading(null, AppConstant.ENROLLMENT_STATS));
+        if (query ==  null){
+            query = new HashMap<>();
+        }
+        enrollmentService.stats(query)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResponse -> {
+                    LogUtil.write("Enrollment-STATS:::" + apiResponse.toString());
+                    _Meta meta = apiResponse.get_meta();
+                    if (meta.isSuccess()) {
+                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.ENROLLMENT_STATS));
+                    }
+                }, error -> {
+                    ApiError apiError = AppUtil.getError(error);
+                    LogUtil.write("apiError:" + apiError.getMessage());
+                    data.setValue(Resource.error(apiError, AppConstant.ENROLLMENT_STATS, null));
+                });
+        return data;
+    }
+
+    @SuppressLint("CheckResult")
+    public MutableLiveData<Resource<Enrollment>> updateEnrollment(String id, Map<String, Object> payload, HashMap map) {
+        final MutableLiveData<Resource<Enrollment>> data = new MutableLiveData<>();
+        data.setValue(Resource.loading(null, AppConstant.UPDATE_ENROLLMENT));
+        enrollmentService.updateEnrollment(id, payload, map)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResponse -> {
+                    LogUtil.write("Enrollment-DATA:::" + apiResponse.toString());
+//                    _Meta meta = apiResponse.get_meta();
+//                    if (meta.isSuccess()) {
+//                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.UPDATE_ENROLLMENT));
+//                    }
+                }, error -> {
+//                    ApiError apiError = AppUtil.getError(error);
+//                    LogUtil.write("apiError:" + apiError.getMessage());
+//                    data.setValue(Resource.error(apiError, AppConstant.CREATE_ENROLLMENT, null));
+                });
+        return data;
+    }
+
     @Override
-    public Flowable<Enrollment> create(EnrollmentPayload data, HashMap map) {
-        return performApiRequest(enrollmentService.createEnrollment(data, map));
+    public Flowable<Enrollment> create(EnrollmentPayload enrollmentPayload, HashMap map) {
+        return null;
     }
 
     public Flowable<List<Enrollment>> load(Map<String, String> query) {
@@ -151,8 +273,9 @@ public class EnrollmentRepository implements BaseRepository<Enrollment, Enrollme
     }
 
 
+    @SuppressLint("CheckResult")
     @Override
-    public Flowable<Enrollment> edit(String id, EnrollmentPayload data, HashMap hashMap) {
+    public Flowable<Enrollment> edit(String id, EnrollmentPayload enrollmentPayload, HashMap hashMap) {
         return null;
     }
 

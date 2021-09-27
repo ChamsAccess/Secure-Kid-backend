@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
-import com.cas.veritasapp.core.base.BaseStateAdapter;
+import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.databinding.FragmentEnrollmentBinding;
 import com.cas.veritasapp.main.adapter.EnrollmentAdapter;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.objects.Stats;
 import com.cas.veritasapp.objects.api.ApiError;
 
 import org.jetbrains.annotations.NotNull;
@@ -66,10 +66,11 @@ public class DashboardFragment extends BaseFragment<FragmentEnrollmentBinding> {
 
         initApp();
 
-        viewModel.getEnrollments(null).observe(getViewLifecycleOwner(), this::performAction);
     }
 
     private void initApp() {
+        initiateApiCall();
+
         enrollmentAdapter = new EnrollmentAdapter(viewRoot, enrollmentList);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireActivity());
@@ -83,9 +84,13 @@ public class DashboardFragment extends BaseFragment<FragmentEnrollmentBinding> {
 
         binding.pullToRefresh.setOnRefreshListener(() -> {
             binding.pullToRefresh.setRefreshing(true);
-            viewModel.getEnrollments(null).observe(getViewLifecycleOwner(), this::performAction);
+            initiateApiCall();
         });
+    }
 
+    private void initiateApiCall(){
+        viewModel.getEnrollments(null).observe(getViewLifecycleOwner(), this::performAction);
+        viewModel.stats(null).observe(getViewLifecycleOwner(), this::performAction);
     }
 
     @Override
@@ -93,16 +98,23 @@ public class DashboardFragment extends BaseFragment<FragmentEnrollmentBinding> {
         super.onLoad(key);
     }
 
-    @SuppressLint("WrongConstant")
+    @SuppressLint({"WrongConstant", "SetTextI18n"})
     @Override
     public void onSuccess(Object obj, String key) {
         super.onSuccess(obj, key);
         if (obj != null) {
-            if (obj instanceof List) {
-                binding.pullToRefresh.setRefreshing(false);
+            binding.pullToRefresh.setRefreshing(false);
+            if (obj instanceof List && key.equals(AppConstant.FIND_ENROLLMENT)) {
                 enrollmentList = (ArrayList<Enrollment>) obj;
                 if (!enrollmentList.isEmpty()) {
                     enrollmentAdapter.submitList(enrollmentList);
+                }
+            }
+            if (key.equals(AppConstant.ENROLLMENT_STATS)) {
+                Stats stats = (Stats) obj;
+                if (stats != null) {
+                    binding.totalPendingTextView.setText(Integer.toString(stats.getTotalPending()));
+                    binding.totalCompletedTextView.setText(Integer.toString(stats.getTotalCompleted()));
                 }
             }
         }

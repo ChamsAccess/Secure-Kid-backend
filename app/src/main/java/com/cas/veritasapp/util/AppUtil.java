@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.constant.AppConstant;
+import com.cas.veritasapp.objects.DropDownObject;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.objects.api.ApiResponse;
 import com.google.android.material.textfield.TextInputLayout;
@@ -159,6 +160,19 @@ public class AppUtil {
         cal.set(Calendar.MONTH, month - 1);
         cal.set(Calendar.YEAR, year);
         return cal;
+    }
+
+    public static int getSpinnerIndex(MaterialSpinner spinner, String myString) {
+        for (int i = 0; i < spinner.getItems().size(); i++){
+            if ((spinner.getItems().get(i) instanceof String
+                    && spinner.getItems().get(i).toString().equalsIgnoreCase(myString)) ||
+                    (spinner.getItems().get(i) instanceof DropDownObject
+                            && ((DropDownObject) spinner.getItems().get(i))
+                            .get_id().equals(myString))) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     public static String dateFormatter(Calendar calendar) {

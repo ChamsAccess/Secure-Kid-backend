@@ -99,9 +99,7 @@ public class HistoryFragment extends BaseFragment<FragmentHistoryBinding>
         if (obj != null) {
             if (obj instanceof List) {
                 enrollmentList = (ArrayList<Enrollment>) obj;
-                if (!enrollmentList.isEmpty()) {
-                    adapter.submitList(enrollmentList);
-                }
+                adapter.submitList(enrollmentList);
             }
         }
     }
@@ -118,8 +116,7 @@ public class HistoryFragment extends BaseFragment<FragmentHistoryBinding>
         }
         if (key.equals(AppConstant.ENROLLMENT) && obj != null) {
             Enrollment enrollment = (Enrollment) obj;
-            showToast(enrollment.get_id());
-            PreviewFragmentDialog dialog = new PreviewFragmentDialog(enrollment);
+            PreviewFragmentDialog dialog = new PreviewFragmentDialog(enrollment, AppConstant.UPDATE_ENROLLMENT);
             dialog.show(requireActivity().getSupportFragmentManager(), "Preview Data");
         }
     }

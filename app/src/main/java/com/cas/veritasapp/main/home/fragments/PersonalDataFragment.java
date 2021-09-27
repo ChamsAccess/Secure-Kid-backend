@@ -19,12 +19,17 @@ import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.databinding.FragmentPersonalDataBinding;
+import com.cas.veritasapp.main.adapter.DropDownAdapter;
 import com.cas.veritasapp.main.home.dialog.PreviewFragmentDialog;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentValidator;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
+import com.cas.veritasapp.objects.Country;
+import com.cas.veritasapp.objects.DropDownObject;
 import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.objects.LGA;
 import com.cas.veritasapp.objects.Location;
 import com.cas.veritasapp.objects.Personal;
+import com.cas.veritasapp.objects.State;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.objects.payloads.NinPayload;
 import com.cas.veritasapp.util.AppUtil;
@@ -33,8 +38,11 @@ import com.mikhaellopez.lazydatepicker.LazyDatePicker;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -44,7 +52,7 @@ import dagger.android.support.AndroidSupportInjection;
 public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBinding>
         implements View.OnClickListener,
         LazyDatePicker.OnDatePickListener, LazyDatePicker.OnDateSelectedListener,
-        MaterialSpinner.OnItemSelectedListener<String> {
+        MaterialSpinner.OnItemSelectedListener<DropDownObject> {
 
     FragmentPersonalDataBinding binding;
     private boolean dismissDialog = false;
@@ -55,6 +63,12 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
 
     @Inject
     EnrollmentViewModel viewModel;
+
+    private ArrayList<DropDownObject> dropDownObjectArrayList;
+
+    private String countryId;
+    private String stateId;
+    private String lgaId;
 
 
     @Override
@@ -98,8 +112,12 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
 
         this.initData();
 
-        binding.countrySpinner.setItems(AppConstant.COUNTRIES);
-        binding.stateSpinner.setItems(AppConstant.STATES);
+        viewModel.findCountries(null).observe(getViewLifecycleOwner(), this::performAction);
+
+
+        binding.countrySpinner.setOnItemSelectedListener(this);
+        binding.stateSpinner.setOnItemSelectedListener(this);
+        binding.lgaSpinner.setOnItemSelectedListener(this);
 
         binding.titleLinearLayout.setOnClickListener(this);
         binding.genderLinearLayout.setOnClickListener(this);
@@ -151,11 +169,11 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
         personal.setEmail(binding.emailEditText.getText().toString());
         personal.setMaiden(binding.maidenEditText.getText().toString());
         personal.setHouseNumber(binding.houseNumberEditText.getText().toString());
-        personal.setCountry(binding.countrySpinner.getText().toString());
+        personal.setCountry(countryId);
         Location location = new Location();
         location.setStreet(binding.streetEditText.getText().toString());
-        location.setStateCode(binding.stateSpinner.getText().toString());
-        location.setLga_code(binding.lgaCode.getText().toString());
+        location.setStateCode(stateId);
+        location.setLga_code(lgaId);
         location.setCity(binding.cityEditText.getText().toString());
         location.setZip_code(binding.zipCodeEditText.getText().toString());
         location.setPOBox(binding.POBoxEditText.getText().toString());
@@ -231,15 +249,64 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
     @Override
     public void onSuccess(Object obj, String key) {
         super.onSuccess(obj, key);
-        if (AppConstant.FIND_NIN_DATA.equals(key)) {
-            if (obj instanceof NinPayload) {
-                NinPayload payload = (NinPayload) obj;
-                Enrollment enrollment = NinPayload.getNINPayload(payload);
-                viewModel.setCurrent(enrollment);
-                bundle.putSerializable(AppConstant.ENROLLMENT, enrollment);
-                binding.findNinRelativeLayout.setVisibility(View.GONE);
-                binding.personalLinearLayout.setVisibility(View.VISIBLE);
+        if (obj != null) {
+            if (AppConstant.FIND_NIN_DATA.equals(key)) {
+                if (obj instanceof NinPayload) {
+                    NinPayload payload = (NinPayload) obj;
+                    Enrollment enrollment = NinPayload.getNINPayload(payload);
+                    viewModel.setCurrent(enrollment);
+                    bundle.putSerializable(AppConstant.ENROLLMENT, enrollment);
+                    binding.findNinRelativeLayout.setVisibility(View.GONE);
+                    binding.personalLinearLayout.setVisibility(View.VISIBLE);
+                }
             }
+            if (key.equals(AppConstant.FIND_COUNTRIES)) {
+                if (obj instanceof List) {
+                    ArrayList<Country> countries = (ArrayList<Country>) obj;
+                    if (countries != null && !countries.isEmpty()) {
+                        dropDownObjectArrayList = new ArrayList<>();
+                        for (Country country : countries) {
+                            DropDownObject dropDownObject = new DropDownObject(country.getId(), country.getName());
+                            dropDownObjectArrayList.add(dropDownObject);
+                        }
+                        DropDownAdapter dropDownAdapter = new DropDownAdapter(getContext(), dropDownObjectArrayList);
+                        dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        binding.countrySpinner.setAdapter(dropDownAdapter);
+
+//                        String id = countries.get(159).getId();
+//                        int index = AppUtil.getSpinnerIndex(binding.countrySpinner, id);
+//                        viewModel.findCountry(id, null).observe(getViewLifecycleOwner(), this::performAction);
+//                        binding.countrySpinner.setSelectedIndex(index);
+                    }
+                }
+            }
+            if (key.equals(AppConstant.FIND_COUNTRY)) {
+                Country country = (Country) obj;
+                if (country != null) {
+                    dropDownObjectArrayList = new ArrayList<>();
+                    for (State state : country.getStates()) {
+                        DropDownObject dropDownObject = new DropDownObject(state.getId(), state.getName());
+                        dropDownObjectArrayList.add(dropDownObject);
+                    }
+                    DropDownAdapter dropDownAdapter = new DropDownAdapter(getContext(), dropDownObjectArrayList);
+                    dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    binding.stateSpinner.setAdapter(dropDownAdapter);
+                }
+            }
+            if (key.equals(AppConstant.FIND_STATE)) {
+                State state = (State) obj;
+                if (state != null) {
+                    dropDownObjectArrayList = new ArrayList<>();
+                    for (LGA lga : state.getLgas()) {
+                        DropDownObject dropDownObject = new DropDownObject(lga.getId(), lga.getName());
+                        dropDownObjectArrayList.add(dropDownObject);
+                    }
+                    DropDownAdapter dropDownAdapter = new DropDownAdapter(getContext(), dropDownObjectArrayList);
+                    dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    binding.lgaSpinner.setAdapter(dropDownAdapter);
+                }
+            }
+
         }
     }
 
@@ -251,15 +318,22 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
     }
 
 
-
     @Override
-    public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+    public void onItemSelected(MaterialSpinner view, int position, long id, DropDownObject item) {
         switch (view.getId()) {
             case R.id.stateSpinner:
-                binding.stateSpinner.setText(item);
+                viewModel.findState(item.get_id(), null).observe(getViewLifecycleOwner(), this::performAction);
+                stateId = item.get_id();
+                binding.stateSpinner.setText(item.getName());
+                break;
+            case R.id.lgaSpinner:
+                binding.lgaSpinner.setText(item.getName());
+                lgaId = item.get_id();
                 break;
             case R.id.countrySpinner:
-                binding.countrySpinner.setText(item);
+                viewModel.findCountry(item.get_id(), null).observe(getViewLifecycleOwner(), this::performAction);
+                countryId = item.get_id();
+                binding.countrySpinner.setText(item.getName());
                 break;
         }
     }

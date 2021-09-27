@@ -293,65 +293,84 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/textColor"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="State Information"
+                        android:textColor="@color/whiteTextColor" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/spinner_border"
+                        android:orientation="horizontal">
+
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/countrySpinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/spinner_border"
+                            android:text="Select Country" />
+
+
+                    </LinearLayout>
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputLayout
+
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_weight="1"
-                            android:hint="LG Code">
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/spinner_border"
+                            android:orientation="horizontal">
 
-                            <EditText
-                                android:id="@+id/employeeLGCode"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:background="@drawable/rounded_edittext"
-                                android:text="@{viewModel.current.employmentObject.location.lga_code}"
-                                android:ems="10"
-                                android:inputType="text" />
+                            <com.jaredrummler.materialspinner.MaterialSpinner
+                                android:id="@+id/stateSpinner"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/spinner_border"
+                                android:text="Select State" />
+                        </LinearLayout>
 
-                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_weight="1"
-                            android:hint="State Code">
+                            android:background="@drawable/spinner_border"
+                            android:orientation="horizontal">
 
-                            <EditText
-                                android:id="@+id/employeeStateCodeEditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:background="@drawable/rounded_edittext"
-                                android:text="@{viewModel.current.employmentObject.location.stateCode}"
-                                android:ems="10"
-                                android:inputType="text" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:hint="P.O. Box / P.MB">
-
-                            <EditText
-                                android:id="@+id/employeePOXBoxEditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:background="@drawable/rounded_edittext"
-                                android:text="@{viewModel.current.employmentObject.location.POBox}"
-                                android:ems="10"
-                                android:inputType="text" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
+                            <com.jaredrummler.materialspinner.MaterialSpinner
+                                android:id="@+id/lgaSpinner"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/spinner_border"
+                                android:text="Select LGA" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -377,20 +396,27 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
-                            android:hint="CountryCode">
+                            android:hint="PO Box">
 
                             <EditText
-                                android:id="@+id/employeeCountryEditText"
+                                android:id="@+id/POBoxEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:background="@drawable/rounded_edittext"
                                 android:ems="10"
-                                android:text="@{viewModel.current.employmentObject.country}"
+                                android:text="@{viewModel.current.employmentObject.location.POBox}"
                                 android:inputType="text" />
 
                         </com.google.android.material.textfield.TextInputLayout>

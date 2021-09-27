@@ -112,11 +112,13 @@ public class FilterFragmentDialog extends DialogFragment implements
                 break;
             case R.id.searchButton:
                 Map<String, String> map = new HashMap<>();
-                map.put("startDate", startDate);
-                map.put("endDate", endDate);
+                map.put("startDate", startDate != null ? startDate : "");
+                map.put("endDate", endDate != null ? endDate : "");
                 map.put("search", binding.searchEditText.getText().toString());
-                map.put("registrationStatus", binding.registrationStatusSpinner.getText().toString());
-                map.put("rsaPin", binding.rsaPinStatusSpinner.getText().toString());
+                map.put("reg_status", !binding.registrationStatusSpinner.getText().toString().equals("Select REG Status")
+                ? binding.registrationStatusSpinner.getText().toString() : "");
+                map.put("rsa_status", !binding.rsaPinStatusSpinner.getText().toString().equals("Select RSP Status")
+                 ? binding.rsaPinStatusSpinner.getText().toString() : "");
                 listener.ontItemSelected(map, AppConstant.FILTER_ENROLLMENT);
                 dismiss();
                 break;

@@ -8,8 +8,11 @@ import androidx.lifecycle.MutableLiveData;
 import com.cas.veritasapp.core.base.CoreViewModel;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.network.Resource;
+import com.cas.veritasapp.objects.Country;
 import com.cas.veritasapp.objects.Enrollment;
 import com.cas.veritasapp.objects.Media;
+import com.cas.veritasapp.objects.State;
+import com.cas.veritasapp.objects.Stats;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
 import com.cas.veritasapp.objects.payloads.NinPayload;
@@ -39,12 +42,26 @@ public class EnrollmentViewModel extends CoreViewModel<
     public MutableLiveData<Resource<NinPayload>> findNin(Map<String, String> request){
         return enrollmentRepository.findNin(request);
     }
+
+    public MutableLiveData<Resource<List<Country>>> findCountries(Map<String, String> request){
+        return enrollmentRepository.findCountries(request);
+    }
+    public MutableLiveData<Resource<State>> findState(String id, Map<String, String> request){
+        return enrollmentRepository.findState(id, request);
+    }
+    public MutableLiveData<Resource<Country>> findCountry(String id, Map<String, String> request){
+        return enrollmentRepository.findCountry(id, request);
+    }
     public MutableLiveData<Resource<Media>> uploadFile(MultipartBody.Part requestBody, String key){
         return enrollmentRepository.uploadFile(requestBody, key);
     }
 
     public MutableLiveData<Resource<Enrollment>> senNewEnrollment(Map<String, Object> requestBody){
         return enrollmentRepository.senNewEnrollment(requestBody);
+    }
+
+    public MutableLiveData<Resource<Stats>> stats(Map<String, Object> query){
+        return enrollmentRepository.stats(query);
     }
 
     public MutableLiveData<Resource<Enrollment>> updateEnrollment(Map<String, Object> requestBody){
@@ -57,13 +74,12 @@ public class EnrollmentViewModel extends CoreViewModel<
         if (query == null){
             query = new HashMap<>();
         }
-        query.put("population", "[\"personal\", \"next_of_kin\", \"employment\", \"salary\", \"contribution_bio\"]");
         enrollments.setValue(Resource.loading(null));
         enrollmentRepository.load(query)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(current -> {
-                   enrollments.setValue(Resource.success(current, AppConstant.FIND_ENROLLMENT));
+                    enrollments.setValue(Resource.success(current, AppConstant.FIND_ENROLLMENT));
                 }, error -> {
                     ApiError apiError = AppUtil.getError(error);
                     enrollments.setValue(Resource.error(apiError, AppConstant.FIND_ENROLLMENT, null));

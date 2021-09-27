@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.26875" />
         <entry key="app/src/main/res/drawable/edittextstyle.xml" value="0.26979166666666665" />
         <entry key="app/src/main/res/drawable/ic_rabbit.xml" value="0.26979166666666665" />
         <entry key="app/src/main/res/layout/activity_preview.xml" value="0.335" />
         <entry key="app/src/main/res/layout/authentication/layout/activity_auth.xml" value="0.11727456940222898" />
         <entry key="app/src/main/res/layout/authentication/layout/fragment_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/drop_down_list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_signature.xml" value="0.1526509323726146" />
         <entry key="app/src/main/res/layout/home/layout/enrollment_history.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/layout/home/layout/filter_enrollment.xml" value="0.335" />

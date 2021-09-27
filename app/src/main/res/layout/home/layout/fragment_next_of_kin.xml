@@ -310,9 +310,23 @@
 
 
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/textColor"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="State Information"
+                        android:textColor="@color/whiteTextColor" />
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/spinner_border"
                         android:orientation="horizontal">
 
                         <com.jaredrummler.materialspinner.MaterialSpinner
@@ -320,47 +334,62 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
-                            android:background="@drawable/spinner_border"
                             android:layout_weight="1"
-                            android:text="Select Country"/>
+                            android:background="@drawable/spinner_border"
+                            android:text="Select Country" />
+
 
                     </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.jaredrummler.materialspinner.MaterialSpinner
-                            android:id="@+id/stateSpinner"
+
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
                             android:layout_marginBottom="10dp"
-                            android:background="@drawable/spinner_border"
                             android:layout_weight="1"
-                            android:text="Select State"/>
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/spinner_border"
+                            android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputLayout
+                            <com.jaredrummler.materialspinner.MaterialSpinner
+                                android:id="@+id/stateSpinner"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/spinner_border"
+                                android:text="Select State" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_weight="1"
-                            android:hint="LGA">
+                            android:background="@drawable/spinner_border"
+                            android:orientation="horizontal">
 
-                            <EditText
-                                android:id="@+id/lgaCodeEditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:background="@drawable/rounded_edittext"
-                                android:ems="10"
-                                android:text="@{viewModel.current.nextOfKinObject.location.lga_code}"
-                                android:inputType="text" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
+                            <com.jaredrummler.materialspinner.MaterialSpinner
+                                android:id="@+id/lgaSpinner"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/spinner_border"
+                                android:text="Select LGA" />
+                        </LinearLayout>
                     </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"

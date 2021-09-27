@@ -15,7 +15,6 @@
     </data>
 
 
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -36,7 +35,8 @@
                     android:id="@+id/findNinRelativeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -238,8 +238,8 @@
                                 <RadioButton
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:checked="@{viewModel.current.personalObject.maritalStatus.equals(`Ms`)}"
                                     android:layout_marginRight="15dp"
+                                    android:checked="@{viewModel.current.personalObject.maritalStatus.equals(`Ms`)}"
                                     android:text="Ms" />
 
                             </RadioGroup>
@@ -277,8 +277,8 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
                             android:hint="Surname">
 
                             <EditText
@@ -343,6 +343,7 @@
                                 android:text="@{viewModel.current.personalObject.email}" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -363,9 +364,9 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="Maiden"
                             app:errorEnabled="true"
-                            app:hintEnabled="true"
-                            android:hint="Maiden">
+                            app:hintEnabled="true">
 
                             <EditText
                                 android:id="@+id/maidenEditText"
@@ -480,8 +481,8 @@
                                 <RadioButton
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:checked="@{viewModel.current.personalObject.title.equals(`SP`)}"
                                     android:layout_marginRight="15dp"
+                                    android:checked="@{viewModel.current.personalObject.title.equals(`SP`)}"
                                     android:text="SP" />
 
                             </RadioGroup>
@@ -578,38 +579,73 @@
                             android:text="State Information"
                             android:textColor="@color/whiteTextColor" />
 
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/spinner_border"
+                            android:orientation="horizontal">
+
+                            <com.jaredrummler.materialspinner.MaterialSpinner
+                                android:id="@+id/countrySpinner"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/spinner_border"
+                                android:text="Select Country" />
+
+
+                        </LinearLayout>
+
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                            <com.jaredrummler.materialspinner.MaterialSpinner
-                                android:id="@+id/stateSpinner"
+
+                            <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
                                 android:layout_marginBottom="10dp"
-                                android:background="@drawable/spinner_border"
                                 android:layout_weight="1"
-                                android:text="Select State"/>
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/spinner_border"
+                                android:orientation="horizontal">
 
-                            <com.google.android.material.textfield.TextInputLayout
+                                <com.jaredrummler.materialspinner.MaterialSpinner
+                                    android:id="@+id/stateSpinner"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/spinner_border"
+                                    android:text="Select State" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
                                 android:layout_weight="1"
-                                android:hint="LGA">
+                                android:background="@drawable/spinner_border"
+                                android:orientation="horizontal">
 
-                                <EditText
-                                    android:id="@+id/lgaCode"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:background="@drawable/rounded_edittext"
-                                    android:ems="10"
-                                    android:text="@{viewModel.current.nextOfKinObject.location.lga_code}"
-                                    android:inputType="text" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
+                                <com.jaredrummler.materialspinner.MaterialSpinner
+                                    android:id="@+id/lgaSpinner"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/spinner_border"
+                                    android:text="Select LGA" />
+                            </LinearLayout>
                         </LinearLayout>
 
 
@@ -649,8 +685,8 @@
                                 <RadioButton
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:checked="@{!viewModel.current.personalObject.title.equals(`Nigeria`)}"
                                     android:layout_marginRight="15dp"
+                                    android:checked="@{!viewModel.current.personalObject.title.equals(`Nigeria`)}"
                                     android:text="Abroad" />
 
                             </RadioGroup>
@@ -674,8 +710,8 @@
                                     android:layout_height="50dp"
                                     android:background="@drawable/rounded_edittext"
                                     android:ems="10"
-                                    android:text="@{viewModel.current.personalObject.houseNumber}"
-                                    android:inputType="text" />
+                                    android:inputType="text"
+                                    android:text="@{viewModel.current.personalObject.houseNumber}" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -699,40 +735,6 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
-                                android:layout_weight="1"
-                                android:hint="State of Residence code">
-
-                                <EditText
-                                    android:id="@+id/stateResidentOriginEditText"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:background="@drawable/rounded_edittext"
-                                    android:text="@{viewModel.current.personalObject.stateOfOriginCode}"
-                                    android:ems="10"
-                                    android:inputType="text" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.jaredrummler.materialspinner.MaterialSpinner
-                                android:id="@+id/countrySpinner"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:background="@drawable/spinner_border"
-                                android:layout_weight="1"
-                                android:text="Select Country"/>
-
-                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -820,6 +822,7 @@
 
                         </LinearLayout>
                     </LinearLayout>
+
                     <Button
                         android:id="@+id/saveBtn"
                         android:layout_width="match_parent"

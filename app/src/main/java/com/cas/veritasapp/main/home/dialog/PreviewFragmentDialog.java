@@ -3,6 +3,7 @@ package com.cas.veritasapp.main.home.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseDialogFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.databinding.PreviewDialogBinding;
+import com.cas.veritasapp.main.home.HomeActivity;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.objects.ContributionBio;
 import com.cas.veritasapp.objects.Enrollment;
@@ -40,10 +42,12 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
 
     PreviewDialogBinding binding;
     private final Enrollment enrollment;
+    private String key;
 
-    public PreviewFragmentDialog(Enrollment enrollment) {
+    public PreviewFragmentDialog(Enrollment enrollment, String key) {
         super();
         this.enrollment = enrollment;
+        this.key = key;
     }
 
     @Override
@@ -79,6 +83,7 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
         this.initialize();
     }
 
+    @SuppressLint("SetTextI18n")
     private void initialize() {
         binding.setEnrollment(enrollment);
         binding.close.setOnClickListener(this);
@@ -112,6 +117,12 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
             }
         }
 
+        if (enrollment != null && (enrollment.get_id() != null && !enrollment.get_id().isEmpty())) {
+            binding.saveBtn.setText("Edit Information");
+        } else if (enrollment != null && (enrollment.get_id() != null && !enrollment.get_id().isEmpty())
+                && key.equals(AppConstant.UPDATE_ENROLLMENT)) {
+            binding.saveBtn.setText("Save All Edited Info");
+        }
 
         binding.saveBtn.setOnClickListener(v -> {
             if (enrollment != null) {
@@ -122,14 +133,26 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
                 request.put("salary", enrollment.getSalaryObject());
                 request.put("pfa_certification", enrollment.getPfa_certificationObject());
                 request.put("contribution_bio", enrollment.getContributionBioObject());
-                if (enrollment.get_id() != null) {
+                if (enrollment.get_id() == null) {
                     viewModel.senNewEnrollment(request).observe(getViewLifecycleOwner(), this::performAction);
+                    showToast("Enrollment was successful");
+                    return;
                 } else {
-                    viewModel.updateEnrollment(request).observe(getViewLifecycleOwner(), this::performAction);
+                    viewModel.setCurrent(enrollment);
+                    dismiss();
+                    showToast("Kindly go to New enrollment and update info");
+//                    bundle.putString("tabPosition", "2");
+//                    AppUtil.launchActivity(getActivity(), HomeActivity.class, bundle, false);
+                    return;
+//                    viewModel.updateEnrollment(request).observe(getViewLifecycleOwner(), this::performAction);
                 }
+//                if (enrollment.get_id() != null && key.equals(AppConstant.UPDATE_ENROLLMENT)) {
+////                    showToast("Enrollment Updated Successfully");
+////                    viewModel.updateEnrollment(request).observe(getViewLifecycleOwner(), this::performAction);
+//                }
             }
-            hideProgressDialog();
-            showToast("Enrollment was successful");
+//            hideProgressDialog();
+
         });
     }
 
@@ -149,6 +172,9 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
         if (AppConstant.CREATE_ENROLLMENT.equals(key)) {
             dismiss();
         }
+        if (AppConstant.UPDATE_ENROLLMENT.equals(key)) {
+            dismiss();
+        }
         hideProgressDialog();
     }
 
@@ -157,6 +183,14 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
         super.onSuccess(obj, key);
         hideProgressDialog();
         if (AppConstant.CREATE_ENROLLMENT.equals(key)) {
+            if (obj instanceof EnrollmentPayload) {
+                EnrollmentPayload payload = (EnrollmentPayload) obj;
+                if (payload != null) {
+                    showToast("Enrollment was successful");
+                }
+            }
+        }
+        if (AppConstant.UPDATE_ACTION.equals(key)) {
             if (obj instanceof EnrollmentPayload) {
                 EnrollmentPayload payload = (EnrollmentPayload) obj;
                 if (payload != null) {

@@ -1,5 +1,8 @@
 package com.cas.veritasapp.core.constant;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by funmiayinde on 2019-10-10.
  */
@@ -10,8 +13,8 @@ public class AppConstant {
     public static String[] MONTH_NAMES = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
             "Aug", "Sep", "Oct", "Nov", "Dec"};
 
-    public static String[] RSAPIN_STATUS = {"Available", "Pending",};
-    public static String[] REGISTRATION_STATUS = {"Complete", "Incomplete",};
+    public static String[] RSAPIN_STATUS = {"Select RSP Status","Available", "Pending",};
+    public static String[] REGISTRATION_STATUS = {"Select REG Status","Completed", "Incomplete",};
 
     public static final String TOKEN = "token";
     public static final String DATE = "date";
@@ -29,6 +32,7 @@ public class AppConstant {
     public static final String EDIT_ACTION = "edit_action";
     public static final String CREATE_ACTION = "create_action";
     public static final String UPDATE_ACTION = "update_action";
+    public static final String UPDATE_ENROLLMENT = "update_enrollment";
     public static final String CAPTURE_USER_IMAGE_ACTION = "capture_user_image_action";
     public static final String CAPTURE_USER_SIGNATURE_ACTION = "capture_user_signature_action";
     public static final String CAPTURE_AGENT_SIGNATURE_ACTION = "capture_agent_signature_action";
@@ -36,6 +40,7 @@ public class AppConstant {
     public static final String UPLOAD_ACTION = "upload_action";
 
     public static final String CREATE_ENROLLMENT = "create_enrollment_action";
+    public static final String ENROLLMENT_STATS = "enrollment_stats";
 
 
     public static final String PASSPORT = "passport";
@@ -46,8 +51,13 @@ public class AppConstant {
     public static final String ENROLLMENT = "enrollment";
 
     public static final String FIND_NIN_DATA = "find_nin_data";
+    public static final String FIND_COUNTRIES = "find_countries";
+    public static final String FIND_COUNTRY = "find_country";
+    public static final String FIND_STATES = "find_state";
+    public static final String FIND_STATE = "find_state";
 
     public static final String FIND_ENROLLMENT = "find_enrollment_data";
+    public static final String POPULATE_ENROLLMENT = "[\"personal\", \"next_of_kin\", \"employment\", \"salary\", \"contribution_bio\", \"pfa_certification.signature\"]";
 
     public static final String[] COUNTRIES = new String[]{"Select Country","Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
             "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas",
@@ -124,5 +134,6 @@ public class AppConstant {
             "Zamfara"
 
     };
+
 }
 

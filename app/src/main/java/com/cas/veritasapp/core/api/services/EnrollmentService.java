@@ -2,11 +2,13 @@ package com.cas.veritasapp.core.api.services;
 
 import static com.cas.veritasapp.core.api.Routes.ENROLLMENTS;
 import static com.cas.veritasapp.core.api.Routes.ENROLLMENTS_BY_ID;
+import static com.cas.veritasapp.core.api.Routes.ENROLLMENTS_STATS;
 import static com.cas.veritasapp.core.api.Routes.FIND_NIN_DATA;
 import static com.cas.veritasapp.core.api.Routes.MEDIAS;
 
 import com.cas.veritasapp.objects.Enrollment;
 import com.cas.veritasapp.objects.Media;
+import com.cas.veritasapp.objects.Stats;
 import com.cas.veritasapp.objects.api.ApiResponse;
 import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
 import com.cas.veritasapp.objects.payloads.NinPayload;
@@ -43,16 +45,20 @@ public interface EnrollmentService {
     Flowable<ApiResponse<Enrollment>> senNewEnrollment(@Body Map<String, Object> payload,
                                                        @QueryMap Map<String, String> query);
 
+    @PUT(ENROLLMENTS_BY_ID)
+    Flowable<ApiResponse<Enrollment>> updateEnrollment(@Path("id") String enrollmentId,
+//                                                     @Body Enrollment payload,
+                                                       @Body Map<String, Object> payload,
+                                                     @QueryMap Map<String, String> query);
+
     @GET(ENROLLMENTS)
     Flowable<ApiResponse<List<EnrollmentPayload>>> findEnrollments(@QueryMap Map<String, String> query);
 
+    @GET(ENROLLMENTS_STATS)
+    Flowable<ApiResponse<Stats>> stats(@QueryMap Map<String, Object> query);
+
     @GET(ENROLLMENTS_BY_ID)
     Flowable<ApiResponse<List<EnrollmentPayload>>> findEnrollment(@Path("id") String enrollmentId,
-                                                                  @QueryMap Map<String, String> query);
-
-    @PUT(ENROLLMENTS_BY_ID)
-    Flowable<ApiResponse<List<EnrollmentPayload>>> editEnrollment(@Path("id") String enrollmentId,
-                                                                  @Body EnrollmentPayload payload,
                                                                   @QueryMap Map<String, String> query);
 
     @DELETE(ENROLLMENTS_BY_ID)

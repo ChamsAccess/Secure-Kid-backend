@@ -87,6 +87,7 @@
                                     android:text="Total Pending"/>
 
                                 <TextView
+                                    android:id="@+id/totalPendingTextView"
                                     style="@style/viewParent.headerText"
                                     android:textSize="27sp"
                                     android:text="1"/>
@@ -110,6 +111,7 @@
                                     android:text="Total Completed"/>
 
                                 <TextView
+                                    android:id="@+id/totalCompletedTextView"
                                     style="@style/viewParent.headerText"
                                     android:textSize="27sp"
                                     android:text="0"/>

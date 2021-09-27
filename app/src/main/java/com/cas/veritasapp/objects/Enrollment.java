@@ -29,7 +29,7 @@ public class Enrollment implements Serializable {
     private String _id;
     private String enrolled_by;
     private String createAt;
-    public String createdAt;
+    private String createdAt;
     @SerializedName(value = "rsa_pin")
     private String rsaPin;
     @SerializedName(value = "t_pin")
@@ -62,7 +62,7 @@ public class Enrollment implements Serializable {
     private String pfa_certification;
 
     @TypeConverters(ContributionBioConverter.class)
-    public ContributionBio contributionBioObject;
+    private ContributionBio contributionBioObject;
     private String contribution_bio;
 
 
@@ -131,6 +131,14 @@ public class Enrollment implements Serializable {
                 enrollment.setPersonalObject(personal);
             }
         }
+        if (payload.next_of_kin != null) {
+            if (ServiceUtil.isPrimitive(payload.next_of_kin)) {
+                enrollment.setNext_of_kin(payload.next_of_kin.toString());
+            } else {
+                NextOfKin nextOfKin = ServiceUtil.getObjectValue(payload.next_of_kin, NextOfKin.class);
+                enrollment.setNextOfKinObject(nextOfKin);
+            }
+        }
         if (payload.employment != null) {
             if (ServiceUtil.isPrimitive(payload.employment)) {
                 enrollment.setEmployment(payload.employment.toString());
@@ -159,7 +167,7 @@ public class Enrollment implements Serializable {
             if (ServiceUtil.isPrimitive(payload.pfa_certification)) {
                 enrollment.setPfa_certification(payload.pfa_certification.toString());
             } else {
-                PFACertification pfaCertification = ServiceUtil.getObjectValue(payload.salary, PFACertification.class);
+                PFACertification pfaCertification = ServiceUtil.getObjectValue(payload.pfa_certification, PFACertification.class);
                 enrollment.setPfa_certificationObject(pfaCertification);
             }
         }

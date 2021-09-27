@@ -77,6 +77,17 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
     }
 
     private void initApp() {
+        if (viewModel.getCurrent() != null && viewModel.getCurrent().getPfa_certificationObject() != null) {
+            PFACertification pfaCertification = viewModel.getCurrent().getPfa_certificationObject();
+            if (pfaCertification != null) {
+                Media agentSignatureMedia = pfaCertification.getSignature();
+                Picasso.get()
+                        .load((agentSignatureMedia != null && !agentSignatureMedia.file.url.isEmpty())
+                                ? agentSignatureMedia.file.url : null)
+                        .placeholder(R.drawable.ic_signature)
+                        .into(binding.agentSignatureImageView);
+            }
+        }
         certification = new PFACertification();
 
         binding.agentSignatureImageView.setOnClickListener(this);
@@ -113,7 +124,9 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
         switch (v.getId()) {
             case R.id.saveBtn:
                 viewModel.getCurrent().setPfa_certificationObject(certification);
-                PreviewFragmentDialog dialog = new PreviewFragmentDialog(viewModel.getCurrent());
+                PreviewFragmentDialog dialog = new PreviewFragmentDialog(viewModel.getCurrent(),
+                        (viewModel.getCurrent() != null && viewModel.getCurrent().get_id() == null)
+                                ? AppConstant.CREATE_ENROLLMENT : AppConstant.UPDATE_ENROLLMENT);
                 dialog.show(requireActivity().getSupportFragmentManager(), "Preview Data");
                 break;
             case R.id.agentSignatureImageView:
