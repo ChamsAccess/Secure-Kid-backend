@@ -19,17 +19,10 @@ import androidx.annotation.Nullable;
 
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseDialogFragment;
-import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.listeners.OnItemSelectedListener;
 import com.cas.veritasapp.databinding.FragmentSignatureBinding;
-import com.cas.veritasapp.databinding.PreviewDialogBinding;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
-import com.cas.veritasapp.objects.Enrollment;
-import com.cas.veritasapp.objects.api.ApiError;
-import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
-import com.cas.veritasapp.util.AppUtil;
 import com.github.gcacace.signaturepad.views.SignaturePad;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;

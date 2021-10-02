@@ -1,12 +1,27 @@
-package com.cas.veritasapp.objects;
+package com.cas.veritasapp.core.data.entities;
+
+import androidx.room.Entity;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+@Entity(tableName = "section_classification")
 public class SectorClassification implements Serializable {
-    public boolean public_sector_employees;
-    public boolean private_sector_employees;
-    public boolean micro_pension_plan;
-    public boolean cross_border_employees;
+    @SerializedName(value = "_id")
+    private String _id;
+    private boolean public_sector_employees;
+    private boolean private_sector_employees;
+    private boolean micro_pension_plan;
+    private boolean cross_border_employees;
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
     public boolean isPublic_sector_employees() {
         return public_sector_employees;

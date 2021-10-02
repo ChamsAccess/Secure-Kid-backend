@@ -1,10 +1,10 @@
 package com.cas.veritasapp.objects.payloads;
 
-import com.cas.veritasapp.objects.Employment;
-import com.cas.veritasapp.objects.Enrollment;
-import com.cas.veritasapp.objects.Location;
-import com.cas.veritasapp.objects.NextOfKin;
-import com.cas.veritasapp.objects.Personal;
+import com.cas.veritasapp.core.data.entities.Employment;
+import com.cas.veritasapp.core.data.entities.Enrollment;
+import com.cas.veritasapp.core.data.entities.Location;
+import com.cas.veritasapp.core.data.entities.NextOfKin;
+import com.cas.veritasapp.core.data.entities.Personal;
 
 import java.io.Serializable;
 

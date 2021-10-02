@@ -21,8 +21,9 @@ import com.cas.veritasapp.main.home.dialog.PreviewFragmentDialog;
 import com.cas.veritasapp.main.home.dialog.SignatureFragmentDialog;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.objects.Media;
-import com.cas.veritasapp.objects.PFACertification;
+import com.cas.veritasapp.core.data.entities.PFACertification;
 import com.cas.veritasapp.objects.api.ApiError;
+import com.cas.veritasapp.util.AppUtil;
 import com.mikhaellopez.lazydatepicker.LazyDatePicker;
 import com.squareup.picasso.Picasso;
 
@@ -78,18 +79,25 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
 
     private void initApp() {
         if (viewModel.getCurrent() != null && viewModel.getCurrent().getPfa_certificationObject() != null) {
-            PFACertification pfaCertification = viewModel.getCurrent().getPfa_certificationObject();
-            if (pfaCertification != null) {
-                Media agentSignatureMedia = pfaCertification.getSignature();
+            certification = viewModel.getCurrent().getPfa_certificationObject();
+            if (certification != null) {
+                Media agentSignatureMedia = certification.getSignature();
                 Picasso.get()
                         .load((agentSignatureMedia != null && !agentSignatureMedia.file.url.isEmpty())
                                 ? agentSignatureMedia.file.url : null)
                         .placeholder(R.drawable.ic_signature)
                         .into(binding.agentSignatureImageView);
+            } else {
+                certification = new PFACertification();
             }
         }
-        certification = new PFACertification();
-
+        String enrolledDate = certification.getEnrolled_dated();
+        if (enrolledDate != null && !enrolledDate.isEmpty()) {
+            Date date = AppUtil.stringToDate(enrolledDate);
+            if (date != null) {
+                binding.enrolledDate.setDate(date);
+            }
+        }
         binding.agentSignatureImageView.setOnClickListener(this);
         binding.saveBtn.setOnClickListener(this);
     }

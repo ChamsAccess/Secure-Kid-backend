@@ -2,8 +2,7 @@ package com.cas.veritasapp.core.data.converters;
 
 import androidx.room.TypeConverter;
 
-import com.cas.veritasapp.objects.NextOfKin;
-import com.cas.veritasapp.objects.Personal;
+import com.cas.veritasapp.core.data.entities.NextOfKin;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

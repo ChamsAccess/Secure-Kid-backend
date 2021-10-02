@@ -17,10 +17,11 @@ import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.listeners.OnItemSelectedListener;
 import com.cas.veritasapp.databinding.FragmentHistoryBinding;
 import com.cas.veritasapp.main.adapter.HistoryEnrollmentAdapter;
+import com.cas.veritasapp.main.home.dialog.ErrorFragmentDialog;
 import com.cas.veritasapp.main.home.dialog.FilterFragmentDialog;
 import com.cas.veritasapp.main.home.dialog.PreviewFragmentDialog;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
-import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.util.FixedGridLayoutManager;
 
@@ -53,7 +54,7 @@ public class HistoryFragment extends BaseFragment<FragmentHistoryBinding>
     }
 
     @Override
-    public void onAttach(@NonNull @NotNull Context context) {
+    public void onAttach(@NonNull Context context) {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
     }
@@ -75,13 +76,14 @@ public class HistoryFragment extends BaseFragment<FragmentHistoryBinding>
         adapter = new HistoryEnrollmentAdapter(viewRoot, enrollmentList, this);
         adapter.setHasStableIds(true);
 
+        binding.filterButton.setOnClickListener(this);
+
         FixedGridLayoutManager manager = new FixedGridLayoutManager();
         manager.setTotalColumnCount(1);
         binding.recyclerView.setLayoutManager(manager);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
 
-        binding.filterButton.setOnClickListener(this);
     }
 
     private void fetchEnrollment(Map<String, String> map) {
@@ -116,8 +118,13 @@ public class HistoryFragment extends BaseFragment<FragmentHistoryBinding>
         }
         if (key.equals(AppConstant.ENROLLMENT) && obj != null) {
             Enrollment enrollment = (Enrollment) obj;
-            PreviewFragmentDialog dialog = new PreviewFragmentDialog(enrollment, AppConstant.UPDATE_ENROLLMENT);
+            PreviewFragmentDialog dialog = new PreviewFragmentDialog(enrollment, AppConstant.SHOW_ENROLLMENT_DETAILS);
             dialog.show(requireActivity().getSupportFragmentManager(), "Preview Data");
+        }
+        if (key.equals(AppConstant.ENROLLMENT_ERRORS)) {
+            Enrollment enrollment = (Enrollment) obj;
+            ErrorFragmentDialog dialog = new ErrorFragmentDialog(enrollment);
+            dialog.show(requireActivity().getSupportFragmentManager(), "Enrollment Errors");
         }
     }
 

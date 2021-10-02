@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * Created by funmiayinde on 2019-09-27.
  */
-@Entity
+@Entity(tableName = "users")
 public class User implements Serializable {
     private static final String TAG = User.class.getSimpleName();
 

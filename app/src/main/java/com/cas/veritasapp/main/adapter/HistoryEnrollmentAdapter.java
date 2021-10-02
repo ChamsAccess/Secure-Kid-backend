@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.listeners.OnItemSelectedListener;
-import com.cas.veritasapp.objects.Enrollment;
-import com.cas.veritasapp.util.DateTimeUnits;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.util.DateTimeUtils;
 
 import java.util.ArrayList;
@@ -29,6 +27,7 @@ public class HistoryEnrollmentAdapter extends RecyclerView.Adapter<HistoryEnroll
     private View viewRoot;
     private List<Enrollment> enrollmentList;
     private OnItemSelectedListener<Enrollment> listener;
+
     public HistoryEnrollmentAdapter(View viewRoot,
                                     ArrayList<Enrollment> enrollmentList,
                                     OnItemSelectedListener<Enrollment> listener) {
@@ -54,8 +53,8 @@ public class HistoryEnrollmentAdapter extends RecyclerView.Adapter<HistoryEnroll
     @Override
     public void onBindViewHolder(@NonNull HistoryEnrollmentViewHolder viewHolder, int position) {
         Enrollment enrollment = enrollmentList.get(position);
-        if (enrollment != null){
-            if (enrollment.getPersonalObject() != null){
+        if (enrollment != null) {
+            if (enrollment.getPersonalObject() != null) {
                 viewHolder.getFullNameTxtView().setText(
                         enrollment.getPersonalObject().getFirstName() + "-" + enrollment.getPersonalObject().getSurname());
                 viewHolder.createdAtTxtView.setText(DateTimeUtils.formatWithPattern(enrollment.getCreateAt(), AppConstant.DATE_PATTERN));
@@ -64,7 +63,10 @@ public class HistoryEnrollmentAdapter extends RecyclerView.Adapter<HistoryEnroll
                         : "Pending");
 
                 viewHolder.registrationStatusTextView.setText((enrollment.isSubmitted()) ? "Completed" : "Incomplete");
-                viewHolder.editBtn.setOnClickListener(v -> listener.ontItemSelected(enrollment,  AppConstant.ENROLLMENT));
+                viewHolder.editBtn.setOnClickListener(v -> listener.ontItemSelected(enrollment, AppConstant.ENROLLMENT));
+//                if (enrollment.isSubmitted() && enrollment.getStatus().equals("Processing")) {
+                    viewHolder.errorBtn.setOnClickListener(v -> listener.ontItemSelected(enrollment, AppConstant.ENROLLMENT_ERRORS));
+//                }
             }
         }
     }
@@ -91,6 +93,9 @@ public class HistoryEnrollmentAdapter extends RecyclerView.Adapter<HistoryEnroll
 
         @BindView(R.id.editBtn)
         Button editBtn;
+
+        @BindView(R.id.errorBtn)
+        Button errorBtn;
 
         View view;
 
@@ -119,6 +124,10 @@ public class HistoryEnrollmentAdapter extends RecyclerView.Adapter<HistoryEnroll
 
         public Button getEditBtn() {
             return editBtn;
+        }
+
+        public Button getErrorBtn() {
+            return errorBtn;
         }
 
         public View getView() {

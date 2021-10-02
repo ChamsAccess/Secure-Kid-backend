@@ -1,4 +1,4 @@
-package com.cas.veritasapp.objects;
+package com.cas.veritasapp.core.data.entities;
 
 import java.io.Serializable;
 

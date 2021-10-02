@@ -14,16 +14,15 @@ import androidx.annotation.RequiresApi;
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
-import com.cas.veritasapp.databinding.FragmentNewEnrollmentBinding;
 import com.cas.veritasapp.databinding.FragmentNextOfKinBinding;
 import com.cas.veritasapp.main.adapter.DropDownAdapter;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
-import com.cas.veritasapp.objects.Country;
+import com.cas.veritasapp.core.data.entities.Country;
 import com.cas.veritasapp.objects.DropDownObject;
-import com.cas.veritasapp.objects.LGA;
-import com.cas.veritasapp.objects.Location;
-import com.cas.veritasapp.objects.NextOfKin;
-import com.cas.veritasapp.objects.State;
+import com.cas.veritasapp.core.data.entities.LGA;
+import com.cas.veritasapp.core.data.entities.Location;
+import com.cas.veritasapp.core.data.entities.NextOfKin;
+import com.cas.veritasapp.core.data.entities.State;
 import com.cas.veritasapp.util.AppUtil;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
@@ -75,8 +74,9 @@ public class NextOfKinFragment extends BaseFragment<FragmentNextOfKinBinding> im
         initApp();
     }
 
-    private void initApp(){
-        nextOfKin = new NextOfKin();
+    private void initApp() {
+        nextOfKin = (viewModel.getCurrent() != null && viewModel.getCurrent().getNextOfKinObject() != null)
+                ? viewModel.getCurrent().getNextOfKinObject() : new NextOfKin();
 
         binding.saveBtn.setOnClickListener(this);
 
@@ -91,6 +91,12 @@ public class NextOfKinFragment extends BaseFragment<FragmentNextOfKinBinding> im
             RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
             nextOfKin.setTitle(radioButton.getText().toString());
         });
+
+        binding.genderRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            int titleRadioGroup = group.getCheckedRadioButtonId();
+            RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
+            nextOfKin.setGender(radioButton.getText().toString());
+        });
     }
 
     private void setNextOfKinData() {
@@ -103,6 +109,7 @@ public class NextOfKinFragment extends BaseFragment<FragmentNextOfKinBinding> im
         nextOfKin.setHouse_number(binding.houseNumberEditText.getText().toString());
         nextOfKin.setRelationship(binding.relationshipEditText.getText().toString());
         nextOfKin.setMiddle_name(binding.middleNameEditText.getText().toString());
+
 
         Location location = new Location();
         location.setStreet(binding.streetNameEditText.getText().toString());
@@ -133,10 +140,10 @@ public class NextOfKinFragment extends BaseFragment<FragmentNextOfKinBinding> im
                         dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         binding.countrySpinner.setAdapter(dropDownAdapter);
 
-                        String id = countries.get(159).getId();
-                        int index = AppUtil.getSpinnerIndex(binding.countrySpinner, id);
-                        viewModel.findCountry(id, null).observe(getViewLifecycleOwner(), this::performAction);
-                        binding.countrySpinner.setSelectedIndex(index);
+//                        String id = countries.get(159).getId();
+//                        int index = AppUtil.getSpinnerIndex(binding.countrySpinner, id);
+//                        viewModel.findCountry(id, null).observe(getViewLifecycleOwner(), this::performAction);
+//                        binding.countrySpinner.setSelectedIndex(index);
                     }
                 }
             }
@@ -171,12 +178,10 @@ public class NextOfKinFragment extends BaseFragment<FragmentNextOfKinBinding> im
     }
 
 
-
-
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.saveBtn:
                 setNextOfKinData();
                 showToast("Next of Kin data saved successfully");

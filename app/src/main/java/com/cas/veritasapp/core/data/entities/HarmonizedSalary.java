@@ -1,7 +1,10 @@
-package com.cas.veritasapp.objects;
+package com.cas.veritasapp.core.data.entities;
+
+import androidx.room.Entity;
 
 import java.io.Serializable;
 
+@Entity(tableName = "harmoinzed_salaries")
 public class HarmonizedSalary implements Serializable {
 
     public String salary_structure;

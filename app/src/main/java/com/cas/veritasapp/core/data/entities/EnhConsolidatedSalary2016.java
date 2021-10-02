@@ -1,11 +1,14 @@
-package com.cas.veritasapp.objects;
+package com.cas.veritasapp.core.data.entities;
+
+import androidx.room.Entity;
 
 import java.io.Serializable;
 
+@Entity(tableName = "enconsolidated_salary_2016")
 public class EnhConsolidatedSalary2016 implements Serializable {
-    public String salary_structure;
-    public String cls_at_2016;
-    public String step_at_2016;
+    private String salary_structure;
+    private String cls_at_2016;
+    private String step_at_2016;
 
     public String getSalary_structure() {
         return salary_structure;

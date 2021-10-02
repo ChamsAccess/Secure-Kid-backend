@@ -6,8 +6,8 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.cas.veritasapp.R;
-import com.cas.veritasapp.objects.Enrollment;
-import com.cas.veritasapp.objects.Personal;
+import com.cas.veritasapp.core.data.entities.Enrollment;
+import com.cas.veritasapp.core.data.entities.Personal;
 
 public class EnrollmentValidator {
 

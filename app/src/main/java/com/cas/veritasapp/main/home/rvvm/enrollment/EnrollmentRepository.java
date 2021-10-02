@@ -13,14 +13,15 @@ import com.cas.veritasapp.core.api.services.ResourceService;
 import com.cas.veritasapp.core.base.BaseRepository;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.network.Resource;
-import com.cas.veritasapp.objects.Country;
-import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.core.data.entities.Country;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.objects.Media;
-import com.cas.veritasapp.objects.State;
+import com.cas.veritasapp.core.data.entities.State;
 import com.cas.veritasapp.objects.Stats;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.objects.api.ApiResponse;
 import com.cas.veritasapp.objects.api._Meta;
+import com.cas.veritasapp.objects.payloads.EnrollmentErrorPayload;
 import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
 import com.cas.veritasapp.objects.payloads.NinPayload;
 import com.cas.veritasapp.util.AppUtil;
@@ -213,6 +214,7 @@ public class EnrollmentRepository implements BaseRepository<Enrollment, Enrollme
         return data;
     }
 
+
     @SuppressLint("CheckResult")
     public MutableLiveData<Resource<Stats>> stats(Map<String, Object> query) {
         final MutableLiveData<Resource<Stats>> data = new MutableLiveData<>();
@@ -238,22 +240,46 @@ public class EnrollmentRepository implements BaseRepository<Enrollment, Enrollme
     }
 
     @SuppressLint("CheckResult")
-    public MutableLiveData<Resource<Enrollment>> updateEnrollment(String id, Map<String, Object> payload, HashMap map) {
-        final MutableLiveData<Resource<Enrollment>> data = new MutableLiveData<>();
-        data.setValue(Resource.loading(null, AppConstant.UPDATE_ENROLLMENT));
-        enrollmentService.updateEnrollment(id, payload, map)
+    public MutableLiveData<Resource<EnrollmentErrorPayload>> getEnrollmentError(String id, Map<String, Object> query) {
+        final MutableLiveData<Resource<EnrollmentErrorPayload>> data = new MutableLiveData<>();
+        data.setValue(Resource.loading(null, AppConstant.GET_ENROLLMENT_ERROR));
+        if (query ==  null){
+            query = new HashMap<>();
+        }
+        enrollmentService.findEnrollmentErrors(id, query)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResponse -> {
-                    LogUtil.write("Enrollment-DATA:::" + apiResponse.toString());
-//                    _Meta meta = apiResponse.get_meta();
-//                    if (meta.isSuccess()) {
-//                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.UPDATE_ENROLLMENT));
-//                    }
+                    LogUtil.write("Enrollment-error:::" + apiResponse.toString());
+                    _Meta meta = apiResponse.get_meta();
+                    if (meta.isSuccess()) {
+                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.GET_ENROLLMENT_ERROR));
+                    }
                 }, error -> {
-//                    ApiError apiError = AppUtil.getError(error);
-//                    LogUtil.write("apiError:" + apiError.getMessage());
-//                    data.setValue(Resource.error(apiError, AppConstant.CREATE_ENROLLMENT, null));
+                    ApiError apiError = AppUtil.getError(error);
+                    LogUtil.write("apiError:" + apiError.getMessage());
+                    data.setValue(Resource.error(apiError, AppConstant.GET_ENROLLMENT_ERROR, null));
+                });
+        return data;
+    }
+
+    @SuppressLint("CheckResult")
+    public MutableLiveData<Resource<Enrollment>> updateEnrollment(String id, Map<String, Object> payload, HashMap map) {
+        final MutableLiveData<Resource<Enrollment>> data = new MutableLiveData<>();
+        data.setValue(Resource.loading(null, AppConstant.UPDATE_ENROLLMENT));
+        enrollmentService.updateEnrollment(id, payload, new HashMap<>())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResponse -> {
+                    LogUtil.write("Update-Enrollment-DATA:::" + apiResponse.toString());
+                    _Meta meta = apiResponse.get_meta();
+                    if (meta.isSuccess()) {
+                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.UPDATE_ENROLLMENT));
+                    }
+                }, error -> {
+                    ApiError apiError = AppUtil.getError(error);
+                    LogUtil.write("apiError:" + apiError.getMessage());
+                    data.setValue(Resource.error(apiError, AppConstant.UPDATE_ENROLLMENT, null));
                 });
         return data;
     }

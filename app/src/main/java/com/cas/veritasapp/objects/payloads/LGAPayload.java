@@ -1,21 +1,22 @@
-package com.cas.veritasapp.objects;
+package com.cas.veritasapp.objects.payloads;
 
+import com.cas.veritasapp.core.data.entities.LGA;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class LGA implements Serializable {
+public class LGAPayload implements Serializable {
     @SerializedName(value = "_id")
     public String id;
     public String name;
     public String code;
 
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
+    public static LGAPayload create(LGA lga){
+        LGAPayload payload = new LGAPayload();
+        payload.id = lga.getId();
+        payload.name = lga.getName();
+        payload.code = lga.getCode();
+        return payload;
     }
 
     public String getCode() {

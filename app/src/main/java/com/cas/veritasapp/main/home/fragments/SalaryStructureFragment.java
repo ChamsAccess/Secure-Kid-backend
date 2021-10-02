@@ -11,16 +11,15 @@ import androidx.annotation.RequiresApi;
 
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
-import com.cas.veritasapp.databinding.FragmentNewEnrollmentBinding;
 import com.cas.veritasapp.databinding.FragmentSalaryStructureBinding;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
-import com.cas.veritasapp.objects.ConsolidatedSalary;
+import com.cas.veritasapp.core.data.entities.ConsolidatedSalary;
 import com.cas.veritasapp.objects.CurrentSalary;
-import com.cas.veritasapp.objects.EnhConsolidatedSalary2010;
-import com.cas.veritasapp.objects.EnhConsolidatedSalary2013;
-import com.cas.veritasapp.objects.EnhConsolidatedSalary2016;
-import com.cas.veritasapp.objects.HarmonizedSalary;
-import com.cas.veritasapp.objects.Salary;
+import com.cas.veritasapp.core.data.entities.EnhConsolidatedSalary2010;
+import com.cas.veritasapp.core.data.entities.EnhConsolidatedSalary2013;
+import com.cas.veritasapp.core.data.entities.EnhConsolidatedSalary2016;
+import com.cas.veritasapp.core.data.entities.HarmonizedSalary;
+import com.cas.veritasapp.core.data.entities.Salary;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -61,7 +60,8 @@ public class SalaryStructureFragment extends BaseFragment<FragmentSalaryStructur
     }
 
     private void initApp() {
-        salary = new Salary();
+        salary = (viewModel.getCurrent() != null && viewModel.getCurrent().getSalaryObject() != null)
+            ? viewModel.getCurrent().getSalaryObject() : new Salary();
         binding.saveBtn.setOnClickListener(v -> {
             setSalaryData();
             showToast("Salary data saved successfully");

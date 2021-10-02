@@ -5,28 +5,22 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.Navigation;
 
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
-import com.cas.veritasapp.databinding.FragmentNewEnrollmentBinding;
 import com.cas.veritasapp.databinding.NinSearchBinding;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
-import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.objects.payloads.NinPayload;
-import com.cas.veritasapp.util.AppUtil;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,7 +56,7 @@ public class NINFragment extends BaseFragment<NinSearchBinding> implements View.
         binding.setLifecycleOwner(this);
         binding.skipButton.setOnClickListener(this);
         binding.searchNinButton.setOnClickListener(this);
-        binding.ninEditTxt.setText("17520041640");
+//        binding.ninEditTxt.setText("17520041640");
 
 
     }

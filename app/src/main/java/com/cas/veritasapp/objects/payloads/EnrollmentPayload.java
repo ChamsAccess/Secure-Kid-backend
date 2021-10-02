@@ -3,7 +3,7 @@ package com.cas.veritasapp.objects.payloads;
 
 import androidx.room.PrimaryKey;
 
-import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -20,7 +20,7 @@ public class EnrollmentPayload<T> implements Serializable {
     @SerializedName(value = "rsa_pin")
     public String rsaPin;
     @SerializedName(value = "t_pin")
-    public boolean sumbitted;
+    public boolean submitted;
     public String tPin;
     public T personal;
     public T next_of_kin;
