@@ -11,8 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cas.veritasapp.R;
-import com.cas.veritasapp.core.base.BaseStateAdapter;
-import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -232,6 +232,50 @@
                         android:background="@color/textColor"
                         android:gravity="center"
                         android:padding="5dp"
+                        android:text="Gender"
+                        android:textColor="@color/whiteTextColor" />
+
+                    <LinearLayout
+                        android:id="@+id/genderLinearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <RadioGroup
+                            android:id="@+id/genderRadioGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:checked="@{viewModel.current.nextOfKinObject.gender.equals(`Male`)}"
+                                android:text="Male" />
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:checked="@{viewModel.current.nextOfKinObject.title.equals(`Female`)}"
+                                android:text="Female" />
+
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/textColor"
+                        android:gravity="center"
+                        android:padding="5dp"
                         android:text="NOK’s Correspondence Address"
                         android:textColor="@color/whiteTextColor" />
 

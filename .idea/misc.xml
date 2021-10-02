@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/layout/home/layout/fragment_contribution_bio_cert.xml" value="0.25" />
         <entry key="app/src/main/res/layout/home/layout/fragment_employment.xml" value="0.335" />
         <entry key="app/src/main/res/layout/home/layout/fragment_enrollment.xml" value="0.21358428805237317" />
+        <entry key="app/src/main/res/layout/home/layout/fragment_enrollment_error.xml" value="0.2105978260869565" />
         <entry key="app/src/main/res/layout/home/layout/fragment_history.xml" value="0.20471014492753623" />
         <entry key="app/src/main/res/layout/home/layout/fragment_new_enrollment.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/layout/home/layout/fragment_next_of_kin.xml" value="0.25" />
@@ -23,6 +24,7 @@
         <entry key="app/src/main/res/layout/home/layout/fragment_pfa_cert.xml" value="0.25" />
         <entry key="app/src/main/res/layout/home/layout/fragment_salary_structure.xml" value="0.335" />
         <entry key="app/src/main/res/layout/home/layout/home_activity.xml" value="0.14945652173913043" />
+        <entry key="app/src/main/res/layout/home/layout/list_enrollment_error_view.xml" value="0.2105978260869565" />
         <entry key="app/src/main/res/layout/home/layout/list_enrollment_history_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/home/layout/nin_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/home/layout/preview_dialog.xml" value="0.335" />

@@ -9,7 +9,7 @@
 
         <variable
             name="enrollment"
-            type="com.cas.veritasapp.objects.Enrollment" />
+            type="com.cas.veritasapp.core.data.entities.Enrollment" />
 
         <variable
             name="viewModel"

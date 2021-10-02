@@ -33,6 +33,7 @@ public class AppConstant {
     public static final String CREATE_ACTION = "create_action";
     public static final String UPDATE_ACTION = "update_action";
     public static final String UPDATE_ENROLLMENT = "update_enrollment";
+    public static final String SHOW_ENROLLMENT_DETAILS = "show_enrollment_details";
     public static final String CAPTURE_USER_IMAGE_ACTION = "capture_user_image_action";
     public static final String CAPTURE_USER_SIGNATURE_ACTION = "capture_user_signature_action";
     public static final String CAPTURE_AGENT_SIGNATURE_ACTION = "capture_agent_signature_action";
@@ -41,6 +42,7 @@ public class AppConstant {
 
     public static final String CREATE_ENROLLMENT = "create_enrollment_action";
     public static final String ENROLLMENT_STATS = "enrollment_stats";
+    public static final String GET_ENROLLMENT_ERROR = "get_enrollment_error";
 
 
     public static final String PASSPORT = "passport";
@@ -49,6 +51,7 @@ public class AppConstant {
     public static final String SAVE_AGENT_SIGNATURE = "save_agent_signature";
     public static final String AGENT_SIGNATURE = "agent_signature";
     public static final String ENROLLMENT = "enrollment";
+    public static final String ENROLLMENT_ERRORS = "enrollment_errors";
 
     public static final String FIND_NIN_DATA = "find_nin_data";
     public static final String FIND_COUNTRIES = "find_countries";

@@ -2,18 +2,18 @@ package com.cas.veritasapp.main.home.rvvm.enrollment;
 
 import android.annotation.SuppressLint;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.cas.veritasapp.core.base.CoreViewModel;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.network.Resource;
-import com.cas.veritasapp.objects.Country;
-import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.core.data.entities.Country;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.objects.Media;
-import com.cas.veritasapp.objects.State;
+import com.cas.veritasapp.core.data.entities.State;
 import com.cas.veritasapp.objects.Stats;
 import com.cas.veritasapp.objects.api.ApiError;
+import com.cas.veritasapp.objects.payloads.EnrollmentErrorPayload;
 import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
 import com.cas.veritasapp.objects.payloads.NinPayload;
 import com.cas.veritasapp.util.AppUtil;
@@ -64,8 +64,12 @@ public class EnrollmentViewModel extends CoreViewModel<
         return enrollmentRepository.stats(query);
     }
 
-    public MutableLiveData<Resource<Enrollment>> updateEnrollment(Map<String, Object> requestBody){
-        return enrollmentRepository.senNewEnrollment(requestBody);
+    public MutableLiveData<Resource<EnrollmentErrorPayload>> getEnrollmentError(String id, Map<String, Object> query){
+        return enrollmentRepository.getEnrollmentError(id, query);
+    }
+
+    public MutableLiveData<Resource<Enrollment>> updateEnrollment(String id, Map<String, Object> requestBody){
+        return enrollmentRepository.updateEnrollment(id,requestBody, new HashMap());
     }
 
     @SuppressLint("CheckResult")

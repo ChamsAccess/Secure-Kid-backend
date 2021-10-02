@@ -1,9 +1,16 @@
-package com.cas.veritasapp.objects;
+package com.cas.veritasapp.core.data.entities;
+
+import androidx.room.Entity;
+
+import com.cas.veritasapp.objects.CurrentSalary;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+@Entity(tableName = "salaries")
 public class Salary implements Serializable {
-
+    @SerializedName(value = "_id")
+    public String _id;
     public HarmonizedSalary harmonized_salary_2004;
     public ConsolidatedSalary consolidated_salary_2010;
     public EnhConsolidatedSalary2010 enh_consolidated_salary_2010;

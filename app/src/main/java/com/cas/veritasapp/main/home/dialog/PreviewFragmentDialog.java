@@ -3,7 +3,6 @@ package com.cas.veritasapp.main.home.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +14,15 @@ import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseDialogFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.databinding.PreviewDialogBinding;
-import com.cas.veritasapp.main.home.HomeActivity;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
-import com.cas.veritasapp.objects.ContributionBio;
-import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.core.data.entities.ContributionBio;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.objects.Media;
-import com.cas.veritasapp.objects.PFACertification;
+import com.cas.veritasapp.core.data.entities.PFACertification;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
-import com.cas.veritasapp.util.AppUtil;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -133,26 +129,20 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
                 request.put("salary", enrollment.getSalaryObject());
                 request.put("pfa_certification", enrollment.getPfa_certificationObject());
                 request.put("contribution_bio", enrollment.getContributionBioObject());
-                if (enrollment.get_id() == null) {
+                if (enrollment.get_id() == null && key.equals(AppConstant.CREATE_ENROLLMENT)) {
                     viewModel.senNewEnrollment(request).observe(getViewLifecycleOwner(), this::performAction);
                     showToast("Enrollment was successful");
                     return;
-                } else {
+                } else if (enrollment.get_id() != null && key.equals(AppConstant.SHOW_ENROLLMENT_DETAILS)) {
                     viewModel.setCurrent(enrollment);
                     dismiss();
                     showToast("Kindly go to New enrollment and update info");
-//                    bundle.putString("tabPosition", "2");
-//                    AppUtil.launchActivity(getActivity(), HomeActivity.class, bundle, false);
-                    return;
-//                    viewModel.updateEnrollment(request).observe(getViewLifecycleOwner(), this::performAction);
+                } else {
+                    viewModel.updateEnrollment(enrollment.get_id(), request).observe(getViewLifecycleOwner(), this::performAction);
+                    showToast("Enrollment updated successfully");
+                    dismiss();
                 }
-//                if (enrollment.get_id() != null && key.equals(AppConstant.UPDATE_ENROLLMENT)) {
-////                    showToast("Enrollment Updated Successfully");
-////                    viewModel.updateEnrollment(request).observe(getViewLifecycleOwner(), this::performAction);
-//                }
             }
-//            hideProgressDialog();
-
         });
     }
 
@@ -190,13 +180,8 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
                 }
             }
         }
-        if (AppConstant.UPDATE_ACTION.equals(key)) {
-            if (obj instanceof EnrollmentPayload) {
-                EnrollmentPayload payload = (EnrollmentPayload) obj;
-                if (payload != null) {
-                    showToast("Enrollment was successful");
-                }
-            }
+        if (AppConstant.UPDATE_ENROLLMENT.equals(key)) {
+            showToast("Enrollment updated successfully");
         }
     }
 

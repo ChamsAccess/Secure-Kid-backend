@@ -1,43 +1,98 @@
-package com.cas.veritasapp.objects;
+package com.cas.veritasapp.core.data.entities;
 
 import androidx.annotation.NonNull;
 
+import com.cas.veritasapp.objects.payloads.CountryPayload;
+import com.cas.veritasapp.objects.payloads.EmploymentPayload;
+import com.cas.veritasapp.objects.payloads.LocationPayload;
+import com.cas.veritasapp.util.ServiceUtil;
 import com.google.gson.annotations.SerializedName;
 
-public class Employment {
-    @SerializedName(value = "sector_classification;")
-    public String sectorClassification;
+import java.io.Serializable;
+
+public class Employment implements Serializable {
+    @SerializedName(value = "_id")
+    private String id;
+    @SerializedName(value = "sector_classification")
+    private String sectorClassification;
     @SerializedName(value = "employerunder_ipps")
-    public String employerUnderIPPS;
+    private String employerUnderIPPS;
     @SerializedName(value = "employee_ipps_number")
-    public String employeeIPPSNumber;
+    private String employeeIPPSNumber;
     @SerializedName(value = "employer_name")
-    public String employerName;
+    private String employerName;
     @SerializedName(value = "employer_card_id")
-    public String employerCardId;
+    private String employerCardId;
     @SerializedName(value = "designation")
-    public String designation;
+    private String designation;
     @SerializedName(value = "date_of_first_appointment")
-    public String dateOfFirstAppointment;
+    private String dateOfFirstAppointment;
     @SerializedName(value = "date_of_current_employment")
-    public String dateOfCurrentEmployment;
+    private String dateOfCurrentEmployment;
     @SerializedName(value = "date_of_transfer_service")
-    public String dateOfTransferService;
+    private String dateOfTransferService;
     @SerializedName(value = "nature_of_business")
-    public String natureOfBusiness;
+    private String natureOfBusiness;
     @SerializedName(value = "service_id")
-    public String serviceId;
+    private String serviceId;
     @SerializedName(value = "employer_phone")
-    public String employerPhone;
+    private String employerPhone;
     @SerializedName(value = "date_joined")
-    public String dateJoined;
+    private String dateJoined;
     @SerializedName(value = "country_code")
-    public String countryCode;
-    public String country;
+    private String countryCode;
+
+    private String country;
+    private Country countryObject;
+
     @SerializedName(value = "house_number")
-    public String houseNumber;
+    private String houseNumber;
+
     @SerializedName(value = "office_location")
-    public Location location;
+    private Location location;
+
+    public static Employment create(EmploymentPayload payload){
+        Employment employment = new Employment();
+        employment.setId(payload.id);
+        employment.setEmployeeIPPSNumber(payload.employeeIPPSNumber);
+        employment.setSectorClassification(payload.sectorClassification);
+        employment.setEmployerUnderIPPS(payload.employerUnderIPPS);
+        employment.setEmployerCardId(payload.employerCardId);
+        employment.setDesignation(payload.designation);
+        employment.setDateOfFirstAppointment(payload.dateOfFirstAppointment);
+        employment.setDateOfCurrentEmployment(payload.dateOfCurrentEmployment);
+        employment.setDateOfTransferService(payload.dateOfTransferService);
+        employment.setNatureOfBusiness(payload.natureOfBusiness);
+        employment.setServiceId(payload.serviceId);
+        employment.setEmployerPhone(payload.employerPhone);
+        employment.setDateJoined(payload.dateJoined);
+        employment.setCountryCode(payload.countryCode);
+        employment.setHouseNumber(payload.houseNumber);
+        if (payload.country != null) {
+            if (ServiceUtil.isPrimitive(payload.country)) {
+                employment.setCountry(payload.country.toString());
+            } else {
+                CountryPayload countryPayload = ServiceUtil.getObjectValue(payload.country, CountryPayload.class);
+                employment.setCountryObject(Country.create(countryPayload));
+                employment.setCountry(countryPayload.id);
+            }
+        }
+        if (payload.location != null) {
+            if (ServiceUtil.isPrimitive(payload.location)) {
+                LocationPayload locationPayload = ServiceUtil.getObjectValue(payload.location, LocationPayload.class);
+                employment.setLocation(Location.create(locationPayload));
+            }
+        }
+        return employment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getSectorClassification() {
         return sectorClassification;
@@ -117,6 +172,14 @@ public class Employment {
 
     public void setNatureOfBusiness(String natureOfBusiness) {
         this.natureOfBusiness = natureOfBusiness;
+    }
+
+    public Country getCountryObject() {
+        return countryObject;
+    }
+
+    public void setCountryObject(Country countryObject) {
+        this.countryObject = countryObject;
     }
 
     public String getServiceId() {

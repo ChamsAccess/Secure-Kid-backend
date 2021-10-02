@@ -108,7 +108,7 @@
                                     style="@style/reportContentText"
                                     android:textColor="@color/textColor"
                                     android:textStyle="bold"
-                                    android:text="Total Completed"/>
+                                    android:text="Total Submitted"/>
 
                                 <TextView
                                     android:id="@+id/totalCompletedTextView"

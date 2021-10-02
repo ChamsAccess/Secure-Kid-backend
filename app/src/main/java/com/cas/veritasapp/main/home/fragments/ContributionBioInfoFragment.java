@@ -21,8 +21,8 @@ import com.cas.veritasapp.core.listeners.OnItemSelectedListener;
 import com.cas.veritasapp.databinding.FragmentContributionBioCertBinding;
 import com.cas.veritasapp.main.home.dialog.SignatureFragmentDialog;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
-import com.cas.veritasapp.objects.ContributionBio;
-import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.core.data.entities.ContributionBio;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.objects.Media;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.util.AppUtil;
@@ -79,8 +79,8 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
     }
 
     private void initApp() {
-        
-        if (viewModel.getCurrent() != null && viewModel.getCurrent().getContributionBioObject() != null){
+
+        if (viewModel.getCurrent() != null && viewModel.getCurrent().getContributionBioObject() != null) {
             ContributionBio contributionBio = viewModel.getCurrent().getContributionBioObject();
             if (contributionBio != null) {
                 Media userPhotoMedia = contributionBio.getPassport();
@@ -98,12 +98,21 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
                         .into(binding.signatureImageView);
             }
         }
-        
-        contributionBio = new ContributionBio();
+
+        contributionBio = (viewModel.getCurrent() != null && viewModel.getCurrent().getContributionBioObject() != null)
+                ? viewModel.getCurrent().getContributionBioObject() : new ContributionBio();
 
         binding.passportImageView.setOnClickListener(this);
         binding.signatureImageView.setOnClickListener(this);
         binding.saveBtn.setOnClickListener(this);
+
+        String signatureDate = contributionBio.getSignature_date();
+        if (signatureDate != null && !signatureDate.isEmpty()) {
+            Date date = AppUtil.stringToDate(signatureDate);
+            if (date != null) {
+                binding.contributedDate.setDate(date);
+            }
+        }
 
         processFile();
 

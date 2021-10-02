@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,19 +15,15 @@ import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.databinding.FragmentEmploymentBinding;
-import com.cas.veritasapp.databinding.FragmentEnrollmentBinding;
-import com.cas.veritasapp.databinding.FragmentNewEnrollmentBinding;
 import com.cas.veritasapp.main.adapter.DropDownAdapter;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
-import com.cas.veritasapp.objects.Country;
+import com.cas.veritasapp.core.data.entities.Country;
 import com.cas.veritasapp.objects.DropDownObject;
-import com.cas.veritasapp.objects.Employment;
-import com.cas.veritasapp.objects.Enrollment;
-import com.cas.veritasapp.objects.LGA;
-import com.cas.veritasapp.objects.Location;
-import com.cas.veritasapp.objects.State;
+import com.cas.veritasapp.core.data.entities.Employment;
+import com.cas.veritasapp.core.data.entities.LGA;
+import com.cas.veritasapp.core.data.entities.Location;
+import com.cas.veritasapp.core.data.entities.State;
 import com.cas.veritasapp.objects.api.ApiError;
-import com.cas.veritasapp.objects.payloads.NinPayload;
 import com.cas.veritasapp.util.AppUtil;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.mikhaellopez.lazydatepicker.LazyDatePicker;
@@ -79,7 +74,8 @@ public class EmploymentFragment extends BaseFragment<FragmentEmploymentBinding>
         binding.setViewModel(viewModel);
         binding.executePendingBindings();
         binding.setLifecycleOwner(this);
-        employment = new Employment();
+        employment = (viewModel.getCurrent() != null && viewModel.getCurrent().getEmploymentObject() != null)
+                ? viewModel.getCurrent().getEmploymentObject() : new Employment();
         this.initApp();
     }
 
@@ -90,6 +86,21 @@ public class EmploymentFragment extends BaseFragment<FragmentEmploymentBinding>
         binding.countrySpinner.setOnItemSelectedListener(this);
         binding.stateSpinner.setOnItemSelectedListener(this);
         binding.lgaSpinner.setOnItemSelectedListener(this);
+
+        if (employment.getDateJoined() != null) {
+            binding.dateJoined.setDate(AppUtil.stringToDate(employment.getDateJoined()));
+        }
+        if (employment.getDateOfCurrentEmployment() != null) {
+            Date date = AppUtil.stringToDate(employment.getDateOfCurrentEmployment());
+            binding.dateOfCurrentEmployment.setDate(AppUtil
+                    .stringToDate(LazyDatePicker.dateToString(date, DATE_FORMAT)));
+        }
+        if (employment.getDateOfFirstAppointment() != null) {
+            binding.dateOfFirstAppointment.setDate(AppUtil.stringToDate(employment.getDateOfFirstAppointment()));
+        }
+        if (employment.getDateOfTransferService() != null) {
+            binding.dateOfTransferService.setDate(AppUtil.stringToDate(employment.getDateOfTransferService()));
+        }
 
         binding.dateJoined.setOnDatePickListener(dateSelected -> {
             binding.dateJoined.setDate(dateSelected);
@@ -154,7 +165,6 @@ public class EmploymentFragment extends BaseFragment<FragmentEmploymentBinding>
     }
 
 
-
     @Override
     public void onSuccess(Object obj, String key) {
         super.onSuccess(obj, key);
@@ -172,10 +182,10 @@ public class EmploymentFragment extends BaseFragment<FragmentEmploymentBinding>
                         dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         binding.countrySpinner.setAdapter(dropDownAdapter);
 
-                        String id = countries.get(159).getId();
-                        int index = AppUtil.getSpinnerIndex(binding.countrySpinner, id);
-                        viewModel.findCountry(id, null).observe(getViewLifecycleOwner(), this::performAction);
-                        binding.countrySpinner.setSelectedIndex(index);
+//                        String id = countries.get(159).getId();
+//                        int index = AppUtil.getSpinnerIndex(binding.countrySpinner, id);
+//                        viewModel.findCountry(id, null).observe(getViewLifecycleOwner(), this::performAction);
+//                        binding.countrySpinner.setSelectedIndex(index);
                     }
                 }
             }

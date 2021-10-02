@@ -6,10 +6,12 @@ import static com.cas.veritasapp.core.api.Routes.ENROLLMENTS_STATS;
 import static com.cas.veritasapp.core.api.Routes.FIND_NIN_DATA;
 import static com.cas.veritasapp.core.api.Routes.MEDIAS;
 
-import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.core.api.Routes;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.objects.Media;
 import com.cas.veritasapp.objects.Stats;
 import com.cas.veritasapp.objects.api.ApiResponse;
+import com.cas.veritasapp.objects.payloads.EnrollmentErrorPayload;
 import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
 import com.cas.veritasapp.objects.payloads.NinPayload;
 
@@ -18,11 +20,8 @@ import java.util.Map;
 
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -47,7 +46,6 @@ public interface EnrollmentService {
 
     @PUT(ENROLLMENTS_BY_ID)
     Flowable<ApiResponse<Enrollment>> updateEnrollment(@Path("id") String enrollmentId,
-//                                                     @Body Enrollment payload,
                                                        @Body Map<String, Object> payload,
                                                      @QueryMap Map<String, String> query);
 
@@ -60,6 +58,10 @@ public interface EnrollmentService {
     @GET(ENROLLMENTS_BY_ID)
     Flowable<ApiResponse<List<EnrollmentPayload>>> findEnrollment(@Path("id") String enrollmentId,
                                                                   @QueryMap Map<String, String> query);
+
+    @GET(Routes.ENROLLMENTS_ERROR)
+    Flowable<ApiResponse<EnrollmentErrorPayload>> findEnrollmentErrors(@Path("id") String enrollmentId,
+                                                                       @QueryMap Map<String, Object> query);
 
     @DELETE(ENROLLMENTS_BY_ID)
     Flowable<ApiResponse<List<EnrollmentPayload>>> deleteEnrollment(@Path("id") String enrollmentId,

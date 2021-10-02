@@ -1,5 +1,6 @@
 package com.cas.veritasapp._di.builders;
 
+import com.cas.veritasapp.main.home.dialog.ErrorFragmentDialog;
 import com.cas.veritasapp.main.home.dialog.PreviewFragmentDialog;
 import com.cas.veritasapp.main.home.dialog.SignatureFragmentDialog;
 import com.cas.veritasapp.main.home.fragments.ContributionBioInfoFragment;
@@ -51,6 +52,9 @@ public abstract class HomeFragmentBuilder {
 
     @ContributesAndroidInjector
     abstract PreviewFragmentDialog bindPreviewFragmentDialog();
+
+    @ContributesAndroidInjector
+    abstract ErrorFragmentDialog bindErrorFragmentDialog();
 
     @ContributesAndroidInjector
     abstract SignatureFragmentDialog bindSignatureFragmentDialog();

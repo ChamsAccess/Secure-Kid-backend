@@ -9,7 +9,7 @@
 
         <variable
             name="enrollment"
-            type="com.cas.veritasapp.objects.Enrollment" />
+            type="com.cas.veritasapp.core.data.entities.Enrollment" />
 
         <variable
             name="viewModel"
@@ -427,7 +427,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="0.4"
-                                            android:text="@{enrollment.personalObject.stateOfOriginCode}"
+                                            android:text="@{enrollment.personalObject.stateObject.name}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="Ayinde" />
@@ -483,7 +483,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="0.4"
-                                            android:text="@{enrollment.personalObject.country}"
+                                            android:text="@{enrollment.personalObject.countryObject.name}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="Ayinde" />
@@ -598,7 +598,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="0.4"
-                                        android:text="@{enrollment.personalObject.location.lga_code}"
+                                        android:text="@{enrollment.personalObject.location.lgaObject.name}"
                                         android:textColor="#5a5656"
                                         android:textSize="14sp"
                                         tools:text="Ayinde" />
@@ -832,7 +832,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="0.4"
                                             android:fontFamily="@font/custom_font_2"
-                                            android:text="@{enrollment.employmentObject.country}"
+                                            android:text="@{enrollment.employmentObject.countryObject.name}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="203030333" />
@@ -928,7 +928,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="0.4"
                                             android:fontFamily="@font/custom_font_2"
-                                            android:text="@{enrollment.employmentObject.location.lga_code}"
+                                            android:text="@{enrollment.employmentObject.location.lgaObject.name}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="203030333" />
@@ -960,7 +960,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="0.4"
                                             android:fontFamily="@font/custom_font_2"
-                                            android:text="@{enrollment.employmentObject.location.stateCode}"
+                                            android:text="@{enrollment.employmentObject.location.stateObject.name}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="203030333" />
@@ -1024,7 +1024,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="0.4"
                                             android:fontFamily="@font/custom_font_2"
-                                            android:text="@{enrollment.employmentObject.country}"
+                                            android:text="@{enrollment.employmentObject.countryObject.name}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="203030333" />
@@ -1459,7 +1459,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="0.4"
                                             android:fontFamily="@font/custom_font_2"
-                                            android:text="@{enrollment.nextOfKinObject.country}"
+                                            android:text="@{enrollment.nextOfKinObject.countryObject.name}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="203030333" />
@@ -1491,7 +1491,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="0.4"
                                             android:fontFamily="@font/custom_font_2"
-                                            android:text=""
+                                            android:text="@{enrollment.nextOfKinObject.house_number}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="203030333" />
@@ -1587,7 +1587,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="0.4"
                                             android:fontFamily="@font/custom_font_2"
-                                            android:text="@{enrollment.nextOfKinObject.location.lga_code}"
+                                            android:text="@{enrollment.nextOfKinObject.location.lgaObject.name}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="203030333" />
@@ -1652,7 +1652,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="0.4"
                                             android:fontFamily="@font/custom_font_2"
-                                            android:text=""
+                                            android:text="@{enrollment.nextOfKinObject.location.zip_code}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="203030333" />
@@ -1684,7 +1684,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="0.4"
                                             android:fontFamily="@font/custom_font_2"
-                                            android:text="@{enrollment.nextOfKinObject.country}"
+                                            android:text="@{enrollment.nextOfKinObject.countryObject.name}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="203030333" />

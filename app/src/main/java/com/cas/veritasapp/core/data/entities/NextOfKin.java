@@ -1,8 +1,18 @@
-package com.cas.veritasapp.objects;
+package com.cas.veritasapp.core.data.entities;
+
+import androidx.room.Entity;
+
+import com.cas.veritasapp.objects.payloads.CountryPayload;
+import com.cas.veritasapp.objects.payloads.LocationPayload;
+import com.cas.veritasapp.objects.payloads.NextOfKinPayload;
+import com.cas.veritasapp.util.ServiceUtil;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+@Entity(tableName = "next_of_kins")
 public class NextOfKin implements Serializable {
+    @SerializedName(value = "_id")
     public String _id;
     public String title;
     public String first_name;
@@ -14,9 +24,43 @@ public class NextOfKin implements Serializable {
     public String country_code;
     public String gender;
     public String nationality;
+
     public String country;
+    public Country countryObject;
+
     public String house_number;
     public Location location;
+
+
+    public static NextOfKin create(NextOfKinPayload payload) {
+        NextOfKin nextOfKin = new NextOfKin();
+        nextOfKin.set_id(payload._id);
+        nextOfKin.setTitle(payload.title);
+        nextOfKin.setFirst_name(payload.first_name);
+        nextOfKin.setSurname(payload.surname);
+        nextOfKin.setMiddle_name(payload.middle_name);
+        nextOfKin.setPhone_number(payload.phone_number);
+        nextOfKin.setEmail(payload.email);
+        nextOfKin.setRelationship(payload.relationship);
+        nextOfKin.setGender(payload.gender);
+        nextOfKin.setCountry_code(payload.country_code);
+        if (payload.country != null) {
+            if (ServiceUtil.isPrimitive(payload.country)) {
+                nextOfKin.setCountry(payload.country.toString());
+            } else {
+                CountryPayload countryPayload = ServiceUtil.getObjectValue(payload.country, CountryPayload.class);
+                nextOfKin.setCountryObject(Country.create(countryPayload));
+                nextOfKin.setCountry(countryPayload.id);
+            }
+        }
+        if (payload.location != null) {
+            if (ServiceUtil.isPrimitive(payload.location)) {
+                LocationPayload locationPayload = ServiceUtil.getObjectValue(payload.location, LocationPayload.class);
+                nextOfKin.setLocation(Location.create(locationPayload));
+            }
+        }
+        return nextOfKin;
+    }
 
     public String get_id() {
         return _id;
@@ -84,6 +128,14 @@ public class NextOfKin implements Serializable {
 
     public String getCountry_code() {
         return country_code;
+    }
+
+    public Country getCountryObject() {
+        return countryObject;
+    }
+
+    public void setCountryObject(Country countryObject) {
+        this.countryObject = countryObject;
     }
 
     public void setCountry_code(String country_code) {

@@ -76,7 +76,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="15dp"
-                            android:checked="@{viewModel.current.employmentObject.sectorClassification.equals(`Public Sector Employees`)}"
+                            android:checked="@{viewModel.current.employmentObject.sectorClassification.equals(`PU`)}"
                             android:text="Public Sector Employees" />
 
                         <RadioButton
@@ -84,7 +84,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="15dp"
-                            android:checked="@{viewModel.current.employmentObject.sectorClassification.equals(`Private Sector Employees`)}"
+                            android:checked="@{viewModel.current.employmentObject.sectorClassification.equals(`PR`)}"
                             android:text="Private Sector Employees" />
 
                         <RadioButton
@@ -92,7 +92,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="15dp"
-                            android:checked="@{viewModel.current.employmentObject.sectorClassification.equals(`Micro Pension Plan`)}"
+                            android:checked="@{viewModel.current.employmentObject.sectorClassification.equals(`MP`)}"
                             android:text="Micro Pension Plan" />
 
                         <RadioButton
@@ -100,7 +100,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="15dp"
-                            android:checked="@{viewModel.current.employmentObject.sectorClassification.equals(`Cross Border Employees`)}"
+                            android:checked="@{viewModel.current.employmentObject.sectorClassification.equals(`CB`)}"
                             android:text="Cross Border Employees" />
 
                     </RadioGroup>
@@ -254,7 +254,7 @@
                             android:layout_height="50dp"
                             android:background="@drawable/rounded_edittext"
                             android:ems="10"
-                            android:text="@{viewModel.current.employmentObject.location.lga_code}"
+                            android:text="@{viewModel.current.employmentObject.houseNumber}"
                             android:inputType="text" />
 
                     </com.google.android.material.textfield.TextInputLayout>

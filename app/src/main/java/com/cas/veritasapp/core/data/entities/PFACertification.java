@@ -1,9 +1,17 @@
-package com.cas.veritasapp.objects;
+package com.cas.veritasapp.core.data.entities;
+
+import androidx.room.Entity;
+
+import com.cas.veritasapp.objects.Media;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.File;
 import java.io.Serializable;
 
+@Entity(tableName = "pfa_certifications")
 public class PFACertification implements Serializable {
+    @SerializedName(value = "_id")
+    public String _id;
     public String pfa_code;
     public Media signature;
     public String signatureUrl;

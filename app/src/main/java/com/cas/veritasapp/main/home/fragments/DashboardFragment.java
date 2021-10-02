@@ -20,7 +20,7 @@ import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.databinding.FragmentEnrollmentBinding;
 import com.cas.veritasapp.main.adapter.EnrollmentAdapter;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
-import com.cas.veritasapp.objects.Enrollment;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.objects.Stats;
 import com.cas.veritasapp.objects.api.ApiError;
 

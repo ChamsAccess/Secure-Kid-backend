@@ -1,8 +1,7 @@
-package com.cas.veritasapp.objects;
+package com.cas.veritasapp.core.data.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import com.cas.veritasapp.core.data.converters.ContributionBioConverter;
@@ -11,7 +10,10 @@ import com.cas.veritasapp.core.data.converters.NextOfKinConverter;
 import com.cas.veritasapp.core.data.converters.PFACertificationConverter;
 import com.cas.veritasapp.core.data.converters.PersonalConverter;
 import com.cas.veritasapp.core.data.converters.SalaryConverter;
+import com.cas.veritasapp.objects.payloads.EmploymentPayload;
 import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
+import com.cas.veritasapp.objects.payloads.NextOfKinPayload;
+import com.cas.veritasapp.objects.payloads.PersonalPayload;
 import com.cas.veritasapp.util.ServiceUtil;
 import com.google.gson.annotations.SerializedName;
 
@@ -40,6 +42,7 @@ public class Enrollment implements Serializable {
     private String agentSignature;
 
     private boolean submitted;
+    private String status;
 
     @TypeConverters(PersonalConverter.class)
     private Personal personalObject;
@@ -107,6 +110,14 @@ public class Enrollment implements Serializable {
         return submitted;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public void setSubmitted(boolean submitted) {
         this.submitted = submitted;
     }
@@ -121,30 +132,33 @@ public class Enrollment implements Serializable {
         enrollment.setCreateAt(payload.createdAt);
         enrollment.setRsaPin(payload.rsaPin);
         enrollment.settPin(payload.tPin);
-        enrollment.setSubmitted(payload.sumbitted);
+        enrollment.setSubmitted(payload.submitted);
         enrollment.setEnrolled_by(payload.enrolled_by);
         if (payload.personal != null) {
             if (ServiceUtil.isPrimitive(payload.personal)) {
                 enrollment.setPersonal(payload.personal.toString());
             } else {
-                Personal personal = ServiceUtil.getObjectValue(payload.personal, Personal.class);
-                enrollment.setPersonalObject(personal);
+                PersonalPayload personalPayload = ServiceUtil.getObjectValue(payload.personal, PersonalPayload.class);
+                enrollment.setPersonalObject(Personal.create(personalPayload));
+                enrollment.setPersonal(personalPayload._id);
             }
         }
         if (payload.next_of_kin != null) {
             if (ServiceUtil.isPrimitive(payload.next_of_kin)) {
                 enrollment.setNext_of_kin(payload.next_of_kin.toString());
             } else {
-                NextOfKin nextOfKin = ServiceUtil.getObjectValue(payload.next_of_kin, NextOfKin.class);
-                enrollment.setNextOfKinObject(nextOfKin);
+                NextOfKinPayload nextOfKinPayload = ServiceUtil.getObjectValue(payload.next_of_kin, NextOfKinPayload.class);
+                enrollment.setNextOfKinObject(NextOfKin.create(nextOfKinPayload));
+                enrollment.setNext_of_kin(payload._id);
             }
         }
         if (payload.employment != null) {
             if (ServiceUtil.isPrimitive(payload.employment)) {
                 enrollment.setEmployment(payload.employment.toString());
             } else {
-                Employment employment = ServiceUtil.getObjectValue(payload.employment, Employment.class);
-                enrollment.setEmploymentObject(employment);
+                EmploymentPayload employmentPayload = ServiceUtil.getObjectValue(payload.employment, EmploymentPayload.class);
+                enrollment.setEmploymentObject(Employment.create(employmentPayload));
+                enrollment.setEmployment(employmentPayload.id);
             }
         }
         if (payload.contribution_bio != null) {

@@ -1,12 +1,11 @@
-package com.cas.veritasapp.objects;
+package com.cas.veritasapp.core.data.entities;
 
 import java.io.Serializable;
 
-public class EnhConsolidatedSalary2010 implements Serializable {
-
+public class EnhConsolidatedSalary2013 implements Serializable {
     public String salary_structure;
     public String cls_at_2013;
-    public String step_at_2010;
+    public String step_at_2013;
 
     public String getSalary_structure() {
         return salary_structure;
@@ -24,20 +23,20 @@ public class EnhConsolidatedSalary2010 implements Serializable {
         this.cls_at_2013 = cls_at_2013;
     }
 
-    public String getStep_at_2010() {
-        return step_at_2010;
+    public String getStep_at_2013() {
+        return step_at_2013;
     }
 
-    public void setStep_at_2010(String step_at_2010) {
-        this.step_at_2010 = step_at_2010;
+    public void setStep_at_2013(String step_at_2013) {
+        this.step_at_2013 = step_at_2013;
     }
 
     @Override
     public String toString() {
-        return "EnhConsolidatedSalary2010{" +
+        return "EnhConsolidatedSalary2013{" +
                 "salary_structure='" + salary_structure + '\'' +
                 ", cls_at_2013='" + cls_at_2013 + '\'' +
-                ", step_at_2010='" + step_at_2010 + '\'' +
+                ", step_at_2013='" + step_at_2013 + '\'' +
                 '}';
     }
 }
