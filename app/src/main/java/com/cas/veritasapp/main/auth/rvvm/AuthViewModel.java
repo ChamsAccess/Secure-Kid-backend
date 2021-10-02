@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.cas.veritasapp.BR;
 import com.cas.veritasapp.core.base.BaseViewModel;
 import com.cas.veritasapp.core.data.entities.Staff;
+import com.cas.veritasapp.core.data.entities.User;
 import com.cas.veritasapp.core.network.Resource;
 
 import javax.inject.Inject;
@@ -28,7 +29,7 @@ public class AuthViewModel extends BaseViewModel {
     @Inject
     public AuthViewModel(AuthRepository repository) {
         this.repository = repository;
-        this.authModel = new AuthModel("name@example.com", "password");
+        this.authModel = new AuthModel("name@example.com", "password!!!");
         this.validation.setValue(authValidation);
     }
 
@@ -47,7 +48,7 @@ public class AuthViewModel extends BaseViewModel {
         return error;
     }
 
-    public LiveData<Resource<Staff>> login(String email, String password) {
+    public LiveData<Resource<User>> login(String email, String password) {
         return this.repository.login(email, password);
     }
 

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/textColor"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:gravity="center_vertical"
+                android:text="Filter by"
+                android:textColor="@color/whiteTextColor"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/filterButton"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_action_close"
+                android:text="Filter"
+                android:textColor="@color/whiteTextColor" />
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/relative1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:padding="5dp"
+                android:visibility="visible">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <HorizontalScrollView
+                                android:id="@+id/headerScroll"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/header_height">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/primaryColor"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/itemStartDate"
+                                        android:layout_width="150dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginStart="@dimen/margin"
+                                        android:layout_marginLeft="@dimen/margin"
+                                        android:gravity="center"
+                                        android:text="Name"
+                                        android:textAllCaps="true"
+                                        android:textColor="@android:color/white"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtOrderId"
+                                        android:layout_width="150dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginStart="@dimen/margin"
+                                        android:layout_marginLeft="@dimen/margin"
+                                        android:gravity="center"
+                                        android:text="Sign up Date"
+                                        android:textAllCaps="true"
+                                        android:textColor="@android:color/white"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtSection"
+                                        android:layout_width="150dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginStart="@dimen/margin"
+                                        android:layout_marginLeft="@dimen/margin"
+                                        android:gravity="center"
+                                        android:text="REG. Status"
+                                        android:textAllCaps="true"
+                                        android:textColor="@android:color/white"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtStaff"
+                                        android:layout_width="150dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginStart="@dimen/margin"
+                                        android:layout_marginLeft="@dimen/margin"
+                                        android:gravity="center"
+                                        android:text="RSA Pin"
+                                        android:textAllCaps="true"
+                                        android:textColor="@android:color/white"
+                                        android:textStyle="bold" />
+
+
+                                    <TextView
+                                        android:id="@+id/txtStatus"
+                                        android:layout_width="150dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginStart="@dimen/margin"
+                                        android:layout_marginLeft="@dimen/margin"
+                                        android:gravity="center"
+                                        android:text="ACTION"
+                                        android:textAllCaps="true"
+                                        android:textColor="@android:color/white"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                            </HorizontalScrollView>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                tools:listitem="@layout/list_enrollment_history_view" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+                <!--</ScrollView>-->
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

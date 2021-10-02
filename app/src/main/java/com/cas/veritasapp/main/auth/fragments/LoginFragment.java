@@ -2,11 +2,13 @@ package com.cas.veritasapp.main.auth.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.cas.veritasapp.R;
@@ -52,6 +54,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> implements
         super.onAttach(context);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -73,7 +76,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> implements
         AuthModel authModel = new AuthModel(email, password);
         if (authViewModel.validate(authModel)) {
             binding.loginButton.setEnabled(true);
-//            authViewModel.login(email, password).observe(this, this::performAction);
+            authViewModel.login(email, password).observe(this, this::performAction);
         }
     }
 
@@ -82,25 +85,27 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.loginButton:
-                launchActivity(getActivity(), HomeActivity.class);
-//                loginAction();
+                loginAction();
                 break;
         }
     }
 
-
-    @Override
-    public void onLoad(String key) {
-
-    }
-
     @Override
     public void onSuccess(Object obj, String key) {
-
+        super.onSuccess(obj, key);
+        binding.loginButton.setEnabled(true);
+        User user = (User) obj;
+        if (user != null){
+            launchActivity(getActivity(), HomeActivity.class);
+        }else {
+            authViewModel.setError("Your email is not authorized, please contact admin");
+        }
     }
 
     @Override
     public void onError(ApiError apiError, String key) {
-
+        super.onError(apiError, key);
+        binding.loginButton.setEnabled(true);
+        authViewModel.setError(apiError.getMessage());
     }
 }

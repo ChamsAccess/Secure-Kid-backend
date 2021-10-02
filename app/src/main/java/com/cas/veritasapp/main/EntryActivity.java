@@ -11,6 +11,7 @@ import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.databinding.ActivityEnterBinding;
 import com.cas.veritasapp.main.auth.AuthActivity;
 import com.cas.veritasapp.main.home.HomeActivity;
+import com.cas.veritasapp.util.AppUtil;
 import com.cas.veritasapp.util.PrefUtil;
 
 
@@ -46,7 +47,7 @@ public class EntryActivity extends BaseActivity<ActivityEnterBinding> {
 
 
     private void initApp() {
-        if (PrefUtil.getStringData(this, AppConstant.TOKEN) == null) {
+        if (!AppUtil.hasToken(context)) {
             launchActivity(EntryActivity.this, AuthActivity.class);
         } else {
             launchActivity(EntryActivity.this, HomeActivity.class);

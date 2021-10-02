@@ -7,6 +7,7 @@ import androidx.room.TypeConverters;
 
 
 import com.cas.veritasapp.core.data.converters.TimeConverter;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,15 +15,16 @@ import java.util.Date;
 /**
  * Created by funmiayinde on 2019-09-27.
  */
-@Entity
+@Entity(tableName = "users")
 public class User implements Serializable {
     private static final String TAG = User.class.getSimpleName();
 
     @PrimaryKey
     @NonNull
-    private String _id;
+    @SerializedName(value = "_id")
+    private String id;
     private String first_name;
-    private String last_name;
+    private String surname;
     private String email;
     private String mobile;
     private String address;
@@ -39,12 +41,12 @@ public class User implements Serializable {
     }
 
     @NonNull
-    public String get_id() {
-        return _id;
+    public String getId() {
+        return id;
     }
 
-    public void set_id(@NonNull String _id) {
-        this._id = _id;
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
 
     public String getFirst_name() {
@@ -55,12 +57,12 @@ public class User implements Serializable {
         this.first_name = first_name;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getEmail() {

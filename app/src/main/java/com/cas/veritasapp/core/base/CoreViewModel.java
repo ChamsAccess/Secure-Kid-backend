@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PagedList;
 
 
+import com.cas.veritasapp.BR;
 import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.network.Resource;
 import com.cas.veritasapp.objects.api.ApiError;
@@ -56,7 +57,7 @@ public class CoreViewModel<R extends BaseRepository, T, P, V> extends BaseViewMo
 
     public void setCurrent(T current) {
         this.current = current;
-//        notifyPropertyChanged(com.chamsaccess.grms_app.BR.current);
+        notifyPropertyChanged(BR.current);
     }
 
     @Override
@@ -153,8 +154,8 @@ public class CoreViewModel<R extends BaseRepository, T, P, V> extends BaseViewMo
         return validation;
     }
 
-    public void setValidation(MutableLiveData<V> validation) {
-        this.validation = validation;
+    public void setCurrentValidation(V validation) {
+        this.currentValidation = validation;
     }
 
     public V getCurrentValidation() {

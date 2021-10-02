@@ -8,14 +8,18 @@
         android:id="@+id/homeFragment"
         android:name="com.cas.veritasapp.main.home.fragments.DashboardFragment"
         android:label="HomeFragment">
-
-<!--        <action-->
-<!--            android:id="@+id/action_login_to_reset_password"-->
-<!--            app:destination="@id/resetPassword" />-->
     </fragment>
 
-<!--    <fragment-->
-<!--        android:id="@+id/resetPassword"-->
-<!--        android:name="com.cas.veritasapp.fragment.HomeFragment"-->
-<!--        android:label="ResetPasswordFragment"/>-->
+    <fragment
+        android:id="@+id/ninFragment"
+        android:name="com.cas.veritasapp.main.home.fragments.NINFragment"
+        android:label="NINFragment">
+        <action
+            android:id="@+id/action_nin_to_new_enrollment"
+            app:destination="@id/newEnrollment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newEnrollment"
+        android:name="com.cas.veritasapp.main.home.fragments.NewEnrollmentFragment"
+        android:label="NewEnrollmentFragment"/>
 </navigation>

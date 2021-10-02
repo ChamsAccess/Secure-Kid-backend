@@ -18,6 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.cas.veritasapp.core.constant.AppConstant;
+import com.cas.veritasapp.core.listeners.DataCallback;
 import com.cas.veritasapp.core.listeners.OnBackPressListener;
 import com.cas.veritasapp.objects.AuthStaff;
 import com.cas.veritasapp.objects.NavData;
@@ -117,4 +118,5 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         Intent intent = new Intent(context, clazz);
         context.startActivity(intent);
     }
+
 }

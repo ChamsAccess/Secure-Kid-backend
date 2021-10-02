@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.cas.veritasapp.BuildConfig;
 import com.cas.veritasapp.core.constant.AppConstant;
+import com.cas.veritasapp.main.auth.AuthActivity;
+import com.cas.veritasapp.util.AppUtil;
 import com.cas.veritasapp.util.LogUtil;
 import com.cas.veritasapp.util.PrefUtil;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -46,8 +48,8 @@ public class RetrofitRequest {
             Request.Builder requestBuilder = request.newBuilder()
                     .header("x-api-key", BuildConfig.X_API_KEY);
 
-            if (PrefUtil.getStringData(context, AppConstant.TOKEN) != null) {
-                requestBuilder = requestBuilder.header("Authorization", PrefUtil.getStringData(context, AppConstant.TOKEN));
+            if (AppUtil.hasToken(context)) {
+                requestBuilder = requestBuilder.header("x-access-token", AppUtil.getToken(context));
             }
             requestBuilder = requestBuilder.method(request.method(), request.body());
             Request request1 = requestBuilder.build();
@@ -58,8 +60,8 @@ public class RetrofitRequest {
             if (request1.body() != null) {
                 LogUtil.debug("Body:", String.valueOf(response.body()));
             }
-            if (PrefUtil.getStringData(context, AppConstant.TOKEN) != null && response.code() != 401) {
-                // Do logout here
+            if (AppUtil.hasToken(context) && response.code() == 401) {
+                AppUtil.logOut(context, AuthActivity.class);
             }
             return response;
         });

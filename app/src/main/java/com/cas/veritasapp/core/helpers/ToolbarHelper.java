@@ -37,4 +37,8 @@ public class ToolbarHelper {
         }
     }
 
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
 }

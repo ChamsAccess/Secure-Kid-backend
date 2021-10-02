@@ -1,19 +1,24 @@
 package com.cas.veritasapp.core.base;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
@@ -25,11 +30,14 @@ import com.cas.veritasapp.core.helpers.ToolbarHelper;
 import com.cas.veritasapp.core.listeners.NetworkRequestListener;
 import com.cas.veritasapp.core.listeners.OnBackPressListener;
 import com.cas.veritasapp.core.network.Resource;
+import com.cas.veritasapp.main.PictureActivity;
 import com.cas.veritasapp.objects.AuthStaff;
 import com.cas.veritasapp.objects.NavData;
 import com.cas.veritasapp.objects.api.ApiError;
-import com.cas.veritasapp.util.PrefUtil;
 import com.cas.veritasapp.util.ProgressUtil;
+
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -43,6 +51,10 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
     protected Bundle bundle;
     protected AuthStaff authStaff;
     protected Context context;
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 3;
+    public static final int REQUEST_IMAGE_CAPTURE = 2;
+//    public static final String DATE_FORMAT = "YYYY-mm-dd";
+    public static final String DATE_FORMAT = "MM-dd-yyyy";
 
     private Toolbar toolbar;
     private int sourceNavId;
@@ -64,10 +76,12 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
         return viewRoot;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        initDependencies(view);
+        initDependencies(view);
+        checkPermission();
     }
 
     public void initDependencies(View view) {
@@ -75,8 +89,6 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
         if (bundle == null) {
             bundle = new Bundle();
         }
-        authStaff = (AuthStaff) PrefUtil.getObjectData(context, AuthStaff.class);
-        bundle.putSerializable(AppConstant.AUTH_STAFF, authStaff);
         setSourceNavId();
         toolbarHelper = new ToolbarHelper(build(), view);
         toolbarHelper.buildToolbar();
@@ -100,6 +112,14 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
         }
     }
 
+    public void showProgressDialog() {
+        progressUtil.displayProgress(context);
+    }
+
+    public void hideProgressDialog(){
+        progressUtil.closeProgress();
+    }
+
     public void showToast(String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
@@ -121,6 +141,44 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
             case ERROR:
                 onError(resource.error, resource.key);
                 break;
+        }
+    }
+
+    public void startPictureActivity() {
+        Intent intent = new Intent();
+        intent.setClass(requireActivity(), PictureActivity.class);
+        Date dt = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dt);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        String realFileName = "passport_" + year + "_" + month + "_" + day + "_"
+                + dt.getHours() + "_" + dt.getMinutes() + "_" + dt.getSeconds();
+        intent.putExtra("pictureName", realFileName);
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void checkPermission(){
+        if (ActivityCompat.checkSelfPermission(requireActivity(),
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(requireActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(requireActivity(),
+                        Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+
+            requireActivity().requestPermissions(
+                    new String[]
+                            {
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.CAMERA,
+                            },
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+
+        } else {
+            Log.e("DB", "PERMISSION GRANTED");
         }
     }
 

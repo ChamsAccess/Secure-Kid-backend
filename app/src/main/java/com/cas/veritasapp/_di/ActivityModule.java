@@ -3,6 +3,7 @@ package com.cas.veritasapp._di;
 import com.cas.veritasapp._di.builders.AuthFragmentBuilder;
 import com.cas.veritasapp._di.builders.HomeFragmentBuilder;
 import com.cas.veritasapp._di.modules.AuthModule;
+import com.cas.veritasapp._di.modules.HomeModule;
 import com.cas.veritasapp._di.scopes.ActivityScope;
 import com.cas.veritasapp.main.auth.AuthActivity;
 import com.cas.veritasapp.main.auth.rvvm.AuthModel;
@@ -26,7 +27,7 @@ public abstract class ActivityModule {
 
     @ActivityScope
     @ContributesAndroidInjector(modules = {
-//            AuthModule.class,
+            HomeModule.class,
             HomeFragmentBuilder.class
     })
     abstract HomeActivity bindHomeActivity();
