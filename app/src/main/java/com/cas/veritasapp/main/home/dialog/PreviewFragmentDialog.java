@@ -13,7 +13,9 @@ import androidx.annotation.Nullable;
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseDialogFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
+import com.cas.veritasapp.core.data.entities.Personal;
 import com.cas.veritasapp.databinding.PreviewDialogBinding;
+import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentValidator;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.core.data.entities.ContributionBio;
 import com.cas.veritasapp.core.data.entities.Enrollment;
@@ -21,6 +23,7 @@ import com.cas.veritasapp.objects.Media;
 import com.cas.veritasapp.core.data.entities.PFACertification;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
+import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -121,6 +124,9 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
         }
 
         binding.saveBtn.setOnClickListener(v -> {
+//            if (!isValidate()){
+//                return;
+//            }
             if (enrollment != null) {
                 Map<String, Object> request = new HashMap<>();
                 request.put("personal", enrollment.getPersonalObject());
@@ -135,15 +141,57 @@ public class PreviewFragmentDialog extends BaseDialogFragment<PreviewDialogBindi
                     return;
                 } else if (enrollment.get_id() != null && key.equals(AppConstant.SHOW_ENROLLMENT_DETAILS)) {
                     viewModel.setCurrent(enrollment);
+                    TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
+                    tabLayout.selectTab(tabLayout.getTabAt(1));
                     dismiss();
-                    showToast("Kindly go to New enrollment and update info");
                 } else {
                     viewModel.updateEnrollment(enrollment.get_id(), request).observe(getViewLifecycleOwner(), this::performAction);
                     showToast("Enrollment updated successfully");
+//                    Enrollment emptyEnrollment = viewModel.getCurrent();
+//                    emptyEnrollment.setAgentSignature(null);
+//                    emptyEnrollment.setPersonalObject(null);
+//                    emptyEnrollment.setEmploymentObject(null);
+//                    emptyEnrollment.setNextOfKinObject(null);
+//                    emptyEnrollment.setSalaryObject(null);
+//                    emptyEnrollment.setPfa_certification(null);
+//                    emptyEnrollment.setPfa_certificationObject(null);
+//                    emptyEnrollment.setContributionBioObject(null);
+//                    viewModel.setCurrent(emptyEnrollment);
                     dismiss();
                 }
             }
         });
+    }
+
+    private boolean isValidate() {
+        if (enrollment != null) {
+            String personalValidation = EnrollmentValidator.validatePersonal(enrollment.getPersonalObject());
+            if (!personalValidation.isEmpty()) {
+                showToast(personalValidation);
+                return false;
+            }
+            String employmentValidation = EnrollmentValidator.validateEmployment(enrollment.getEmploymentObject());
+            if (!employmentValidation.isEmpty()) {
+                showToast(employmentValidation);
+                return false;
+            }
+            String nextOfKinValidation = EnrollmentValidator.validateNextOfKin(enrollment.getNextOfKinObject());
+            if (!nextOfKinValidation.isEmpty()) {
+                showToast(nextOfKinValidation);
+                return false;
+            }
+            String contributionValidation = EnrollmentValidator.validateContributionBio(enrollment.getContributionBioObject());
+            if (!contributionValidation.isEmpty()) {
+                showToast(contributionValidation);
+                return false;
+            }
+            String PFAValidation = EnrollmentValidator.validatePFA(enrollment.getPfa_certificationObject());
+            if (!PFAValidation.isEmpty()) {
+                showToast(PFAValidation);
+                return false;
+            }
+        }
+        return true;
     }
 
     @SuppressLint("NonConstantResourceId")

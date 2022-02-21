@@ -20,6 +20,7 @@ import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.listeners.OnItemSelectedListener;
 import com.cas.veritasapp.databinding.FragmentContributionBioCertBinding;
 import com.cas.veritasapp.main.home.dialog.SignatureFragmentDialog;
+import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentValidator;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.core.data.entities.ContributionBio;
 import com.cas.veritasapp.core.data.entities.Enrollment;
@@ -119,22 +120,26 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
     }
 
     private void processFile() {
-        Enrollment enrollment = viewModel.getCurrent();
-        if (enrollment != null) {
-            String photo = enrollment.getPhoto();
-            String signature = enrollment.getSignature();
-            if (photo != null && !photo.isEmpty()) {
-                File photoFile = AppUtil.saveImage(requireActivity(), photo);
-                uploadFile(photoFile, AppConstant.CAPTURE_USER_IMAGE_ACTION);
-                byte[] photoBytes = Base64.decode(photo.getBytes(), Base64.DEFAULT);
-                binding.passportImageView.setImageBitmap(BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length));
+        try {
+            Enrollment enrollment = viewModel.getCurrent();
+            if (enrollment != null) {
+                String photo = enrollment.getPhoto();
+                String signature = enrollment.getSignature();
+                if (photo != null && !photo.isEmpty()) {
+                    File photoFile = AppUtil.saveImage(requireActivity(), photo);
+                    uploadFile(photoFile, AppConstant.CAPTURE_USER_IMAGE_ACTION);
+                    byte[] photoBytes = Base64.decode(photo.getBytes(), Base64.DEFAULT);
+                    binding.passportImageView.setImageBitmap(BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length));
+                }
+                if (signature != null && !signature.isEmpty()) {
+                    File signatureFile = AppUtil.saveImage(requireActivity(), signature);
+                    uploadFile(signatureFile, AppConstant.CAPTURE_USER_SIGNATURE_ACTION);
+                    byte[] signatureBytes = Base64.decode(signature.getBytes(), Base64.DEFAULT);
+                    binding.signatureImageView.setImageBitmap(BitmapFactory.decodeByteArray(signatureBytes, 0, signatureBytes.length));
+                }
             }
-            if (signature != null && !signature.isEmpty()) {
-                File signatureFile = AppUtil.saveImage(requireActivity(), signature);
-                uploadFile(signatureFile, AppConstant.CAPTURE_USER_SIGNATURE_ACTION);
-                byte[] signatureBytes = Base64.decode(signature.getBytes(), Base64.DEFAULT);
-                binding.signatureImageView.setImageBitmap(BitmapFactory.decodeByteArray(signatureBytes, 0, signatureBytes.length));
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -218,8 +223,14 @@ public class ContributionBioInfoFragment extends BaseFragment<FragmentContributi
                 startPictureActivity();
                 break;
             case R.id.saveBtn:
-                showToast("Contribution Bio info saved successfully");
+
+                String validationMessage = EnrollmentValidator.validateContributionBio(contributionBio);
+                if (!validationMessage.isEmpty()) {
+                    showToast(validationMessage);
+                    return;
+                }
                 viewModel.getCurrent().setContributionBioObject(contributionBio);
+                showToast("Contribution Bio info saved successfully");
                 break;
         }
     }

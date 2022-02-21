@@ -54,7 +54,7 @@ public class NextOfKin implements Serializable {
             }
         }
         if (payload.location != null) {
-            if (ServiceUtil.isPrimitive(payload.location)) {
+            if (!ServiceUtil.isPrimitive(payload.location)) {
                 LocationPayload locationPayload = ServiceUtil.getObjectValue(payload.location, LocationPayload.class);
                 nextOfKin.setLocation(Location.create(locationPayload));
             }

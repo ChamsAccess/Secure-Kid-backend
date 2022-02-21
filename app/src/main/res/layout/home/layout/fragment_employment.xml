@@ -143,6 +143,73 @@
 
                     </RadioGroup>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/textColor"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="Employment Details"
+                        android:textColor="@color/whiteTextColor" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:hint="EmployerName (In Full)">
+
+                        <!--                        <EditText-->
+                        <!--                            android:id="@+id/employerFullNameEditText"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="50dp"-->
+                        <!--                            android:background="@drawable/rounded_edittext"-->
+                        <!--                            android:ems="10"-->
+                        <!--                            android:inputType="text" />-->
+                        <AutoCompleteTextView
+                            android:id="@+id/employerFullNameEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/rounded_edittext"
+                            android:ems="10"
+                            android:inputType="text" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:hint="Employer Phone number">
+
+                        <EditText
+                            android:id="@+id/employerPhoneEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/rounded_edittext"
+                            android:ems="10"
+                            android:inputType="text" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:hint="Employer PenCom Code">
+
+                        <EditText
+                            android:id="@+id/employeeCardNoEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/rounded_edittext"
+                            android:ems="10"
+                            android:text="@{viewModel.current.employmentObject.employerCardId}"
+                            android:inputType="text" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -185,50 +252,6 @@
                         app:ldp_text_color="@color/textColor"
                         app:ldp_hint_color="@color/grey"
                         app:ldp_date_format="dd-mm-yyyy" />
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="5dp"
-                        android:background="@color/textColor"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Employment Details"
-                        android:textColor="@color/whiteTextColor" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:hint="EmployerName (In Full)">
-
-                        <EditText
-                            android:id="@+id/employerFullNameEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@drawable/rounded_edittext"
-                            android:ems="10"
-                            android:inputType="text" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:hint="Employer Phone number">
-
-                        <EditText
-                            android:id="@+id/employerPhoneEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@drawable/rounded_edittext"
-                            android:ems="10"
-                            android:inputType="text" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -435,22 +458,7 @@
                         android:text="Others"
                         android:textColor="@color/whiteTextColor" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:hint="Employee ID/No">
 
-                        <EditText
-                            android:id="@+id/employeeCardNoEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@drawable/rounded_edittext"
-                            android:ems="10"
-                            android:text="@{viewModel.current.employmentObject.employerCardId}"
-                            android:inputType="text" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"

@@ -132,6 +132,7 @@ public class Enrollment implements Serializable {
         enrollment.setCreateAt(payload.createdAt);
         enrollment.setRsaPin(payload.rsaPin);
         enrollment.settPin(payload.tPin);
+        enrollment.setStatus(payload.status);
         enrollment.setSubmitted(payload.submitted);
         enrollment.setEnrolled_by(payload.enrolled_by);
         if (payload.personal != null) {

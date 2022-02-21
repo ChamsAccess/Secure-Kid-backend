@@ -85,6 +85,6 @@
         android:background="@drawable/edittextstyle"
         android:checked="false"
         android:gravity="center"
-        android:text="Error"
+        android:text="Status"
         android:textColor="@color/whiteTextColor" />
 </LinearLayout>

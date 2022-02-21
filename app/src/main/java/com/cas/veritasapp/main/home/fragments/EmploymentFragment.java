@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.RadioButton;
 
@@ -14,8 +16,13 @@ import androidx.annotation.RequiresApi;
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
+import com.cas.veritasapp.core.data.entities.Employer;
+import com.cas.veritasapp.core.data.entities.Enrollment;
+import com.cas.veritasapp.core.listeners.OnItemSelectedListener;
 import com.cas.veritasapp.databinding.FragmentEmploymentBinding;
 import com.cas.veritasapp.main.adapter.DropDownAdapter;
+import com.cas.veritasapp.main.adapter.EmployerAdapter;
+import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentValidator;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.core.data.entities.Country;
 import com.cas.veritasapp.objects.DropDownObject;
@@ -25,6 +32,7 @@ import com.cas.veritasapp.core.data.entities.Location;
 import com.cas.veritasapp.core.data.entities.State;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.util.AppUtil;
+import com.cas.veritasapp.util.LogUtil;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.mikhaellopez.lazydatepicker.LazyDatePicker;
 
@@ -32,14 +40,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 
 public class EmploymentFragment extends BaseFragment<FragmentEmploymentBinding>
-        implements View.OnClickListener, MaterialSpinner.OnItemSelectedListener<DropDownObject> {
+        implements View.OnClickListener, MaterialSpinner.OnItemSelectedListener<DropDownObject>, OnItemSelectedListener {
 
     FragmentEmploymentBinding binding;
 
@@ -50,9 +60,16 @@ public class EmploymentFragment extends BaseFragment<FragmentEmploymentBinding>
 
     private ArrayList<DropDownObject> dropDownObjectArrayList;
 
+    private EmployerAdapter adapter;
+    private ArrayList<Employer> employmentArrayList = new ArrayList();
+
     private String countryId;
     private String stateId;
     private String lgaId;
+
+    private Country country;
+    private State state;
+    private LGA lga;
 
 
     @Override
@@ -80,83 +97,190 @@ public class EmploymentFragment extends BaseFragment<FragmentEmploymentBinding>
     }
 
     private void initApp() {
+        try {
+            employmentArrayList = new ArrayList();
+            viewModel.findCountries(null).observe(getViewLifecycleOwner(), this::performAction);
 
-        viewModel.findCountries(null).observe(getViewLifecycleOwner(), this::performAction);
+            country = ((
+                    viewModel.getCurrent() != null &&
+                            viewModel.getCurrent().getEmploymentObject() != null &&
+                            viewModel.getCurrent().getEmploymentObject().getCountryObject() != null
+            )) ? viewModel.getCurrent().getEmploymentObject().getCountryObject() : new Country();
 
-        binding.countrySpinner.setOnItemSelectedListener(this);
-        binding.stateSpinner.setOnItemSelectedListener(this);
-        binding.lgaSpinner.setOnItemSelectedListener(this);
+            state = ((
+                    viewModel.getCurrent() != null &&
+                            viewModel.getCurrent().getEmploymentObject() != null &&
+                            viewModel.getCurrent().getEmploymentObject().getLocation() != null &&
+                            viewModel.getCurrent().getEmploymentObject().getLocation().getStateObject() != null
+            )) ? viewModel.getCurrent().getEmploymentObject().getLocation().getStateObject() : new State();
 
-        if (employment.getDateJoined() != null) {
-            binding.dateJoined.setDate(AppUtil.stringToDate(employment.getDateJoined()));
+            lga = ((
+                    viewModel.getCurrent() != null &&
+                            viewModel.getCurrent().getEmploymentObject() != null &&
+                            viewModel.getCurrent().getEmploymentObject().getLocation() != null &&
+                            viewModel.getCurrent().getEmploymentObject().getLocation().getLgaObject() != null
+            )) ? viewModel.getCurrent().getEmploymentObject().getLocation().getLgaObject() : new LGA();
+
+            binding.countrySpinner.setOnItemSelectedListener(this);
+            binding.stateSpinner.setOnItemSelectedListener(this);
+            binding.lgaSpinner.setOnItemSelectedListener(this);
+
+            if (employment.getDateJoined() != null) {
+                binding.dateJoined.setDate(AppUtil.stringToDate(employment.getDateJoined()));
+            }
+            if (employment.getDateOfCurrentEmployment() != null) {
+                Date date = AppUtil.stringToDate(employment.getDateOfCurrentEmployment());
+                binding.dateOfCurrentEmployment.setDate(AppUtil
+                        .stringToDate(LazyDatePicker.dateToString(date, DATE_FORMAT)));
+            }
+            if (employment.getDateOfFirstAppointment() != null) {
+                binding.dateOfFirstAppointment.setDate(AppUtil.stringToDate(employment.getDateOfFirstAppointment()));
+            }
+            if (employment.getDateOfTransferService() != null) {
+                binding.dateOfTransferService.setDate(AppUtil.stringToDate(employment.getDateOfTransferService()));
+            }
+
+            binding.dateJoined.setOnDatePickListener(dateSelected -> {
+                binding.dateJoined.setDate(dateSelected);
+                employment.setDateJoined(LazyDatePicker.dateToString(dateSelected, DATE_FORMAT));
+            });
+            binding.dateOfCurrentEmployment.setOnDatePickListener(dateSelected -> {
+                binding.dateOfCurrentEmployment.setDate(dateSelected);
+                employment.setDateOfCurrentEmployment(LazyDatePicker.dateToString(dateSelected, DATE_FORMAT));
+            });
+            binding.dateOfFirstAppointment.setOnDatePickListener(dateSelected -> {
+                binding.dateOfFirstAppointment.setDate(dateSelected);
+                employment.setDateOfFirstAppointment(LazyDatePicker.dateToString(dateSelected, DATE_FORMAT));
+            });
+            binding.dateOfTransferService.setOnDatePickListener(dateSelected -> {
+                binding.dateOfTransferService.setDate(dateSelected);
+                employment.setDateOfTransferService(LazyDatePicker.dateToString(dateSelected, DATE_FORMAT));
+            });
+
+            binding.saveBtn.setOnClickListener(this);
+
+            binding.sectorClassificationRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                int titleRadioGroup = group.getCheckedRadioButtonId();
+                RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
+                employment.setSectorClassification(radioButton.getText().toString());
+            });
+
+            binding.employeeUnderIPPSRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                int titleRadioGroup = group.getCheckedRadioButtonId();
+                RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
+                employment.setEmployerUnderIPPS(radioButton.getText().toString());
+            });
+
+            binding.employerFullNameEditText.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    Map<String, Object> map = new HashMap();
+                    map.put("employerName", s.toString());
+                    LogUtil.error("search-key:::" + s);
+                    if (!s.toString().isEmpty()) {
+                        searchEmployer(map);
+                    }
+                }
+            });
+            viewModel.getCurrent().setEmploymentObject(employment);
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        if (employment.getDateOfCurrentEmployment() != null) {
-            Date date = AppUtil.stringToDate(employment.getDateOfCurrentEmployment());
-            binding.dateOfCurrentEmployment.setDate(AppUtil
-                    .stringToDate(LazyDatePicker.dateToString(date, DATE_FORMAT)));
-        }
-        if (employment.getDateOfFirstAppointment() != null) {
-            binding.dateOfFirstAppointment.setDate(AppUtil.stringToDate(employment.getDateOfFirstAppointment()));
-        }
-        if (employment.getDateOfTransferService() != null) {
-            binding.dateOfTransferService.setDate(AppUtil.stringToDate(employment.getDateOfTransferService()));
-        }
-
-        binding.dateJoined.setOnDatePickListener(dateSelected -> {
-            binding.dateJoined.setDate(dateSelected);
-            employment.setDateJoined(LazyDatePicker.dateToString(dateSelected, DATE_FORMAT));
-        });
-        binding.dateOfCurrentEmployment.setOnDatePickListener(dateSelected -> {
-            binding.dateOfCurrentEmployment.setDate(dateSelected);
-            employment.setDateOfCurrentEmployment(LazyDatePicker.dateToString(dateSelected, DATE_FORMAT));
-        });
-        binding.dateOfFirstAppointment.setOnDatePickListener(dateSelected -> {
-            binding.dateOfFirstAppointment.setDate(dateSelected);
-            employment.setDateOfFirstAppointment(LazyDatePicker.dateToString(dateSelected, DATE_FORMAT));
-        });
-        binding.dateOfTransferService.setOnDatePickListener(dateSelected -> {
-            binding.dateOfTransferService.setDate(dateSelected);
-            employment.setDateOfTransferService(LazyDatePicker.dateToString(dateSelected, DATE_FORMAT));
-        });
-
-        binding.saveBtn.setOnClickListener(this);
-
-        binding.sectorClassificationRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            int titleRadioGroup = group.getCheckedRadioButtonId();
-            RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
-            employment.setSectorClassification(radioButton.getText().toString());
-        });
-
-        binding.employeeUnderIPPSRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            int titleRadioGroup = group.getCheckedRadioButtonId();
-            RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
-            employment.setEmployerUnderIPPS(radioButton.getText().toString());
-        });
-
-        viewModel.getCurrent().setEmploymentObject(employment);
     }
 
+    private void searchEmployer(Map<String, Object> map) {
+        viewModel.searchEmployer(map).observe(getViewLifecycleOwner(), this::performAction);
+    }
 
     private void setEmploymentData() {
+        Enrollment enrollment = viewModel.getCurrent();
         employment.setEmployerCardId(binding.employeeCardNoEditText.getText().toString());
         employment.setEmployerName(binding.employerFullNameEditText.getText().toString());
         employment.setServiceId(binding.employeeServiceId.getText().toString());
         employment.setEmployerPhone(binding.employerPhoneEditText.getText().toString());
         employment.setEmployeeIPPSNumber(binding.employeeIPPSNumberEditText.getText().toString());
         employment.setNatureOfBusiness(binding.natureOfBusinessEditTxt.getText().toString());
-        employment.setCountry(countryId);
+
         employment.setHouseNumber(binding.employeeHoursNumber.getText().toString());
         employment.setCountryCode("NG");
 
-        Location location = new Location();
-        location.setStreet(binding.emloyeeStreeName.getText().toString());
+        country = (enrollment != null
+                && enrollment.getPersonalObject() != null
+                && enrollment.getPersonalObject().getCountryObject() != null)
+                ? enrollment.getPersonalObject().getCountryObject()
+                : country;
+        employment.setCountryObject(country);
+        employment.setCountryObject(country);
+        employment.setCountryCode(country.getId());
+        employment.setCountry((country != null
+                && country.getId() != null
+                && (countryId == null || countryId.isEmpty()))
+                ? country.getId()
+                : countryId);
+
+        Location location = ((
+                enrollment != null &&
+                        enrollment.getEmploymentObject() != null &&
+                        enrollment.getEmploymentObject().getLocation() != null
+        )) ? viewModel.getCurrent().getEmploymentObject().getLocation() : new Location();
+
+        location.setStreet(binding.employeeCityEditText.getText().toString());
         location.setLga_code(lgaId);
+        location.setPOBox(binding.POBoxEditText.getText().toString());
+
+        state = (enrollment != null
+                && enrollment.getEmploymentObject() != null
+                && enrollment.getEmploymentObject().getLocation() != null
+                && enrollment.getEmploymentObject().getLocation().getStateObject() != null)
+                ? enrollment.getEmploymentObject().getLocation().getStateObject()
+                : state;
+
+        location.setStateObject(state);
+        location.setStateCode((state != null
+                && state.getId() != null
+                && (stateId == null || stateId.isEmpty()))
+                ? state.getId()
+                : stateId);
+
+        lga = (enrollment != null
+                && enrollment.getEmploymentObject() != null
+                && enrollment.getEmploymentObject().getLocation() != null
+                && enrollment.getEmploymentObject().getLocation().getLgaObject() != null)
+                ? enrollment.getEmploymentObject().getLocation().getLgaObject()
+                : lga;
+
+        location.setLgaObject(lga);
+        location.setLga_code((lga != null
+                && lga.getId() != null
+                && (lgaId == null || lgaId.isEmpty()))
+                ? lga.getId()
+                : lgaId);
+
+        location.setStreet(binding.emloyeeStreeName.getText().toString());
         location.setCity(binding.employeeCityEditText.getText().toString());
-        location.setStateCode(stateId);
         location.setZip_code(binding.employeeZipCodeEditText.getText().toString());
         location.setPOBox(binding.POBoxEditText.getText().toString());
 
         employment.setLocation(location);
+
+        String validationMessage = EnrollmentValidator.validateEmployment(employment);
+        if (!validationMessage.isEmpty()) {
+            showToast(validationMessage);
+            return;
+        }
+        viewModel.getCurrent().setEmploymentObject(employment);
+        showToast("Employment data saved successfully");
     }
 
     @Override
@@ -215,7 +339,15 @@ public class EmploymentFragment extends BaseFragment<FragmentEmploymentBinding>
                     binding.lgaSpinner.setAdapter(dropDownAdapter);
                 }
             }
-
+            if (key.equals(AppConstant.GET_SEARCHED_EMPLOYER)) {
+                if (obj instanceof List) {
+                    employmentArrayList = (ArrayList<Employer>) obj;
+                    adapter = new EmployerAdapter(requireActivity(), employmentArrayList, this);
+                    binding.employerFullNameEditText.setThreshold(1);
+                    binding.employerFullNameEditText.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+            }
         }
     }
 
@@ -226,36 +358,58 @@ public class EmploymentFragment extends BaseFragment<FragmentEmploymentBinding>
         showToast(apiError.getMessage());
     }
 
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.saveBtn:
                 setEmploymentData();
-                showToast("Employment data saved successfully");
-                viewModel.getCurrent().setEmploymentObject(employment);
                 break;
 
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onItemSelected(MaterialSpinner view, int position, long id, DropDownObject item) {
         switch (view.getId()) {
             case R.id.stateSpinner:
                 viewModel.findState(item.get_id(), null).observe(getViewLifecycleOwner(), this::performAction);
                 stateId = item.get_id();
+                state.setId(item.get_id());
+                state.setName(item.getName());
+                state.setCode(item.getCode());
                 binding.stateSpinner.setText(item.getName());
                 break;
             case R.id.lgaSpinner:
                 binding.lgaSpinner.setText(item.getName());
                 lgaId = item.get_id();
+                lga.setId(item.get_id());
+                lga.setName(item.getName());
+                lga.setCode(item.getCode());
                 break;
             case R.id.countrySpinner:
                 viewModel.findCountry(item.get_id(), null).observe(getViewLifecycleOwner(), this::performAction);
                 countryId = item.get_id();
+                country.setId(item.get_id());
+                country.setName(item.getName());
+                country.setCode(item.getCode());
                 binding.countrySpinner.setText(item.getName());
                 break;
+        }
+    }
+
+    @Override
+    public void ontItemSelected(Object item, String key) {
+        if (item != null && key.equals(AppConstant.SHOW_EMPLOYER_DETAILS)){
+            LogUtil.error("Employer-details:::" + (Employer) item);
+            Employer employer = (Employer) item;
+            binding.employeeCardNoEditText.setText(employer.getEmployerID());
+            binding.employerFullNameEditText.setText(employer.getName());
+            binding.employerPhoneEditText.setText(employer.getPhone());
+            binding.emloyeeStreeName.setText(employer.getAddress());
+            employmentArrayList.clear();
         }
     }
 }

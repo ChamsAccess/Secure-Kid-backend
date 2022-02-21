@@ -12,6 +12,7 @@ import com.cas.veritasapp.core.api.services.EnrollmentService;
 import com.cas.veritasapp.core.api.services.ResourceService;
 import com.cas.veritasapp.core.base.BaseRepository;
 import com.cas.veritasapp.core.constant.AppConstant;
+import com.cas.veritasapp.core.data.entities.Employer;
 import com.cas.veritasapp.core.network.Resource;
 import com.cas.veritasapp.core.data.entities.Country;
 import com.cas.veritasapp.core.data.entities.Enrollment;
@@ -210,6 +211,27 @@ public class EnrollmentRepository implements BaseRepository<Enrollment, Enrollme
                     ApiError apiError = AppUtil.getError(error);
                     LogUtil.write("apiError:" + apiError.getMessage());
                     data.setValue(Resource.error(apiError, AppConstant.CREATE_ENROLLMENT, null));
+                });
+        return data;
+    }
+
+    @SuppressLint("CheckResult")
+    public MutableLiveData<Resource<List<Employer>>> searchEmployer(Map<String, Object> request) {
+        final MutableLiveData<Resource<List<Employer>>> data = new MutableLiveData<>();
+//        data.setValue(Resource.loading(null, AppConstant.GET_SEARCHED_EMPLOYER));
+        enrollmentService.searchEmployer(request)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResponse -> {
+                    LogUtil.write("Employer-DATA:::" + apiResponse.toString());
+                    _Meta meta = apiResponse.get_meta();
+                    if (meta.isSuccess()) {
+                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.GET_SEARCHED_EMPLOYER));
+                    }
+                }, error -> {
+                    ApiError apiError = AppUtil.getError(error);
+                    LogUtil.write("apiError:" + apiError.getMessage());
+                    data.setValue(Resource.error(apiError, AppConstant.GET_SEARCHED_EMPLOYER, null));
                 });
         return data;
     }

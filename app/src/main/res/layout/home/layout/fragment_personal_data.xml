@@ -554,18 +554,22 @@
                             android:text="Date of Birth (DD-MMM-YYYY)) *"
                             android:textColor="@color/whiteTextColor" />
 
-                        <com.mikhaellopez.lazydatepicker.LazyDatePicker
-                            android:id="@+id/dob"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/rounded_edittext"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:textSize="25sp"
-                            app:ldp_date_format="dd-mm-yyyy"
-                            app:ldp_hint_color="@color/grey"
-                            app:ldp_text_color="@color/textColor" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:hint="Date of Birth">
+
+                            <EditText
+                                android:id="@+id/dob"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_edittext"
+                                android:ems="10"
+                                android:inputType="text"
+                                android:text="@{viewModel.current.personalObject.dob}" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
 
                         <TextView
@@ -708,7 +712,7 @@
                                 android:orientation="horizontal">
 
                                 <com.jaredrummler.materialspinner.MaterialSpinner
-                                    android:id="@+id/stateSpinner"
+                                    android:id="@+id/residenceStateSpinner"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="10dp"
@@ -728,7 +732,7 @@
                                 android:orientation="horizontal">
 
                                 <com.jaredrummler.materialspinner.MaterialSpinner
-                                    android:id="@+id/lgaSpinner"
+                                    android:id="@+id/residenceLgaSpinner"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="10dp"

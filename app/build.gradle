@@ -36,6 +36,10 @@ android {
             buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
             buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
 
+            // PRODUCTION
+//            buildConfigField("String", "HOST", "\"http://197.156.253.58:801/\"")
+//            buildConfigField("String", "BASE_URL", "\"http://197.156.253.58:801/api/v1\"")
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -57,6 +61,10 @@ android {
             // STAGING
             buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
             buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
+
+            // PRODUCTION
+//            buildConfigField("String", "HOST", "\"http://197.156.253.58:801/\"")
+//            buildConfigField("String", "BASE_URL", "\"http://197.156.253.58:801/api/v1\"")
         }
 
     }

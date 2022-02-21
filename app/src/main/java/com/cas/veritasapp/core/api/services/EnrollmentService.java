@@ -2,11 +2,13 @@ package com.cas.veritasapp.core.api.services;
 
 import static com.cas.veritasapp.core.api.Routes.ENROLLMENTS;
 import static com.cas.veritasapp.core.api.Routes.ENROLLMENTS_BY_ID;
+import static com.cas.veritasapp.core.api.Routes.ENROLLMENTS_SEARCH_EMPLOYER;
 import static com.cas.veritasapp.core.api.Routes.ENROLLMENTS_STATS;
 import static com.cas.veritasapp.core.api.Routes.FIND_NIN_DATA;
 import static com.cas.veritasapp.core.api.Routes.MEDIAS;
 
 import com.cas.veritasapp.core.api.Routes;
+import com.cas.veritasapp.core.data.entities.Employer;
 import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.objects.Media;
 import com.cas.veritasapp.objects.Stats;
@@ -43,6 +45,9 @@ public interface EnrollmentService {
     @POST(ENROLLMENTS)
     Flowable<ApiResponse<Enrollment>> senNewEnrollment(@Body Map<String, Object> payload,
                                                        @QueryMap Map<String, String> query);
+
+    @POST(ENROLLMENTS_SEARCH_EMPLOYER)
+    Flowable<ApiResponse<List<Employer>>> searchEmployer(@Body Map<String, Object> payload);
 
     @PUT(ENROLLMENTS_BY_ID)
     Flowable<ApiResponse<Enrollment>> updateEnrollment(@Path("id") String enrollmentId,

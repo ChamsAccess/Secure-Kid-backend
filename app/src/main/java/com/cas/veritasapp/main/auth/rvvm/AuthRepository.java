@@ -2,7 +2,6 @@ package com.cas.veritasapp.main.auth.rvvm;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -10,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.cas.veritasapp.core.api.RetrofitRequest;
 import com.cas.veritasapp.core.api.services.AuthService;
+import com.cas.veritasapp.core.constant.AppConstant;
 import com.cas.veritasapp.core.data.entities.User;
 import com.cas.veritasapp.core.network.Resource;
 import com.cas.veritasapp.objects.api.ApiError;
@@ -51,7 +51,7 @@ public class AuthRepository {
                     AppUtil.updateToken(meta.getToken(), context);
                     User user = apiResponse.getData();
                     LogUtil.info("user data --->: ", user.toString());
-                    PrefUtil.saveData(context, user.getId());
+                    PrefUtil.saveData(context, AppConstant.USER_ID, user.getId());
                     data.setValue(Resource.success(user));
                 }, error -> {
                     ApiError apiError = AppUtil.getError(error);

@@ -15,10 +15,12 @@ import androidx.annotation.RequiresApi;
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
+import com.cas.veritasapp.core.data.entities.Personal;
 import com.cas.veritasapp.core.listeners.OnItemSelectedListener;
 import com.cas.veritasapp.databinding.FragmentPfaCertBinding;
 import com.cas.veritasapp.main.home.dialog.PreviewFragmentDialog;
 import com.cas.veritasapp.main.home.dialog.SignatureFragmentDialog;
+import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentValidator;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.objects.Media;
 import com.cas.veritasapp.core.data.entities.PFACertification;
@@ -78,18 +80,16 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
     }
 
     private void initApp() {
-        if (viewModel.getCurrent() != null && viewModel.getCurrent().getPfa_certificationObject() != null) {
-            certification = viewModel.getCurrent().getPfa_certificationObject();
-            if (certification != null) {
-                Media agentSignatureMedia = certification.getSignature();
-                Picasso.get()
-                        .load((agentSignatureMedia != null && !agentSignatureMedia.file.url.isEmpty())
-                                ? agentSignatureMedia.file.url : null)
-                        .placeholder(R.drawable.ic_signature)
-                        .into(binding.agentSignatureImageView);
-            } else {
-                certification = new PFACertification();
-            }
+        certification = ((viewModel.getCurrent() != null && viewModel.getCurrent().getPfa_certificationObject() != null))
+                ? viewModel.getCurrent().getPfa_certificationObject() : new PFACertification();
+
+        if (certification != null) {
+            Media agentSignatureMedia = certification.getSignature();
+            Picasso.get()
+                    .load((agentSignatureMedia != null && !agentSignatureMedia.file.url.isEmpty())
+                            ? agentSignatureMedia.file.url : null)
+                    .placeholder(R.drawable.ic_signature)
+                    .into(binding.agentSignatureImageView);
         }
         String enrolledDate = certification.getEnrolled_dated();
         if (enrolledDate != null && !enrolledDate.isEmpty()) {
@@ -131,6 +131,11 @@ public class PFACertificationFragment extends BaseFragment<FragmentPfaCertBindin
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.saveBtn:
+                String validationMessage = EnrollmentValidator.validatePFA(certification);
+                if (!validationMessage.isEmpty()) {
+                    showToast(validationMessage);
+                    return;
+                }
                 viewModel.getCurrent().setPfa_certificationObject(certification);
                 PreviewFragmentDialog dialog = new PreviewFragmentDialog(viewModel.getCurrent(),
                         (viewModel.getCurrent() != null && viewModel.getCurrent().get_id() == null)

@@ -41,7 +41,7 @@ public class EmploymentPayload<T> implements Serializable {
     public T country;
     @SerializedName(value = "house_number")
     public String houseNumber;
-    @SerializedName(value = "office_location")
+    @SerializedName(value = "location")
     public T location;
 
     public static EmploymentPayload create(Employment employment){
@@ -67,26 +67,26 @@ public class EmploymentPayload<T> implements Serializable {
     }
 
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "Employment{" +
-                "employerUnderIPPS='" + employerUnderIPPS + '\'' +
-                ", sectorClassification='" + sectorClassification.toString() + '\'' +
-                ", employeeIPPSNumber='" + employeeIPPSNumber + '\'' +
-                ", employerName='" + employerName + '\'' +
-                ", employerCardId='" + employerCardId + '\'' +
-                ", dateOfFirstAppointment='" + dateOfFirstAppointment + '\'' +
-                ", dateOfCurrentEmployment='" + dateOfCurrentEmployment + '\'' +
-                ", dateOfTransferService='" + dateOfTransferService + '\'' +
-                ", natureOfBusiness='" + natureOfBusiness + '\'' +
-                ", serviceId='" + serviceId + '\'' +
-                ", employerPhone='" + employerPhone + '\'' +
-                ", dateJoined='" + dateJoined + '\'' +
-                ", countryCode='" + countryCode + '\'' +
-                ", country='" + country + '\'' +
-                ", houseNumber='" + houseNumber + '\'' +
-                ", location=" + location.toString() +
-                '}';
-    }
+//    @NonNull
+//    @Override
+//    public String toString() {
+//        return "Employment{" +
+//                "employerUnderIPPS='" + employerUnderIPPS + '\'' +
+//                ", sectorClassification='" + sectorClassification.toString() + '\'' +
+//                ", employeeIPPSNumber='" + employeeIPPSNumber + '\'' +
+//                ", employerName='" + employerName + '\'' +
+//                ", employerCardId='" + employerCardId + '\'' +
+//                ", dateOfFirstAppointment='" + dateOfFirstAppointment + '\'' +
+//                ", dateOfCurrentEmployment='" + dateOfCurrentEmployment + '\'' +
+//                ", dateOfTransferService='" + dateOfTransferService + '\'' +
+//                ", natureOfBusiness='" + natureOfBusiness + '\'' +
+//                ", serviceId='" + serviceId + '\'' +
+//                ", employerPhone='" + employerPhone + '\'' +
+//                ", dateJoined='" + dateJoined + '\'' +
+//                ", countryCode='" + countryCode + '\'' +
+//                ", country='" + country + '\'' +
+//                ", houseNumber='" + houseNumber + '\'' +
+//                ", location=" + location.toString() +
+//                '}';
+//    }
 }

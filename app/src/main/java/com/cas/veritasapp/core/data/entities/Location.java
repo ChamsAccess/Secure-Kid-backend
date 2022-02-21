@@ -20,7 +20,7 @@ public class Location implements Serializable {
     private LGA lgaObject;
 
     @SerializedName(value = "state_code")
-    private String stateCode;
+    private String state_code;
     private State stateObject;
 
     @SerializedName(value = "zip_code")
@@ -86,11 +86,11 @@ public class Location implements Serializable {
     }
 
     public String getStateCode() {
-        return stateCode;
+        return state_code;
     }
 
     public void setStateCode(String stateCode) {
-        this.stateCode = stateCode;
+        this.state_code = stateCode;
     }
 
     public void setCity(String city) {

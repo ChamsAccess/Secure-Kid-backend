@@ -17,6 +17,7 @@ public class Routes {
     public static final String ENROLLMENTS_STATS = BASE_URL + "/enrollments/stats";
     public static final String ENROLLMENTS_BY_ID = BASE_URL + "/enrollments/{id}";
     public static final String ENROLLMENTS_ERROR = BASE_URL + "/enrollments/{id}/error";
+    public static final String ENROLLMENTS_SEARCH_EMPLOYER = BASE_URL + "/enrollments/search-employer";
 
     // RESOURCES
     public static final String COUNTRIES = BASE_URL + "/resources/countries";
@@ -26,4 +27,6 @@ public class Routes {
 
     // Media
     public static final String MEDIAS = BASE_URL + "/medias";
+
+
 }

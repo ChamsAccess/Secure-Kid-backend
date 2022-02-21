@@ -97,7 +97,7 @@ public class ErrorFragmentDialog extends BaseDialogFragment<FragmentEnrollmentEr
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
 
         if (enrollment != null) {
-            showToast("Fetching...enrollment-errors: "+ enrollment.get_id());
+//            showToast("Fetching...-status for: "+ enrollment.getPersonalObject().getFirstName());
             viewModel.getEnrollmentError(enrollment.get_id(), null).observe(getViewLifecycleOwner(), this::performAction);
         }
 
