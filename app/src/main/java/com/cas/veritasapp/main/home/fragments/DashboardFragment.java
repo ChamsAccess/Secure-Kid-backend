@@ -23,11 +23,14 @@ import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.objects.Stats;
 import com.cas.veritasapp.objects.api.ApiError;
+import com.cas.veritasapp.util.PrefUtil;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -88,8 +91,11 @@ public class DashboardFragment extends BaseFragment<FragmentEnrollmentBinding> {
         });
     }
 
-    private void initiateApiCall(){
-        viewModel.getEnrollments(null).observe(getViewLifecycleOwner(), this::performAction);
+    private void initiateApiCall() {
+        Map<String, String> map = new HashMap<>();
+        String userId = PrefUtil.getStringData(requireActivity(), AppConstant.USER_ID);
+        map.put("enrolled_by", userId);
+        viewModel.getEnrollments(map).observe(getViewLifecycleOwner(), this::performAction);
         viewModel.stats(null).observe(getViewLifecycleOwner(), this::performAction);
     }
 

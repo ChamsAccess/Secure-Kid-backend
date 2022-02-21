@@ -14,8 +14,10 @@ import androidx.annotation.RequiresApi;
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
+import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.databinding.FragmentNextOfKinBinding;
 import com.cas.veritasapp.main.adapter.DropDownAdapter;
+import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentValidator;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.core.data.entities.Country;
 import com.cas.veritasapp.objects.DropDownObject;
@@ -23,7 +25,6 @@ import com.cas.veritasapp.core.data.entities.LGA;
 import com.cas.veritasapp.core.data.entities.Location;
 import com.cas.veritasapp.core.data.entities.NextOfKin;
 import com.cas.veritasapp.core.data.entities.State;
-import com.cas.veritasapp.util.AppUtil;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import org.jetbrains.annotations.NotNull;
@@ -51,6 +52,10 @@ public class NextOfKinFragment extends BaseFragment<FragmentNextOfKinBinding> im
     private String stateId;
     private String lgaId;
 
+    private Country country;
+    private State state;
+    private LGA lga;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_next_of_kin;
@@ -75,31 +80,58 @@ public class NextOfKinFragment extends BaseFragment<FragmentNextOfKinBinding> im
     }
 
     private void initApp() {
-        nextOfKin = (viewModel.getCurrent() != null && viewModel.getCurrent().getNextOfKinObject() != null)
-                ? viewModel.getCurrent().getNextOfKinObject() : new NextOfKin();
+        try {
+            nextOfKin = (viewModel.getCurrent() != null && viewModel.getCurrent().getNextOfKinObject() != null)
+                    ? viewModel.getCurrent().getNextOfKinObject() : new NextOfKin();
 
-        binding.saveBtn.setOnClickListener(this);
+            country = ((
+                    viewModel.getCurrent() != null &&
+                            viewModel.getCurrent().getNextOfKinObject() != null &&
+                            viewModel.getCurrent().getNextOfKinObject().getCountryObject() != null
+            )) ? viewModel.getCurrent().getNextOfKinObject().getCountryObject() : new Country();
 
-        viewModel.findCountries(null).observe(getViewLifecycleOwner(), this::performAction);
+            lga = ((
+                    viewModel.getCurrent() != null &&
+                            viewModel.getCurrent().getNextOfKinObject() != null &&
+                            viewModel.getCurrent().getNextOfKinObject().getLocation() != null &&
+                            viewModel.getCurrent().getNextOfKinObject().getLocation().getLgaObject() != null
+            )) ? viewModel.getCurrent().getNextOfKinObject().getLocation().getLgaObject() : new LGA();
 
-        binding.countrySpinner.setOnItemSelectedListener(this);
-        binding.stateSpinner.setOnItemSelectedListener(this);
-        binding.lgaSpinner.setOnItemSelectedListener(this);
+            state = ((
+                    viewModel.getCurrent() != null &&
+                            viewModel.getCurrent().getNextOfKinObject() != null &&
+                            viewModel.getCurrent().getNextOfKinObject().getLocation() != null &&
+                            viewModel.getCurrent().getNextOfKinObject().getLocation().getStateObject() != null
+            )) ? viewModel.getCurrent().getNextOfKinObject().getLocation().getStateObject() : new State();
 
-        binding.titleRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            int titleRadioGroup = group.getCheckedRadioButtonId();
-            RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
-            nextOfKin.setTitle(radioButton.getText().toString());
-        });
+            binding.saveBtn.setOnClickListener(this);
 
-        binding.genderRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            int titleRadioGroup = group.getCheckedRadioButtonId();
-            RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
-            nextOfKin.setGender(radioButton.getText().toString());
-        });
+            viewModel.findCountries(null).observe(getViewLifecycleOwner(), this::performAction);
+
+            binding.countrySpinner.setOnItemSelectedListener(this);
+            binding.stateSpinner.setOnItemSelectedListener(this);
+            binding.lgaSpinner.setOnItemSelectedListener(this);
+
+            binding.titleRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                int titleRadioGroup = group.getCheckedRadioButtonId();
+                RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
+                if (radioButton != null) {
+                    nextOfKin.setTitle(radioButton.getText().toString());
+                }
+            });
+
+            binding.genderRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                int titleRadioGroup = group.getCheckedRadioButtonId();
+                RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
+                nextOfKin.setGender(radioButton.getText().toString());
+            });
+        }catch(NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setNextOfKinData() {
+        Enrollment enrollment = viewModel.getCurrent();
         nextOfKin.setFirst_name(binding.firstNameEditText.getText().toString());
         nextOfKin.setSurname(binding.surnameEditText.getText().toString());
         nextOfKin.setEmail(binding.emailEditText.getText().toString());
@@ -110,17 +142,61 @@ public class NextOfKinFragment extends BaseFragment<FragmentNextOfKinBinding> im
         nextOfKin.setRelationship(binding.relationshipEditText.getText().toString());
         nextOfKin.setMiddle_name(binding.middleNameEditText.getText().toString());
 
+        country = (enrollment != null
+                && enrollment.getNextOfKinObject() != null
+                && enrollment.getNextOfKinObject().getCountryObject() != null)
+                ? enrollment.getNextOfKinObject().getCountryObject() : country;
 
-        Location location = new Location();
-        location.setStreet(binding.streetNameEditText.getText().toString());
-        location.setLga_code(lgaId);
-        location.setPOBox("");
-        location.setStateCode(stateId);
+        nextOfKin.setCountryObject(country);
+        nextOfKin.setCountry_code((country != null
+                && country.getId() != null
+                && (country == null || countryId.isEmpty()))
+                ? country.getId()
+                : countryId);
+
+
+        Location location = (enrollment != null && enrollment.getNextOfKinObject() != null
+                && enrollment.getNextOfKinObject().getLocation() != null)
+                ? enrollment.getNextOfKinObject().getLocation() : new Location();
+
+        state = (enrollment != null
+                && enrollment.getNextOfKinObject() != null
+                && enrollment.getNextOfKinObject().getLocation() != null
+                && enrollment.getNextOfKinObject().getLocation().getLgaObject() != null)
+                ? enrollment.getNextOfKinObject().getLocation().getStateObject() : state;
+        location.setStateObject(state);
+        location.setStateCode((state != null
+                && state.getId() != null
+                && (stateId == null || stateId.isEmpty()))
+                ? state.getId()
+                : stateId);
+
+        lga = (enrollment != null
+                && enrollment.getNextOfKinObject() != null
+                && enrollment.getNextOfKinObject().getLocation() != null
+                && enrollment.getNextOfKinObject().getLocation().getLgaObject() != null)
+                ? enrollment.getNextOfKinObject().getLocation().getLgaObject() : lga;
+        location.setLgaObject(lga);
+        location.setLga_code((lga != null
+                && lga.getId() != null
+                && (lgaId == null || lgaId.isEmpty()))
+                ? lga.getId()
+                : lgaId);
+
         location.setPOBox(binding.POBoxEditText.getText().toString());
         location.setZip_code(binding.zipCodeEditText.getText().toString());
+        location.setStreet(binding.streetNameEditText.getText().toString());
+        location.setCity(binding.streetNameEditText.getText().toString());
         nextOfKin.setLocation(location);
 
+        String validationMessage = EnrollmentValidator.validateNextOfKin(nextOfKin);
+        if (!validationMessage.isEmpty()) {
+            showToast(validationMessage);
+            return;
+        }
+
         viewModel.getCurrent().setNextOfKinObject(nextOfKin);
+        showToast("Next of Kin data saved successfully");
     }
 
     @Override
@@ -184,7 +260,6 @@ public class NextOfKinFragment extends BaseFragment<FragmentNextOfKinBinding> im
         switch (v.getId()) {
             case R.id.saveBtn:
                 setNextOfKinData();
-                showToast("Next of Kin data saved successfully");
                 break;
         }
     }
@@ -196,14 +271,23 @@ public class NextOfKinFragment extends BaseFragment<FragmentNextOfKinBinding> im
                 viewModel.findState(item.get_id(), null).observe(getViewLifecycleOwner(), this::performAction);
                 stateId = item.get_id();
                 binding.stateSpinner.setText(item.getName());
+                state.setId(item.get_id());
+                state.setCode(item.getCode());
+                state.setName(item.getName());
                 break;
             case R.id.lgaSpinner:
                 binding.lgaSpinner.setText(item.getName());
                 lgaId = item.get_id();
+                lga.setId(item.get_id());
+                lga.setName(item.getName());
+                lga.setCode(item.getCode());
                 break;
             case R.id.countrySpinner:
                 viewModel.findCountry(item.get_id(), null).observe(getViewLifecycleOwner(), this::performAction);
                 countryId = item.get_id();
+                country.setId(item.get_id());
+                country.setName(item.getName());
+                country.setCode(item.getCode());
                 binding.countrySpinner.setText(item.getName());
                 break;
         }

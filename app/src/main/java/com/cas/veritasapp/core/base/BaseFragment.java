@@ -54,7 +54,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 3;
     public static final int REQUEST_IMAGE_CAPTURE = 2;
 //    public static final String DATE_FORMAT = "YYYY-mm-dd";
-    public static final String DATE_FORMAT = "MM-dd-yyyy";
+    public static final String DATE_FORMAT = "dd-MM-yyyy";
 
     private Toolbar toolbar;
     private int sourceNavId;

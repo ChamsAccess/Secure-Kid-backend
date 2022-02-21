@@ -111,6 +111,17 @@ public class PrefUtil {
         context.getSharedPreferences(MEAL_APP, Context.MODE_PRIVATE).edit().putString(key, json).apply();
     }
 
+    /**
+     * Save data
+     *
+     * @param context the context
+     * @param key     the key
+     * @param val     the value to save
+     */
+    static public void saveData(Context context, String key, String val) {
+        context.getSharedPreferences(MEAL_APP, Context.MODE_PRIVATE).edit().putString(key, val).apply();
+    }
+
     static public SharedPreferences.Editor getSharedPrefEditor(Context context, String pref) {
         return context.getSharedPreferences(pref, Context.MODE_PRIVATE).edit();
     }

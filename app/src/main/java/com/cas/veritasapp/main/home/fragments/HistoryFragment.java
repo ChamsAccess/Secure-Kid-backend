@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import com.cas.veritasapp.R;
 import com.cas.veritasapp.core.base.BaseFragment;
 import com.cas.veritasapp.core.constant.AppConstant;
+import com.cas.veritasapp.core.data.entities.User;
 import com.cas.veritasapp.core.listeners.OnItemSelectedListener;
 import com.cas.veritasapp.databinding.FragmentHistoryBinding;
 import com.cas.veritasapp.main.adapter.HistoryEnrollmentAdapter;
@@ -24,8 +25,9 @@ import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.core.data.entities.Enrollment;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.util.FixedGridLayoutManager;
-
-import org.jetbrains.annotations.NotNull;
+import com.cas.veritasapp.util.LogUtil;
+import com.cas.veritasapp.util.PrefUtil;
+import com.cas.veritasapp.util.ServiceUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,6 +89,8 @@ public class HistoryFragment extends BaseFragment<FragmentHistoryBinding>
     }
 
     private void fetchEnrollment(Map<String, String> map) {
+        String userId = PrefUtil.getStringData(requireActivity(), AppConstant.USER_ID);
+        map.put("enrolled_by", userId);
         viewModel.getEnrollments(map).observe(getViewLifecycleOwner(), this::performAction);
     }
 

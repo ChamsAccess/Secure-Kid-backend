@@ -48,7 +48,6 @@ public class Employment implements Serializable {
     @SerializedName(value = "house_number")
     private String houseNumber;
 
-    @SerializedName(value = "office_location")
     private Location location;
 
     public static Employment create(EmploymentPayload payload){
@@ -78,7 +77,7 @@ public class Employment implements Serializable {
             }
         }
         if (payload.location != null) {
-            if (ServiceUtil.isPrimitive(payload.location)) {
+            if (!ServiceUtil.isPrimitive(payload.location)) {
                 LocationPayload locationPayload = ServiceUtil.getObjectValue(payload.location, LocationPayload.class);
                 employment.setLocation(Location.create(locationPayload));
             }
@@ -238,7 +237,7 @@ public class Employment implements Serializable {
         this.location = location;
     }
 
-    @NonNull
+//    @NonNull
     @Override
     public String toString() {
         return "Employment{" +

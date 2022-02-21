@@ -1,14 +1,13 @@
 package com.cas.veritasapp.main.home.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
@@ -26,20 +25,20 @@ import com.cas.veritasapp.core.data.entities.Personal;
 import com.cas.veritasapp.core.data.entities.State;
 import com.cas.veritasapp.databinding.FragmentPersonalDataBinding;
 import com.cas.veritasapp.main.adapter.DropDownAdapter;
-import com.cas.veritasapp.main.home.dialog.PreviewFragmentDialog;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentValidator;
 import com.cas.veritasapp.main.home.rvvm.enrollment.EnrollmentViewModel;
 import com.cas.veritasapp.objects.DropDownObject;
 import com.cas.veritasapp.objects.api.ApiError;
 import com.cas.veritasapp.objects.payloads.NinPayload;
 import com.cas.veritasapp.util.AppUtil;
+import com.cas.veritasapp.util.DateTimeUtils;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.mikhaellopez.lazydatepicker.LazyDatePicker;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -60,24 +59,27 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
     private Personal personal;
 
     private String countryId;
+    private String residenceStateId;
     private String stateId;
-    private String stateId2;
+    private String residenceLgaId;
     private String lgaId;
-    private String lgaId2;
 
     private Country country;
     private State state;
-    private State state2;
+    private State residenceState;
     private LGA lga;
-    private LGA lga2;
+    private LGA residenceLGA;
+
+    private String startDate, endDate;
+
+    private int mYear, mMonth, mDay;
 
     private EnrollmentValidator validator;
 
     @Inject
     EnrollmentViewModel viewModel;
 
-    private ArrayList<DropDownObject> dropDownObjectArrayList;
-
+    private ArrayList<DropDownObject> dropDownObjectArrayList = new ArrayList<>();
 
 
     @Override
@@ -104,31 +106,77 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
         this.initApp();
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (viewModel.getCurrent() != null &&
+                (viewModel.getCurrent().get_id() != null && !viewModel.getCurrent().get_id().isEmpty())) {
+            binding.findNinRelativeLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (viewModel.getCurrent() != null &&
+                (viewModel.getCurrent().get_id() != null && !viewModel.getCurrent().get_id().isEmpty())) {
+            binding.findNinRelativeLayout.setVisibility(View.GONE);
+        }
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+
     private void initApp() {
+        if (viewModel.getCurrent() != null &&
+                (viewModel.getCurrent().get_id() != null && !viewModel.getCurrent().get_id().isEmpty())) {
+            binding.findNinRelativeLayout.setVisibility(View.GONE);
+        }
+        country = ((viewModel.getCurrent() != null
+                && viewModel.getCurrent().getPersonalObject() != null
+                && viewModel.getCurrent().getPersonalObject().getCountryObject() != null))
+                ? viewModel.getCurrent().getPersonalObject().getCountryObject() : new Country();
+
+        Map<String, String> map = new HashMap();
+        if (country != null && country.getId() != null && country.getId().isEmpty()) {
+            map.put("name", "Nigeria");
+        }
+        viewModel.findCountries(map).observe(getViewLifecycleOwner(), this::performAction);
+
         validator = new EnrollmentValidator(viewModel);
-//        if (viewModel.getCurrent() != null && viewModel.getCurrent().getPersonalObject() != null) {
-//            String dateOfBirth = viewModel.getCurrent().getPersonalObject().getDob();
-//
-//        }
+
         personal = ((viewModel.getCurrent() != null && viewModel.getCurrent().getPersonalObject() != null))
                 ? viewModel.getCurrent().getPersonalObject() : new Personal();
 
-        country = new Country();
+        if (personal != null && personal.getDob() != null) {
+            String dateOfBirth = personal.getDob();
+            Calendar calendar = AppUtil.toCalendar(AppUtil.stringToDate(dateOfBirth));
+            binding.dob.setText(AppUtil.dateFormatter(calendar, DATE_FORMAT));
+            personal.setDob(binding.dob.getText().toString());
+        }
+
+
+        if (country != null && (country.getName() != null && country.getId() != null)) {
+            dropDownObjectArrayList.add(new DropDownObject(country.getId(), country.getName()));
+            DropDownAdapter dropDownAdapter = new DropDownAdapter(getContext(), dropDownObjectArrayList);
+            dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            binding.countrySpinner.setAdapter(dropDownAdapter);
+//            int index = AppUtil.getSpinnerIndex(binding.countrySpinner, country.getId());
+//            binding.countrySpinner.setSelectedIndex(index);
+        }
+
         state = new State();
-        state2 = new State();
+        residenceState = new State();
 
         lga = new LGA();
-        lga2 = new LGA();
+        residenceLGA = new LGA();
 
         this.initData();
 
-        viewModel.findCountries(null).observe(getViewLifecycleOwner(), this::performAction);
-
 
         binding.countrySpinner.setOnItemSelectedListener(this);
-        binding.stateSpinner.setOnItemSelectedListener(this);
+        binding.residenceStateSpinner.setOnItemSelectedListener(this);
         binding.stateInfoSpinner.setOnItemSelectedListener(this);
-        binding.lgaSpinner.setOnItemSelectedListener(this);
+        binding.residenceLgaSpinner.setOnItemSelectedListener(this);
         binding.lgaInfoSpinner.setOnItemSelectedListener(this);
 
         binding.titleLinearLayout.setOnClickListener(this);
@@ -143,44 +191,61 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
         if (dateOfBirth != null && !dateOfBirth.isEmpty()) {
             Date date = AppUtil.stringToDate(dateOfBirth);
             if (date != null) {
-                binding.dob.setDate(date);
                 binding.dob.setClickable(false);
                 binding.dob.setEnabled(false);
             }
         }
 
 //        binding.ninEditTxt.setText("17520041640");
-
-        binding.findNinRelativeLayout.setVisibility(View.VISIBLE);
-        binding.personalLinearLayout.setVisibility(View.GONE);
+        if (viewModel.getCurrent() != null &&
+                (viewModel.getCurrent().get_id() != null && !viewModel.getCurrent().get_id().isEmpty())) {
+            binding.findNinRelativeLayout.setVisibility(View.GONE);
+            binding.personalLinearLayout.setVisibility(View.VISIBLE);
+        } else {
+            binding.findNinRelativeLayout.setVisibility(View.VISIBLE);
+            binding.personalLinearLayout.setVisibility(View.GONE);
+        }
 
     }
 
     private void initData() {
-        binding.titleRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            int titleRadioGroup = group.getCheckedRadioButtonId();
-            RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
-            personal.setTitle(radioButton.getText().toString());
-        });
+        try {
+            binding.titleRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                int titleRadioGroup = group.getCheckedRadioButtonId();
+                RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
+                if (radioButton != null) {
+                    personal.setTitle(radioButton.getText().toString());
+                }
+            });
 
-        binding.genderRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            int titleRadioGroup = group.getCheckedRadioButtonId();
-            RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
-            personal.setGender(radioButton.getText().toString());
-        });
+            binding.genderRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                int titleRadioGroup = group.getCheckedRadioButtonId();
+                RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
+                if (radioButton != null) {
+                    personal.setGender(radioButton.getText().toString());
+                }
+            });
 
-        binding.martialStatusRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            int titleRadioGroup = group.getCheckedRadioButtonId();
-            RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
-            personal.setMaritalStatus(radioButton.getText().toString());
-        });
+            binding.martialStatusRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                int titleRadioGroup = group.getCheckedRadioButtonId();
+                RadioButton radioButton = requireActivity().findViewById(titleRadioGroup);
+                personal.setMaritalStatus(radioButton.getText().toString());
+            });
 
-        binding.dob.setOnDatePickListener(this);
-        binding.dob.setOnDateSelectedListener(this);
-        personal.setFirstName(binding.firstNameEditText.getText().toString());
+            binding.dob.setOnClickListener(this);
+            binding.dob.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    showDate();
+                }
+            });
+            personal.setFirstName(binding.firstNameEditText.getText().toString());
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     private void setPersonalData() {
+        Enrollment enrollment = viewModel.getCurrent();
         personal.setFirstName(binding.firstNameEditText.getText().toString());
         personal.setSurname(binding.surnameEditText.getText().toString());
         personal.setMiddleName(binding.middleNameEditText.getText().toString());
@@ -191,28 +256,87 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
         personal.setEmail(binding.emailEditText.getText().toString());
         personal.setMaiden(binding.maidenEditText.getText().toString());
         personal.setHouseNumber(binding.houseNumberEditText.getText().toString());
-        personal.setCountry(countryId);
+        personal.setDob(binding.dob.getText().toString());
+
+        country = (enrollment != null
+                && enrollment.getPersonalObject() != null
+                && enrollment.getPersonalObject().getCountryObject() != null)
+                ? enrollment.getPersonalObject().getCountryObject()
+                : country;
         personal.setCountryObject(country);
+        personal.setCountry((country != null
+                && country.getId() != null
+                && (countryId == null || countryId.isEmpty()))
+                ? country.getId()
+                : countryId);
 
-        personal.setState(stateId2);
-        personal.setStateObject(state2);
+        // state of origin
+        state = (enrollment != null
+                && enrollment.getPersonalObject() != null
+                && enrollment.getPersonalObject().getStateObject() != null)
+                ? enrollment.getPersonalObject().getStateObject() : residenceState;
+        personal.setStateObject(state);
+        personal.setState((state != null
+                && state.getId() != null
+                && (stateId == null || stateId.isEmpty()))
+                ? state.getId()
+                : stateId);
 
-        personal.setLga(lgaId2);
-        personal.setLgaObject(lga2);
+        // local govt of origin
+        lga = (enrollment != null
+                && enrollment.getPersonalObject() != null
+                && enrollment.getPersonalObject().getLgaObject() != null)
+                ? enrollment.getPersonalObject().getLgaObject() : lga;
+        personal.setLgaObject(lga);
+        personal.setLga((lga != null
+                && lga.getId() != null
+                && (lgaId == null || lgaId.isEmpty()))
+                ? lga.getId()
+                : lgaId);
 
-        Location location = new Location();
+        // residence state
+        residenceState = (enrollment != null
+                && enrollment.getPersonalObject() != null
+                && enrollment.getPersonalObject().getLocation() != null
+                && enrollment.getPersonalObject().getLocation().getStateObject() != null)
+                ? enrollment.getPersonalObject().getLocation().getStateObject() : residenceState;
+
+        // residence local govt
+        residenceLGA = (enrollment != null
+                && enrollment.getPersonalObject() != null
+                && enrollment.getPersonalObject().getLgaObject() != null)
+                ? enrollment.getPersonalObject().getLgaObject() : residenceLGA;
+        personal.setLgaObject(residenceLGA);
+
+        Location location = (enrollment != null && enrollment.getPersonalObject() != null
+                && enrollment.getPersonalObject().getLocation() != null)
+                ? enrollment.getPersonalObject().getLocation() : new Location();
         location.setStreet(binding.streetEditText.getText().toString());
-        location.setStateCode(stateId);
-        location.setLga_code(lgaId);
-        location.setLgaObject(lga);
-        location.setStateObject(state);
+        location.setStateCode(residenceStateId);
+        location.setLga_code(residenceLgaId);
+        location.setLgaObject(residenceLGA);
+        location.setStateObject(residenceState);
         location.setCity(binding.cityEditText.getText().toString());
         location.setZip_code(binding.zipCodeEditText.getText().toString());
         location.setPOBox(binding.POBoxEditText.getText().toString());
 
         personal.setLocation(location);
 
+        String validationMessage = EnrollmentValidator.validatePersonal(personal);
+        if (!validationMessage.isEmpty()) {
+            showToast(validationMessage);
+            return;
+        }
         viewModel.getCurrent().setPersonalObject(personal);
+        showToast("Personal data saved successfully");
+    }
+
+    private void showDate() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), (mView, year, month, dayOfMonth) -> {
+            startDate = AppUtil.dateFormatter(AppUtil.customCalendar(year, month, dayOfMonth));
+            binding.dob.setText(DateTimeUtils.formatWithPattern(startDate, DATE_FORMAT));
+        }, mYear, mMonth, mDay);
+        datePickerDialog.show();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -236,9 +360,11 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
                 break;
             case R.id.martialStatusRadioGroup:
                 break;
+            case R.id.dob:
+                showDate();
+                break;
             case R.id.saveBtn:
                 setPersonalData();
-                showToast("Personal data saved successfully");
                 break;
 
             case R.id.skipButton:
@@ -261,7 +387,7 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
 
     @Override
     public void onDatePick(Date dateSelected) {
-        binding.dob.setDate(dateSelected);
+//        binding.dob.setDate(dateSelected);
         personal.setDob(LazyDatePicker.dateToString(dateSelected, DATE_FORMAT));
         viewModel.getCurrent().setPersonalObject(personal);
     }
@@ -299,7 +425,7 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
                     if (countries != null && !countries.isEmpty()) {
                         dropDownObjectArrayList = new ArrayList<>();
                         for (Country country : countries) {
-                            DropDownObject dropDownObject = new DropDownObject(country.getId(), country.getName());
+                            DropDownObject dropDownObject = new DropDownObject(country.getId(), country.getName(), country.getCode());
                             dropDownObjectArrayList.add(dropDownObject);
                         }
                         DropDownAdapter dropDownAdapter = new DropDownAdapter(getContext(), dropDownObjectArrayList);
@@ -318,7 +444,7 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
                     }
                     DropDownAdapter dropDownAdapter = new DropDownAdapter(getContext(), dropDownObjectArrayList);
                     dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.stateSpinner.setAdapter(dropDownAdapter);
+                    binding.residenceStateSpinner.setAdapter(dropDownAdapter);
                     binding.stateInfoSpinner.setAdapter(dropDownAdapter);
                 }
             }
@@ -332,7 +458,7 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
                     }
                     DropDownAdapter dropDownAdapter = new DropDownAdapter(getContext(), dropDownObjectArrayList);
                     dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.lgaSpinner.setAdapter(dropDownAdapter);
+                    binding.residenceLgaSpinner.setAdapter(dropDownAdapter);
                     binding.lgaInfoSpinner.setAdapter(dropDownAdapter);
                 }
             }
@@ -348,40 +474,46 @@ public class PersonalDataFragment extends BaseFragment<FragmentPersonalDataBindi
     }
 
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onItemSelected(MaterialSpinner view, int position, long id, DropDownObject item) {
         switch (view.getId()) {
-            case R.id.stateSpinner:
+            case R.id.residenceStateSpinner:
+                viewModel.findState(item.get_id(), null).observe(getViewLifecycleOwner(), this::performAction);
+                residenceStateId = item.get_id();
+                residenceState.setId(item.get_id());
+                residenceState.setName(item.getName());
+                residenceState.setCode(item.getCode());
+                binding.residenceStateSpinner.setText(item.getName());
+                break;
+            case R.id.stateInfoSpinner:
                 viewModel.findState(item.get_id(), null).observe(getViewLifecycleOwner(), this::performAction);
                 stateId = item.get_id();
                 state.setId(item.get_id());
                 state.setName(item.getName());
-                binding.stateSpinner.setText(item.getName());
-                break;
-            case R.id.stateInfoSpinner:
-                viewModel.findState(item.get_id(), null).observe(getViewLifecycleOwner(), this::performAction);
-                stateId2 = item.get_id();
-                state2.setId(item.get_id());
-                state2.setName(item.getName());
+                state.setCode(item.getCode());
                 binding.stateInfoSpinner.setText(item.getName());
                 break;
-            case R.id.lgaSpinner:
-                binding.lgaSpinner.setText(item.getName());
-                lgaId = item.get_id();
-                lga.setId(item.get_id());
-                lga.setName(item.getName());
+            case R.id.residenceLgaSpinner:
+                binding.residenceLgaSpinner.setText(item.getName());
+                residenceLgaId = item.get_id();
+                residenceLGA.setId(item.get_id());
+                residenceLGA.setName(item.getName());
+                residenceLGA.setCode(item.getCode());
                 break;
             case R.id.lgaInfoSpinner:
                 binding.lgaInfoSpinner.setText(item.getName());
-                lgaId2 = item.get_id();
-                lga2.setId(item.get_id());
-                lga2.setName(item.getName());
+                lgaId = item.get_id();
+                lga.setId(item.get_id());
+                lga.setName(item.getName());
+                lga.setCode(item.getCode());
                 break;
             case R.id.countrySpinner:
                 viewModel.findCountry(item.get_id(), null).observe(getViewLifecycleOwner(), this::performAction);
                 countryId = item.get_id();
                 country.setId(item.get_id());
                 country.setName(item.getName());
+                country.setCode(item.getCode());
                 binding.countrySpinner.setText(item.getName());
                 break;
         }

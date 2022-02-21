@@ -17,11 +17,12 @@ public class EnrollmentPayload<T> implements Serializable {
     public String _id;
     public String enrolled_by;
     public String createdAt;
+    public String status;
     @SerializedName(value = "rsa_pin")
     public String rsaPin;
     @SerializedName(value = "t_pin")
-    public boolean submitted;
     public String tPin;
+    public boolean submitted;
     public T personal;
     public T next_of_kin;
     public T employment;
@@ -33,6 +34,9 @@ public class EnrollmentPayload<T> implements Serializable {
         EnrollmentPayload payload = new EnrollmentPayload();
         payload._id = enrollment.get_id();
         payload.createdAt = enrollment.getCreateAt();
+        payload.submitted = enrollment.isSubmitted();
+        payload.tPin = enrollment.gettPin();
+        payload.status = enrollment.getStatus();
         payload.personal = enrollment.getPersonal();
         payload.next_of_kin = enrollment.getNext_of_kin();
         payload.employment = enrollment.getEmployment();

@@ -56,6 +56,9 @@ public class EnrollmentAdapter extends RecyclerView.Adapter<EnrollmentAdapter.En
                     viewHolder.getFullNameTxtView().setText(
                             enrollment.getPersonalObject().getFirstName() + "-" + enrollment.getPersonalObject().getSurname());
                 }
+                viewHolder.getRsPinTxtView().setText((enrollment.gettPin() != null && !enrollment.gettPin().isEmpty())
+                        ? enrollment.gettPin()
+                        : "Pending");
             }
         }
     }
@@ -67,6 +70,9 @@ public class EnrollmentAdapter extends RecyclerView.Adapter<EnrollmentAdapter.En
 
         @BindView(R.id.fullNameTxtView)
         TextView fullNameTxtView;
+
+        @BindView(R.id.rsPinTxtView)
+        TextView rsPinTxtView;
 
         View view;
 
@@ -82,6 +88,10 @@ public class EnrollmentAdapter extends RecyclerView.Adapter<EnrollmentAdapter.En
 
         public TextView getFullNameTxtView() {
             return fullNameTxtView;
+        }
+
+        public TextView getRsPinTxtView() {
+            return rsPinTxtView;
         }
 
         public View getView() {

@@ -17,6 +17,7 @@ public class AppConstant {
     public static String[] REGISTRATION_STATUS = {"Select REG Status","Completed", "Incomplete",};
 
     public static final String TOKEN = "token";
+    public static final String USER_ID = "userId";
     public static final String DATE = "date";
     public static final String DATE_PATTERN = "EEEE, MMMM dd, yyyy";
     public static final String END_DATE = "end_date";
@@ -34,6 +35,7 @@ public class AppConstant {
     public static final String UPDATE_ACTION = "update_action";
     public static final String UPDATE_ENROLLMENT = "update_enrollment";
     public static final String SHOW_ENROLLMENT_DETAILS = "show_enrollment_details";
+    public static final String SHOW_EMPLOYER_DETAILS = "show_employer_details";
     public static final String CAPTURE_USER_IMAGE_ACTION = "capture_user_image_action";
     public static final String CAPTURE_USER_SIGNATURE_ACTION = "capture_user_signature_action";
     public static final String CAPTURE_AGENT_SIGNATURE_ACTION = "capture_agent_signature_action";
@@ -43,6 +45,7 @@ public class AppConstant {
     public static final String CREATE_ENROLLMENT = "create_enrollment_action";
     public static final String ENROLLMENT_STATS = "enrollment_stats";
     public static final String GET_ENROLLMENT_ERROR = "get_enrollment_error";
+    public static final String GET_SEARCHED_EMPLOYER = "get_searched_employer";
 
 
     public static final String PASSPORT = "passport";

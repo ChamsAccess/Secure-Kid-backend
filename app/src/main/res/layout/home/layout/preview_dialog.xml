@@ -903,6 +903,7 @@
 
                                     </LinearLayout>
 
+
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -1110,7 +1111,7 @@
                                             android:layout_weight="0.6"
                                             android:fontFamily="@font/custom_font"
                                             android:paddingLeft="10dp"
-                                            android:text="Employee ID/No:"
+                                            android:text="Employer ID/No:"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             android:textStyle="bold" />
@@ -1556,6 +1557,38 @@
                                             android:layout_weight="0.4"
                                             android:fontFamily="@font/custom_font_2"
                                             android:text="@{enrollment.nextOfKinObject.location.street}"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            tools:text="203030333" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.6"
+                                            android:fontFamily="@font/custom_font"
+                                            android:paddingLeft="10dp"
+                                            android:text="State Code:"
+                                            android:textColor="#5a5656"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.4"
+                                            android:fontFamily="@font/custom_font_2"
+                                            android:text="@{enrollment.nextOfKinObject.location.stateObject.name}"
                                             android:textColor="#5a5656"
                                             android:textSize="14sp"
                                             tools:text="203030333" />

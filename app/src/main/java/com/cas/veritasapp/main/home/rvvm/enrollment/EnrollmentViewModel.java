@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.cas.veritasapp.core.base.CoreViewModel;
 import com.cas.veritasapp.core.constant.AppConstant;
+import com.cas.veritasapp.core.data.entities.Employer;
 import com.cas.veritasapp.core.network.Resource;
 import com.cas.veritasapp.core.data.entities.Country;
 import com.cas.veritasapp.core.data.entities.Enrollment;
@@ -17,6 +18,7 @@ import com.cas.veritasapp.objects.payloads.EnrollmentErrorPayload;
 import com.cas.veritasapp.objects.payloads.EnrollmentPayload;
 import com.cas.veritasapp.objects.payloads.NinPayload;
 import com.cas.veritasapp.util.AppUtil;
+import com.cas.veritasapp.util.PrefUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +62,10 @@ public class EnrollmentViewModel extends CoreViewModel<
         return enrollmentRepository.senNewEnrollment(requestBody);
     }
 
+    public MutableLiveData<Resource<List<Employer>>> searchEmployer(Map<String, Object> requestBody){
+        return enrollmentRepository.searchEmployer(requestBody);
+    }
+
     public MutableLiveData<Resource<Stats>> stats(Map<String, Object> query){
         return enrollmentRepository.stats(query);
     }
@@ -78,13 +84,12 @@ public class EnrollmentViewModel extends CoreViewModel<
         if (query == null){
             query = new HashMap<>();
         }
+        query.put("all", Boolean.toString(true));
         enrollments.setValue(Resource.loading(null));
         enrollmentRepository.load(query)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(current -> {
-                    enrollments.setValue(Resource.success(current, AppConstant.FIND_ENROLLMENT));
-                }, error -> {
+                .subscribe(current -> enrollments.setValue(Resource.success(current, AppConstant.FIND_ENROLLMENT)), error -> {
                     ApiError apiError = AppUtil.getError(error);
                     enrollments.setValue(Resource.error(apiError, AppConstant.FIND_ENROLLMENT, null));
                 });

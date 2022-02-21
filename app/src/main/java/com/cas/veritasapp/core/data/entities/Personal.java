@@ -115,7 +115,7 @@ public class Personal implements Serializable {
             }
         }
         if (payload.location != null) {
-            if (ServiceUtil.isPrimitive(payload.location)) {
+            if (!ServiceUtil.isPrimitive(payload.location)) {
                 LocationPayload locationPayload = ServiceUtil.getObjectValue(payload.location, LocationPayload.class);
                 personal.setLocation(Location.create(locationPayload));
             }

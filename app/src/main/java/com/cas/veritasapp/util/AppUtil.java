@@ -93,6 +93,12 @@ public class AppUtil {
         return preferences.getString(AppConstant.TOKEN, "");
     }
 
+    public static Calendar toCalendar(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+    }
+
     public static Date stringToDate(String date) {
         SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
         try {
@@ -177,6 +183,11 @@ public class AppUtil {
 
     public static String dateFormatter(Calendar calendar) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        return dateFormat.format(calendar.getTime());
+    }
+
+    public static String dateFormatter(Calendar calendar, String pattern) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
         return dateFormat.format(calendar.getTime());
     }
     public static Calendar customCalendar(int year, int month, int dayOfTheMonth) {

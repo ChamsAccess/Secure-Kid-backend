@@ -58,11 +58,11 @@ public class HistoryEnrollmentAdapter extends RecyclerView.Adapter<HistoryEnroll
                 viewHolder.getFullNameTxtView().setText(
                         enrollment.getPersonalObject().getFirstName() + "-" + enrollment.getPersonalObject().getSurname());
                 viewHolder.createdAtTxtView.setText(DateTimeUtils.formatWithPattern(enrollment.getCreateAt(), AppConstant.DATE_PATTERN));
-                viewHolder.rsaPinStatus.setText((enrollment.getRsaPin() != null && !enrollment.getRsaPin().isEmpty())
-                        ? enrollment.getRsaPin()
+                viewHolder.rsaPinStatus.setText((enrollment.gettPin() != null && !enrollment.gettPin().isEmpty())
+                        ? enrollment.gettPin()
                         : "Pending");
 
-                viewHolder.registrationStatusTextView.setText((enrollment.isSubmitted()) ? "Completed" : "Incomplete");
+                viewHolder.registrationStatusTextView.setText(enrollment.getStatus());
                 viewHolder.editBtn.setOnClickListener(v -> listener.ontItemSelected(enrollment, AppConstant.ENROLLMENT));
 //                if (enrollment.isSubmitted() && enrollment.getStatus().equals("Processing")) {
                     viewHolder.errorBtn.setOnClickListener(v -> listener.ontItemSelected(enrollment, AppConstant.ENROLLMENT_ERRORS));
