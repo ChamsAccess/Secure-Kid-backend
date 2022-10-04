@@ -4,6 +4,7 @@ import com.cas.veritasapp.main.home.dialog.ErrorFragmentDialog;
 import com.cas.veritasapp.main.home.dialog.PreviewFragmentDialog;
 import com.cas.veritasapp.main.home.dialog.SignatureFragmentDialog;
 import com.cas.veritasapp.main.home.fragments.ContributionBioInfoFragment;
+import com.cas.veritasapp.main.home.fragments.CustomerEnquiryFragment;
 import com.cas.veritasapp.main.home.fragments.EmploymentFragment;
 import com.cas.veritasapp.main.home.fragments.DashboardFragment;
 import com.cas.veritasapp.main.home.fragments.HistoryFragment;
@@ -61,4 +62,7 @@ public abstract class HomeFragmentBuilder {
 
     @ContributesAndroidInjector
     abstract HistoryFragment bindHistoryFragment();
+
+    @ContributesAndroidInjector
+    abstract CustomerEnquiryFragment bindCustomerEnquiryFragment();
 }

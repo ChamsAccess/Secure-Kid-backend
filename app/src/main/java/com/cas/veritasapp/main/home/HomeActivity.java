@@ -47,11 +47,12 @@ public class HomeActivity extends BaseActivity<HomeActivityBinding>
     }
 
     private void initApp() {
-        tabAdapter.setTabCount(3);
+        tabAdapter.setTabCount(4);
         binding.viewPager.setAdapter(tabAdapter);
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Dashboard"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("New Enrollment"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("History"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Customer Enquiry"));
 
 
         binding.viewPager.setOffscreenPageLimit(binding.tabLayout.getTabCount());

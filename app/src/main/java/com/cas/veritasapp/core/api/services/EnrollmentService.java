@@ -68,6 +68,12 @@ public interface EnrollmentService {
     Flowable<ApiResponse<EnrollmentErrorPayload>> findEnrollmentErrors(@Path("id") String enrollmentId,
                                                                        @QueryMap Map<String, Object> query);
 
+    @GET(Routes.ENROLLMENTS_GENERATE_AND_SEND_PDF)
+    Flowable<ApiResponse<Object>> generateAndSendPDF(@QueryMap Map<String, Object> query);
+
+    @POST(Routes.ENROLLMENTS_GET_BALANCE)
+    Flowable<ApiResponse<Object>> generateAnSendBalance(@Body Map<String, Object> body);
+
     @DELETE(ENROLLMENTS_BY_ID)
     Flowable<ApiResponse<List<EnrollmentPayload>>> deleteEnrollment(@Path("id") String enrollmentId,
                                                                     @Body EnrollmentPayload payload,

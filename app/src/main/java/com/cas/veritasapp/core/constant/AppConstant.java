@@ -20,6 +20,7 @@ public class AppConstant {
     public static final String USER_ID = "userId";
     public static final String DATE = "date";
     public static final String DATE_PATTERN = "EEEE, MMMM dd, yyyy";
+    public static final String DATE_PATTERN_2 = "YYYY-MM-DD";
     public static final String END_DATE = "end_date";
     public static final String FILTER_ENROLLMENT = "filter_enrollment";
     public static final String TIME = "time";
@@ -34,6 +35,8 @@ public class AppConstant {
     public static final String CREATE_ACTION = "create_action";
     public static final String UPDATE_ACTION = "update_action";
     public static final String UPDATE_ENROLLMENT = "update_enrollment";
+    public static final String SEND_GENERATE_PDF = "generate_pdf";
+    public static final String SEND_BALANCE = "pension_balance";
     public static final String SHOW_ENROLLMENT_DETAILS = "show_enrollment_details";
     public static final String SHOW_EMPLOYER_DETAILS = "show_employer_details";
     public static final String CAPTURE_USER_IMAGE_ACTION = "capture_user_image_action";

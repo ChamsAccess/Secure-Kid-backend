@@ -306,6 +306,48 @@ public class EnrollmentRepository implements BaseRepository<Enrollment, Enrollme
         return data;
     }
 
+    @SuppressLint("CheckResult")
+    public MutableLiveData<Resource<Object>> generateAndSendPDF(Map<String, Object> query) {
+        final MutableLiveData<Resource<Object>> data = new MutableLiveData<>();
+        data.setValue(Resource.loading(null, AppConstant.SEND_GENERATE_PDF));
+        enrollmentService.generateAndSendPDF(query)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResponse -> {
+                    LogUtil.write("generateAndSendPDF:::" + apiResponse.toString());
+                    _Meta meta = apiResponse.get_meta();
+                    if (meta.isSuccess()) {
+                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.SEND_GENERATE_PDF));
+                    }
+                }, error -> {
+                    ApiError apiError = AppUtil.getError(error);
+                    LogUtil.write("apiError:" + apiError.getMessage());
+                    data.setValue(Resource.error(apiError, AppConstant.SEND_GENERATE_PDF, null));
+                });
+        return data;
+    }
+
+    @SuppressLint("CheckResult")
+    public MutableLiveData<Resource<Object>> generateAnSendBalance(Map<String, Object> requestBody) {
+        final MutableLiveData<Resource<Object>> data = new MutableLiveData<>();
+        data.setValue(Resource.loading(null, AppConstant.SEND_BALANCE));
+        enrollmentService.generateAnSendBalance(requestBody)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResponse -> {
+                    LogUtil.write("generateAnSendBalance:::" + apiResponse.toString());
+                    _Meta meta = apiResponse.get_meta();
+                    if (meta.isSuccess()) {
+                        data.setValue(Resource.success(apiResponse.getData(), AppConstant.SEND_BALANCE));
+                    }
+                }, error -> {
+                    ApiError apiError = AppUtil.getError(error);
+                    LogUtil.write("apiError:" + apiError.getMessage());
+                    data.setValue(Resource.error(apiError, AppConstant.SEND_BALANCE, null));
+                });
+        return data;
+    }
+
     @Override
     public Flowable<Enrollment> create(EnrollmentPayload enrollmentPayload, HashMap map) {
         return null;

@@ -78,13 +78,21 @@ public class EnrollmentViewModel extends CoreViewModel<
         return enrollmentRepository.updateEnrollment(id,requestBody, new HashMap());
     }
 
+    public MutableLiveData<Resource<Object>> generateAndSendPDF(Map<String, Object> requestBody){
+        return enrollmentRepository.generateAndSendPDF(requestBody);
+    }
+
+    public MutableLiveData<Resource<Object>> generateAnSendBalance(Map<String, Object> requestBody){
+        return enrollmentRepository.generateAnSendBalance(requestBody);
+    }
+
     @SuppressLint("CheckResult")
     public MutableLiveData<Resource<List<Enrollment>>> getEnrollments(Map<String, String> query){
         MutableLiveData<Resource<List<Enrollment>>> enrollments = new MutableLiveData<>();
         if (query == null){
             query = new HashMap<>();
         }
-        query.put("all", Boolean.toString(true));
+//        query.put("all", Boolean.toString(true));
         enrollments.setValue(Resource.loading(null));
         enrollmentRepository.load(query)
                 .observeOn(AndroidSchedulers.mainThread())

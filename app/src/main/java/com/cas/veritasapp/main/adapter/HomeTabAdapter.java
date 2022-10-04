@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.cas.veritasapp.main.home.fragments.CustomerEnquiryFragment;
 import com.cas.veritasapp.main.home.fragments.DashboardFragment;
 import com.cas.veritasapp.main.home.fragments.HistoryFragment;
 import com.cas.veritasapp.main.home.fragments.NINFragment;
@@ -31,6 +32,8 @@ public class HomeTabAdapter extends FragmentStatePagerAdapter {
                 return new NewEnrollmentFragment();
             case 2:
                 return new HistoryFragment();
+            case 3:
+                return new CustomerEnquiryFragment();
             default:
                 return null;
         }

@@ -17,6 +17,8 @@ public class Routes {
     public static final String ENROLLMENTS_STATS = BASE_URL + "/enrollments/stats";
     public static final String ENROLLMENTS_BY_ID = BASE_URL + "/enrollments/{id}";
     public static final String ENROLLMENTS_ERROR = BASE_URL + "/enrollments/{id}/error";
+    public static final String ENROLLMENTS_GENERATE_AND_SEND_PDF = BASE_URL + "/enrollments/generate-pdf";
+    public static final String ENROLLMENTS_GET_BALANCE = BASE_URL + "/enrollments/balance";
     public static final String ENROLLMENTS_SEARCH_EMPLOYER = BASE_URL + "/enrollments/search-employer";
 
     // RESOURCES
