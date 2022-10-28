@@ -21,8 +21,8 @@ android {
             buildConfigField("String", "X_API_KEY", "\"veritas_web\"")
 
             // AIRTEL NETWORK
-            buildConfigField("String", "HOST", "\"http://192.168.43.172:4005/\"")
-            buildConfigField("String", "BASE_URL", "\"http://192.168.43.172:4005/api/v1\"")
+//            buildConfigField("String", "HOST", "\"http://192.168.43.172:4005/\"")
+//            buildConfigField("String", "BASE_URL", "\"http://192.168.43.172:4005/api/v1\"")
 // 
 //             OTHERS NETWORK
 //            buildConfigField("String", "HOST", "\"http://172.20.10.12:4005/\"")
@@ -33,8 +33,8 @@ android {
 //            buildConfigField("String", "BASE_URL", "\"http://192.168.100.6:4005/api/v1\"")
 
             // STAGING
-//            buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
-//            buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
+            buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
 
             // PRODUCTION
 //            buildConfigField("String", "HOST", "\"http://197.156.253.58:801/\"")
@@ -47,8 +47,8 @@ android {
         debug {
             buildConfigField("String", "X_API_KEY", "\"veritas_web\"")
             // AIRTEL NETWORK
-            buildConfigField("String", "HOST", "\"http://192.168.43.172:4005/\"")
-            buildConfigField("String", "BASE_URL", "\"http://192.168.43.172:4005/api/v1\"")
+//            buildConfigField("String", "HOST", "\"http://192.168.43.172:4005/\"")
+//            buildConfigField("String", "BASE_URL", "\"http://192.168.43.172:4005/api/v1\"")
 
 //          OTHERS NETWORK
 //            buildConfigField("String", "HOST", "\"http://172.20.10.12:4005/\"")
@@ -59,8 +59,8 @@ android {
 //            buildConfigField("String", "BASE_URL", "\"http://192.168.100.6:4005/api/v1\"")
 
             // STAGING
-//            buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
-//            buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
+            buildConfigField("String", "HOST", "\"https://api-veritas-pension.herokuapp.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api-veritas-pension.herokuapp.com/api/v1\"")
 
             // PRODUCTION
 //            buildConfigField("String", "HOST", "\"http://197.156.253.58:801/\"")

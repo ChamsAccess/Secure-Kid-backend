@@ -216,7 +216,7 @@
                                 android:background="@drawable/rounded_edittext"
                                 android:ems="10"
                                 android:hint="Phone number"
-                                android:inputType="text" />
+                                android:inputType="phone" />
 
                         </LinearLayout>
                     </RelativeLayout>
